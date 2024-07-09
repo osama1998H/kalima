@@ -113,7 +113,7 @@
    "fieldname": "faculty",
    "fieldtype": "Link",
    "label": "Faculty",
-   "options": "Faculty Department",
+   "options": "Department",
    "reqd": 1
   },
   {

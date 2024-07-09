@@ -16,18 +16,6 @@ frappe.ui.form.on("Group Class", {
         pres(frm);
     },
     after_save: function (frm) {
-        // const selected_modules = [];
-        // const department = frm.doc.department;
-
-        // // Get selected modules
-        // frm.fields_dict.presented_modules.$wrapper.find('input[type="checkbox"]:checked').each(function () {
-        //     selected_modules.push($(this).val());
-        // });
-
-        // if (selected_modules.length === 0 || !department) {
-        //     return;
-        // }
-        // generate_classes(frm);
     },
     async refresh(frm) {
         await pres(frm);

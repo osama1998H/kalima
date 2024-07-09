@@ -13,7 +13,8 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
 				fieldtype: 'Link',
 				fieldname: 'department',
 				label: 'Department',
-				options: 'Faculty Department', // Replace 'Doctype' with the actual doctype you want to link to
+				// options: 'Faculty Department', 
+				options: 'Department',
 				read_only: 0,
 			},
 			{

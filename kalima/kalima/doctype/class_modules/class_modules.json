@@ -1,37 +1,38 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-05-27 12:12:33.494053",
+ "creation": "2024-07-08 14:20:56.688048",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "department",
-  "study_type"
+  "module",
+  "teacher"
  ],
  "fields": [
   {
-   "fieldname": "department",
+   "fieldname": "module",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Department",
-   "options": "Department"
+   "label": "Module",
+   "options": "Presented Module",
+   "reqd": 1
   },
   {
-   "fieldname": "study_type",
-   "fieldtype": "Select",
+   "fieldname": "teacher",
+   "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Study Type",
-   "options": "Morning\nEvening"
+   "label": "Teacher",
+   "options": "Employee"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-27 12:14:38.908094",
+ "modified": "2024-07-08 15:05:02.582823",
  "modified_by": "Administrator",
  "module": "Kalima",
- "name": "Preferred Departments",
+ "name": "Class Modules",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

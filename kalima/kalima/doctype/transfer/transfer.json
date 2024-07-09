@@ -45,7 +45,7 @@
    "fieldname": "department",
    "fieldtype": "Link",
    "label": "Department",
-   "options": "Faculty Department"
+   "options": "Department"
   },
   {
    "fieldname": "date",

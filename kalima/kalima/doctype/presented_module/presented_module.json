@@ -83,14 +83,15 @@
    "fetch_from": "module.faculty",
    "fieldname": "faculty",
    "fieldtype": "Data",
-   "label": "Faculty"
+   "label": "Faculty",
+   "read_only": 1
   },
   {
    "fieldname": "department",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Department",
-   "options": "Faculty Department",
+   "options": "Department",
    "reqd": 1
   },
   {
@@ -426,7 +427,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-04 09:37:21.128000",
+ "modified": "2024-07-07 15:27:55.467903",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Presented Module",
