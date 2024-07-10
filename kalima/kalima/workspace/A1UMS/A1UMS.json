@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"O7X_Orn_WK\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">E1UMS</span>\",\"col\":12}},{\"id\":\"xzBQntc6vj\",\"type\":\"card\",\"data\":{\"card_name\":\"Misc\",\"col\":4}},{\"id\":\"LabqfcaCAe\",\"type\":\"card\",\"data\":{\"card_name\":\"Depatments\",\"col\":4}},{\"id\":\"4I5_Xua_WR\",\"type\":\"card\",\"data\":{\"card_name\":\"Modules\",\"col\":4}},{\"id\":\"GtmaC9rsxd\",\"type\":\"card\",\"data\":{\"card_name\":\"Fees\",\"col\":4}},{\"id\":\"-AAdmT9bI0\",\"type\":\"card\",\"data\":{\"card_name\":\"Classes\",\"col\":4}},{\"id\":\"75W0NqAI3F\",\"type\":\"card\",\"data\":{\"card_name\":\"Library\",\"col\":4}},{\"id\":\"2BZy-pwARa\",\"type\":\"card\",\"data\":{\"card_name\":\"Quality Assurance\",\"col\":4}},{\"id\":\"gjpzOgo2dn\",\"type\":\"card\",\"data\":{\"card_name\":\"Performance appraisal\",\"col\":4}},{\"id\":\"mFe4k80K5i\",\"type\":\"card\",\"data\":{\"card_name\":\"Continuing Education\",\"col\":4}},{\"id\":\"OwApmL8ZbO\",\"type\":\"card\",\"data\":{\"card_name\":\"Grades\",\"col\":4}}]",
+ "content": "[{\"id\":\"O7X_Orn_WK\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">A1UMS</span>\",\"col\":12}},{\"id\":\"xzBQntc6vj\",\"type\":\"card\",\"data\":{\"card_name\":\"Misc\",\"col\":4}},{\"id\":\"LabqfcaCAe\",\"type\":\"card\",\"data\":{\"card_name\":\"Depatments\",\"col\":4}},{\"id\":\"4I5_Xua_WR\",\"type\":\"card\",\"data\":{\"card_name\":\"Modules\",\"col\":4}},{\"id\":\"GtmaC9rsxd\",\"type\":\"card\",\"data\":{\"card_name\":\"Fees\",\"col\":4}},{\"id\":\"-AAdmT9bI0\",\"type\":\"card\",\"data\":{\"card_name\":\"Classes\",\"col\":4}},{\"id\":\"75W0NqAI3F\",\"type\":\"card\",\"data\":{\"card_name\":\"Library\",\"col\":4}},{\"id\":\"2BZy-pwARa\",\"type\":\"card\",\"data\":{\"card_name\":\"Quality Assurance\",\"col\":4}},{\"id\":\"gjpzOgo2dn\",\"type\":\"card\",\"data\":{\"card_name\":\"Performance appraisal\",\"col\":4}},{\"id\":\"mFe4k80K5i\",\"type\":\"card\",\"data\":{\"card_name\":\"Continuing Education\",\"col\":4}},{\"id\":\"OwApmL8ZbO\",\"type\":\"card\",\"data\":{\"card_name\":\"Grades\",\"col\":4}}]",
  "creation": "2024-07-09 15:05:19.839643",
  "custom_blocks": [],
  "docstatus": 0,
@@ -11,7 +11,7 @@
  "idx": 0,
  "indicator_color": "yellow",
  "is_hidden": 0,
- "label": "E1UMS",
+ "label": "A1UMS",
  "links": [
   {
    "hidden": 0,
@@ -647,7 +647,7 @@
  "modified": "2024-07-09 15:22:22.720418",
  "modified_by": "Administrator",
  "module": "Kalima",
- "name": "E1UMS",
+ "name": "A1UMS",
  "number_cards": [],
  "owner": "Administrator",
  "parent_page": "",
@@ -656,5 +656,5 @@
  "roles": [],
  "sequence_id": 39.0,
  "shortcuts": [],
- "title": "E1UMS"
+ "title": "A1UMS"
 }
