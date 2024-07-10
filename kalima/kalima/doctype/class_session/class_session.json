@@ -7,12 +7,14 @@
  "engine": "InnoDB",
  "field_order": [
   "class",
+  "module",
   "title",
   "issue_date",
   "expiration_date",
-  "session_files",
   "column_break_inyc",
-  "description"
+  "description",
+  "section_break_ymqp",
+  "session_files"
  ],
  "fields": [
   {
@@ -52,11 +54,22 @@
    "fieldname": "description",
    "fieldtype": "Text Editor",
    "label": "Description"
+  },
+  {
+   "fieldname": "module",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Module",
+   "options": "Presented Module"
+  },
+  {
+   "fieldname": "section_break_ymqp",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-10 12:43:11.420816",
+ "modified": "2024-07-10 13:48:26.983651",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class Session",
