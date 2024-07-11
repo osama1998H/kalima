@@ -73,7 +73,7 @@ async function content_manager(dont_click = false) {
                     { label: 'Start', fieldname: 'start' },
                     { label: 'Finish', fieldname: 'finish' }
                 ];
-                await populateTableNew('Class Timetable', contentColumn, "module",columns);
+                await populateTableNew('Class Timetable', contentColumn,columns);
             }
 
             if (template === 'modules') {
@@ -293,7 +293,7 @@ async function populateCards2(doctype, container, columns) {
             filters: {
                 'class': ['in', student_classes]
             },
-            fields: [ 'name', 'description', ...columns.map(col => col.fieldname)],
+            fields: ['name', 'description', ...columns.map(col => col.fieldname)],
         }
     });
 
@@ -373,18 +373,22 @@ async function populateCards2(doctype, container, columns) {
         container.appendChild(document.createElement('br'));
     }
 }
+
+
 async function populateCards(doctype, container, columns) {
-    // Fetch data from Frappe
-    const data = await frappe.call({
-        method: 'frappe.client.get_list',
-        args: {
-            doctype: doctype,
-            filters: {
-                'class': ['in', student_classes]
-            },
-            fields: ['name', 'description', 'title', 'issue_date', ...columns.map(col => col.fieldname)],
+    var data;
+    let response = await frappe.call({
+        method: 'kalima.utils.utils.get_sessions',
+        args:
+        {
+            student_classes: student_classes
         }
     });
+    if (response.message) {
+        student_classes = response.message;
+        console.log(response.message);
+        data = response;
+    }
 
     // Group data by module
     const groupedData = data.message.reduce((acc, row) => {
@@ -398,10 +402,9 @@ async function populateCards(doctype, container, columns) {
 
     // Generate a unique identifier for each group
     let groupCounter = 0;
-
     for (const [group, records] of Object.entries(groupedData)) {
         groupCounter++;
-
+    
         // Create collapse button for the module group
         const collapseButton = document.createElement('button');
         collapseButton.className = 'btn btn-primary my-2';
@@ -411,12 +414,12 @@ async function populateCards(doctype, container, columns) {
         collapseButton.setAttribute('aria-expanded', 'false');
         collapseButton.setAttribute('aria-controls', `collapseGroup${groupCounter}`);
         collapseButton.innerHTML = `${group} <span class="bi bi-chevron-down"></span>`;
-
+    
         // Create collapse container for the module group
         const collapseContainer = document.createElement('div');
         collapseContainer.className = 'collapse';
         collapseContainer.id = `collapseGroup${groupCounter}`;
-
+    
         // Create cards for each record within the module group
         records.forEach((record, index) => {
             const cardContainer = document.createElement('div');
@@ -425,7 +428,7 @@ async function populateCards(doctype, container, columns) {
             cardContainer.style.borderRadius = '8px';
             cardContainer.style.padding = '16px';
             cardContainer.style.marginBottom = '16px';
-
+    
             // Create card header (collapsible button)
             const cardHeader = document.createElement('button');
             cardHeader.className = 'btn btn-link text-left w-100';
@@ -435,40 +438,50 @@ async function populateCards(doctype, container, columns) {
             cardHeader.setAttribute('aria-expanded', 'false');
             cardHeader.setAttribute('aria-controls', `collapseCard${groupCounter}-${index}`);
             cardHeader.innerHTML = `${record.title} - ${record.issue_date} <span class="bi bi-chevron-down"></span>`;
-
+    
             // Create card collapse container
             const cardCollapseContainer = document.createElement('div');
             cardCollapseContainer.className = 'collapse';
             cardCollapseContainer.id = `collapseCard${groupCounter}-${index}`;
-
+    
             // Create card body
             const cardBody = document.createElement('div');
             cardBody.className = 'card-body';
-
+    
             // Add card content
             columns.forEach(col => {
                 if (col.fieldname !== 'title' && col.fieldname !== 'issue_date') {
-                    const cardText = document.createElement('p');
-                    cardText.className = 'card-text';
-                    cardText.innerHTML = `<strong>${col.label}:</strong> ${record[col.fieldname] || ''}`;
-                    cardBody.appendChild(cardText);
+                    if (col.fieldname === 'session_files' && record[col.fieldname]) {
+                        const cardText = document.createElement('p');
+                        cardText.className = 'card-text';
+                        cardText.innerHTML = `<strong>${col.label}:</strong> `;
+                        const files = record[col.fieldname];
+                        files.forEach(file => {
+                            const link = document.createElement('a');
+                            link.href = file;
+                            link.target = '_blank';
+                            link.className = 'btn btn-primary my-1';
+                            const fileName = file.split('/').pop();
+                            link.textContent = fileName;
+                            cardText.appendChild(link);
+                            cardText.appendChild(document.createElement('br'));
+                        });
+                        cardBody.appendChild(cardText);
+                    } else {
+                        const cardText = document.createElement('p');
+                        cardText.className = 'card-text';
+                        cardText.innerHTML = `<strong>${col.label}:</strong> ${record[col.fieldname] || ''}`;
+                        cardBody.appendChild(cardText);
+                    }
                 }
             });
-
-            // Add description field (rendered as HTML)
-            if (record.description) {
-                const descriptionDiv = document.createElement('div');
-                descriptionDiv.className = 'card-text';
-                descriptionDiv.innerHTML = record.description;
-                cardBody.appendChild(descriptionDiv);
-            }
-
+    
             cardCollapseContainer.appendChild(cardBody);
             cardContainer.appendChild(cardHeader);
             cardContainer.appendChild(cardCollapseContainer);
             collapseContainer.appendChild(cardContainer);
         });
-
+    
         // Append elements to the container
         container.appendChild(collapseButton);
         container.appendChild(document.createElement('br'));
@@ -477,6 +490,7 @@ async function populateCards(doctype, container, columns) {
         container.appendChild(document.createElement('hr'));
         container.appendChild(document.createElement('br'));
     }
+    
 }
 
 async function get_current_user_student() {

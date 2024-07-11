@@ -2,6 +2,45 @@ import frappe
 import json
 from datetime import datetime, timedelta
 
+
+@frappe.whitelist()
+def get_sessions(student_classes):
+    student_classes = json.loads(student_classes)
+    student_classes_str = ', '.join([f"'{cls}'" for cls in student_classes])
+
+    query = f"""
+        SELECT
+            cs.module,
+            cs.title,
+            cs.class,
+            cs.issue_date,
+            cs.expiration_date,
+            cs.description,
+            GROUP_CONCAT(af.file SEPARATOR ', ') as session_files
+        FROM
+            `tabClass Session` cs
+        LEFT JOIN
+            `tabAssignment Files` af
+        ON
+            cs.name = af.parent
+        WHERE
+            cs.class IN ({student_classes_str})
+        GROUP BY
+            cs.module, cs.title, cs.class, cs.issue_date, cs.expiration_date, cs.description
+        ORDER BY
+            cs.issue_date DESC
+    """
+
+    data = frappe.db.sql(query, as_dict=True)
+
+    # If you need session_files as a list instead of a comma-separated string
+    for item in data:
+        if item.get('session_files'):
+            item['session_files'] = item['session_files'].split(', ')
+
+    return data
+
+
 @frappe.whitelist()
 def get_classes_for_teacher(teacher_name):
     classes = frappe.get_all("Class Teachers", filters={"teacher": teacher_name}, fields=["parent"])
