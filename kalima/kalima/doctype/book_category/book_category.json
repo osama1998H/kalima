@@ -8,7 +8,6 @@
  "field_order": [
   "code",
   "title",
-  "parent1",
   "lft",
   "rgt",
   "is_group",
@@ -32,13 +31,6 @@
    "unique": 1
   },
   {
-   "fieldname": "parent1",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Parent",
-   "options": "Book Category"
-  },
-  {
    "fieldname": "lft",
    "fieldtype": "Int",
    "hidden": 1,
@@ -55,6 +47,7 @@
    "read_only": 1
   },
   {
+   "default": "0",
    "fieldname": "is_group",
    "fieldtype": "Check",
    "label": "Is Group"
@@ -76,7 +69,7 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-07-06 14:44:44.742867",
+ "modified": "2024-07-09 12:00:02.221932",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Book Category",

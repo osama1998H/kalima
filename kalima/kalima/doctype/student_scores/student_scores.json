@@ -31,37 +31,37 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Department",
-   "options": "Faculty Department"
+   "options": "Department"
   },
   {
    "fieldname": "continuous",
    "fieldtype": "Float",
    "label": "Continuous",
-   "options": "Faculty Department"
+   "options": "Department"
   },
   {
    "fieldname": "practical",
    "fieldtype": "Float",
    "label": "Practical",
-   "options": "Faculty Department"
+   "options": "Department"
   },
   {
    "fieldname": "final",
    "fieldtype": "Float",
    "label": "Final",
-   "options": "Faculty Department"
+   "options": "Department"
   },
   {
    "fieldname": "curve",
    "fieldtype": "Float",
    "label": "Curve",
-   "options": "Faculty Department"
+   "options": "Department"
   },
   {
    "fieldname": "total",
    "fieldtype": "Float",
    "label": "Total",
-   "options": "Faculty Department"
+   "options": "Department"
   },
   {
    "default": "0",

@@ -61,15 +61,15 @@
    "options": "Employee"
   },
   {
-   "fetch_from": "class.module",
    "fieldname": "module",
-   "fieldtype": "Data",
-   "label": "Module"
+   "fieldtype": "Link",
+   "label": "Module",
+   "options": "Presented Module"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-05 10:59:59.035632",
+ "modified": "2024-07-10 15:36:21.414854",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class Timetable",

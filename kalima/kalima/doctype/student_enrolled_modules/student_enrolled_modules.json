@@ -18,7 +18,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Module",
-   "options": "Department Module"
+   "options": "Presented Module"
   },
   {
    "fieldname": "status",
@@ -42,17 +42,15 @@
    "label": "Semester"
   },
   {
-   "fetch_from": "module.template",
    "fieldname": "template",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Template"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-28 11:28:17.726971",
+ "modified": "2024-07-08 15:31:03.412558",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student Enrolled Modules",

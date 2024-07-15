@@ -54,7 +54,7 @@
    "fieldname": "sent_to",
    "fieldtype": "Link",
    "label": "Sender",
-   "options": "Faculty Department"
+   "options": "Department"
   },
   {
    "fieldname": "document_number",

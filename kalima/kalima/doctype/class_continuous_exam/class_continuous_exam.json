@@ -16,6 +16,7 @@
   "midterm",
   "c_exams",
   "marked_on",
+  "module",
   "section_break_gahv",
   "continuous_exam_result"
  ],
@@ -83,11 +84,17 @@
   {
    "fieldname": "section_break_gahv",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "module",
+   "fieldtype": "Link",
+   "label": "Module",
+   "options": "Presented Module"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-10 12:59:38.964933",
+ "modified": "2024-07-10 13:46:10.719549",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class Continuous Exam",

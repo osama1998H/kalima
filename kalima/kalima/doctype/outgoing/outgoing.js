@@ -7,8 +7,9 @@ frappe.ui.form.on("Outgoing", {
                 } else if (frm.doc.receivers_type == "Teachers") {
                     await getEntitiesAndShowDialog("Employee", ["name", "employee_name"], "employee_name", "receive_teachers", "teacher");
                 } else if (frm.doc.receivers_type == "Departments") {
-                    var all_students = await frappe.db.get_list("Faculty Department", {
-                        fields: ['name', 'arabic_title']
+                    // var all_students = await frappe.db.get_list("Faculty Department", {
+                    var all_students = await frappe.db.get_list("Department", {
+                            fields: ['name', 'arabic_title']
                     });
 
                     var fields = [];

@@ -11,7 +11,6 @@
   "year",
   "stage",
   "semester",
-  "module",
   "department",
   "column_break_tadi",
   "capacity",
@@ -24,7 +23,9 @@
   "section_break_ueai",
   "teachers",
   "column_break_hpag",
-  "student_list"
+  "student_list",
+  "section_break_jhbz",
+  "class_modules"
  ],
  "fields": [
   {
@@ -59,13 +60,6 @@
    "unique": 1
   },
   {
-   "fieldname": "module",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Module",
-   "options": "Department Module"
-  },
-  {
    "fieldname": "capacity",
    "fieldtype": "Int",
    "in_list_view": 1,
@@ -98,7 +92,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Department",
-   "options": "Faculty Department",
+   "options": "Department",
    "reqd": 1
   },
   {
@@ -142,11 +136,21 @@
    "fieldtype": "Table",
    "label": "Student List",
    "options": "Class Students"
+  },
+  {
+   "fieldname": "section_break_jhbz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "class_modules",
+   "fieldtype": "Table",
+   "label": "Class Modules",
+   "options": "Class Modules"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-10 13:44:05.474622",
+ "modified": "2024-07-08 15:04:32.398477",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class",
