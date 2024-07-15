@@ -337,6 +337,13 @@ function createFormDialogNew(templateName) {
     const button = $('<button class="btn btn-success border hover">Create New</button>').appendTo(parent);
     button.click(async function () {
         var fields = [];
+        var default_module = null;
+        current_class.class_modules.forEach(element => {
+            if(element.teacher = selectedTeacher){
+                default_module = element.module;
+            }
+            
+        });
         if (templateName == "sessions-list") {
             fields = [
                 {
@@ -353,7 +360,14 @@ function createFormDialogNew(templateName) {
                     fieldname: 'title',
                     fieldtype: 'Data'
                 },
-
+                {
+                    label: 'Module',
+                    fieldname: 'module',
+                    fieldtype: 'Link',
+                    options:"Presented Module",
+                    default :default_module,
+                    read_only: default_module == null ? 0 : 1
+                },
                 {
                     fieldname: 'column_break_inyc',
                     fieldtype: 'Column Break'
@@ -410,7 +424,16 @@ function createFormDialogNew(templateName) {
                     fieldtype: "Select",
                     label: "Type",
                     options: "Normal Exam\nAttendance\nProject\nSeminar\nQuiz"
-                }, {
+                }, 
+                {
+                    label: 'Module',
+                    fieldname: 'module',
+                    fieldtype: 'Link',
+                    options:"Presented Module",
+                    default :default_module,
+                    read_only: default_module == null ? 0 : 1
+                },
+                {
                     fieldname: "column_break_bltp",
                     fieldtype: "Column Break"
                 },
@@ -528,7 +551,16 @@ function createFormDialogNew(templateName) {
                     fieldname: "percentage",
                     fieldtype: "Percent",
                     label: "Percentage"
-                }, {
+                }, 
+                {
+                    label: 'Module',
+                    fieldname: 'module',
+                    fieldtype: 'Link',
+                    options:"Presented Module",
+                    default :default_module,
+                    read_only: default_module == null ? 0 : 1
+                },
+                {
                     fieldname: "column_break_bltp",
                     fieldtype: "Column Break"
                 },
@@ -595,6 +627,14 @@ function createFormDialogNew(templateName) {
                     options: "Class"
                 },
                 {
+                    label: 'Module',
+                    fieldname: 'module',
+                    fieldtype: 'Link',
+                    options:"Presented Module",
+                    default :default_module,
+                    read_only: default_module == null ? 0 : 1
+                },
+                {
                     fieldname: "date",
                     fieldtype: "Date",
                     label: "Date"
@@ -652,6 +692,14 @@ function createFormDialogNew(templateName) {
                     label: "Date",
                     default: frappe.datetime.nowdate(),
                     reqd: 1
+                },
+                {
+                    label: 'Module',
+                    fieldname: 'module',
+                    fieldtype: 'Link',
+                    options:"Presented Module",
+                    default :default_module,
+                    read_only: default_module == null ? 0 : 1
                 },
                 {
                     fieldname: "column_break_wvoi",
@@ -760,7 +808,16 @@ function createFormDialogNew(templateName) {
                     fieldname: "day",
                     fieldtype: "Data",
                     label: "Day",
-                }, {
+                },
+                {
+                    label: 'Module',
+                    fieldname: 'module',
+                    fieldtype: 'Link',
+                    options:"Presented Module",
+                    default :default_module,
+                    read_only: default_module == null ? 0 : 1
+                },
+                 {
                     fieldname: "column_break_wvoi",
                     fieldtype: "Column Break"
                 },
@@ -846,6 +903,7 @@ function createFormDialogNew(templateName) {
                         doctype: 'Class Session',
                         class: values.class,
                         title: values.title,
+                        module: values.module,
                         issue_date: values.issue_date,
                         expiration_date: values.expiration_date,
                         session_files: values.session_files,
@@ -863,6 +921,8 @@ function createFormDialogNew(templateName) {
                         title: values.title,
                         type: values.type,
                         date: values.date,
+                        module: values.module,
+
                         score: values.score,
                         marked_on: values.marked_on,
                         continuous_exam_result: values.continuous_exam_result,
@@ -874,6 +934,8 @@ function createFormDialogNew(templateName) {
                         class: values.class,
                         title: values.title,
                         from_date: values.from_date,
+                        module: values.module,
+
                         to_date: values.to_date,
                         description: values.description,
                         marked_on: values.marked_on,
@@ -885,6 +947,8 @@ function createFormDialogNew(templateName) {
                         doctype: 'Exam Schedule',
                         date: values.date,
                         class: values.class,
+                        module: values.module,
+
                         time: values.time,
                     }
                 } else if (templateName == "attendance-entry") {
@@ -894,6 +958,8 @@ function createFormDialogNew(templateName) {
                         class: values.class,
                         semester: values.semester,
                         department: values.department,
+                        module: values.module,
+
                         module: values.module,
                         date: values.date,
                         teacher: values.teacher,
@@ -905,6 +971,8 @@ function createFormDialogNew(templateName) {
                         class: values.class,
                         day: values.day,
                         start: values.start,
+                        module: values.module,
+
                         finish: values.finish,
                         teacher: values.teacher,
                         description: values.description,

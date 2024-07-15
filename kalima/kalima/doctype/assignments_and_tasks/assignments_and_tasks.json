@@ -8,9 +8,10 @@
  "field_order": [
   "title",
   "class",
+  "module",
+  "column_break_kosm",
   "from_date",
   "to_date",
-  "column_break_kosm",
   "percentage",
   "marked_on",
   "section_break_hymn",
@@ -91,12 +92,18 @@
    "fieldname": "marked_on",
    "fieldtype": "Float",
    "label": "Marked On"
+  },
+  {
+   "fieldname": "module",
+   "fieldtype": "Link",
+   "label": "Module",
+   "options": "Presented Module"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-02 15:10:53.708273",
+ "modified": "2024-07-10 14:17:28.011509",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Assignments and Tasks",
