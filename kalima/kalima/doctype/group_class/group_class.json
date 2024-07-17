@@ -11,6 +11,7 @@
   "departments_groups",
   "column_break_ibbt",
   "stage",
+  "academic_system_type",
   "semester",
   "column_break_sglj",
   "faculty",
@@ -36,7 +37,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Stage",
-   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna",
+   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year",
    "reqd": 1
   },
   {
@@ -115,11 +116,19 @@
   {
    "fieldname": "column_break_sglj",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "academic_system_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Academic System Type",
+   "options": "Coursat\nBologna\nAnnual",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-10 12:38:58.057835",
+ "modified": "2024-07-17 14:50:06.556628",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Group Class",

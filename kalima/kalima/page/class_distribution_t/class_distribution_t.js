@@ -24,7 +24,7 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                 fieldtype: 'Select',
                 fieldname: 'stage',
                 label: 'Stage',
-                options: 'First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna',
+                options: 'First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year',
             },
             {
                 fieldtype: 'Link',

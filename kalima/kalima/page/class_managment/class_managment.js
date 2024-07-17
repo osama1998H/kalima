@@ -727,7 +727,7 @@ function createFormDialogNew(templateName) {
                     fieldname: "stage",
                     fieldtype: "Select",
                     label: "Stage",
-                    options: "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna",
+                    options: "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year",
                     hidden:1,
                     default: current_class.stage, 
 

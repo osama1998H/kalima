@@ -49,7 +49,7 @@
    "fieldname": "stage",
    "fieldtype": "Select",
    "label": "Stage",
-   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna"
+   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year"
   },
   {
    "fieldname": "column_break_wsgg",

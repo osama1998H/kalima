@@ -12,6 +12,7 @@
   "year",
   "module",
   "stage",
+  "academic_system_type",
   "column_break_chsn",
   "type",
   "teacher",
@@ -91,7 +92,7 @@
    "fieldname": "stage",
    "fieldtype": "Select",
    "label": "Stage",
-   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna"
+   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year"
   },
   {
    "fieldname": "round",
@@ -269,13 +270,19 @@
    "fieldname": "description",
    "fieldtype": "Data",
    "label": "Description"
+  },
+  {
+   "fieldname": "academic_system_type",
+   "fieldtype": "Select",
+   "label": "Academic System Type",
+   "options": "Coursat\nBologna\nAnnual"
   }
  ],
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-02 15:27:59.893131",
+ "modified": "2024-07-17 14:50:19.083054",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student Result Log",
