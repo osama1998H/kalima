@@ -14,16 +14,15 @@
   "last_name",
   "fourth_name",
   "full_name_in_arabic",
-  "date_of_birth",
+  "english_student_full_name",
   "column_break_aqxi",
+  "date_of_birth",
   "gender",
   "nationality",
-  "subsidy_type",
   "criminal_conviction",
   "blood_type",
   "email",
   "column_break_qozq",
-  "english_student_full_name",
   "phone_number",
   "phone_number_2",
   "mother_name",
@@ -104,7 +103,6 @@
   "last_certificate",
   "residence_document",
   "nationality_certificate",
-  "ration_card",
   "column_break_hgxi",
   "obligation_form",
   "invoice_form",
@@ -201,12 +199,6 @@
    "fieldname": "martyr_relative",
    "fieldtype": "Data",
    "label": "Martyr Relative"
-  },
-  {
-   "fieldname": "subsidy_type",
-   "fieldtype": "Select",
-   "label": "Subsidy Type",
-   "options": "Normal\nShahidan\nSJN"
   },
   {
    "fieldname": "criminal_conviction",
@@ -615,12 +607,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "ration_card",
-   "fieldtype": "Attach",
-   "label": "Ration card",
-   "reqd": 1
-  },
-  {
    "fieldname": "medical_test",
    "fieldtype": "Attach",
    "label": "Medical Test",
@@ -734,10 +720,11 @@
    "label": "Address"
   },
   {
+   "default": "General channel",
    "fieldname": "application_channel",
    "fieldtype": "Select",
    "label": "Application Channel",
-   "options": "Martyrs' relatives\nRelatives of the martyrs of the Popular Mobilization Forces\nRelatives of victims of war operations\nGeneral channel\nTeaching"
+   "options": "General channel\nMartyrs\nTeachers\nAthletes\nCertificate holders\nDistinguished\nPolitical prisoners\nExpatriates\nStudents of Kurdistan Region\nFree scholarship"
   },
   {
    "fieldname": "institute_name",
@@ -782,7 +769,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-07 15:37:40.143362",
+ "modified": "2024-07-17 14:32:04.516011",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Applicant Student",
