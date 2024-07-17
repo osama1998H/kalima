@@ -18,6 +18,12 @@
   "teacher",
   "round",
   "present",
+  "final_grade_section",
+  "final_grade",
+  "note",
+  "column_break_cxkq",
+  "curve",
+  "final_status",
   "aaa_section",
   "title",
   "continuous_exam_type",
@@ -169,7 +175,7 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Class Continuous Exam\nStudent Exam Result\nAssignment",
+   "options": "Class Continuous Exam\nStudent Exam Result\nAssignment\nFinal Grade",
    "reqd": 1
   },
   {
@@ -276,13 +282,44 @@
    "fieldtype": "Select",
    "label": "Academic System Type",
    "options": "Coursat\nBologna\nAnnual"
+  },
+  {
+   "depends_on": "eval:doc.type == \"Final Grade\"",
+   "fieldname": "final_grade_section",
+   "fieldtype": "Section Break",
+   "label": "Final Grade"
+  },
+  {
+   "fieldname": "final_grade",
+   "fieldtype": "Float",
+   "label": "Final Grade"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "column_break_cxkq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "curve",
+   "fieldtype": "Float",
+   "label": "Curve"
+  },
+  {
+   "fieldname": "final_status",
+   "fieldtype": "Select",
+   "label": "Final Status",
+   "options": "Passed\nFailed"
   }
  ],
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-17 14:50:19.083054",
+ "modified": "2024-07-17 15:58:17.984935",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student Result Log",

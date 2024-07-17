@@ -116,9 +116,10 @@ def submit_student_results(student_results):
 
 
 @frappe.whitelist()
-def get_student_sheet( stage, department,module,semester,round):
+def get_student_sheet( stage, department,module,semester,academic_system_type,round):
     filters = {
         'stage': stage,
+        'academic_system_type': academic_system_type,
         'final_selected_course': department
     }
     
@@ -135,6 +136,7 @@ def get_student_sheet( stage, department,module,semester,round):
             'student': student.name,
             'module': module,
             'stage': stage,
+            'academic_system_type': academic_system_type,
         }
         
             
@@ -162,6 +164,37 @@ def get_student_sheet( stage, department,module,semester,round):
         stds.append(std)
   
     return stds
+
+@frappe.whitelist()
+def submit_student_sheet(form_data, students_data):
+    form_data = frappe._dict(json.loads(form_data))
+    students_data = json.loads(students_data)
+    
+    for std in students_data:
+        doc = frappe.get_doc({
+            'doctype': 'Student Result Log',
+            'type': 'Final Grade',
+
+            'module': form_data["module"],
+            'round': form_data["round"],
+            'stage': form_data["stage"],
+            'academic_system_type': form_data["academic_system_type"],
+                        
+            'student': std["name"],
+            'final_grade': std["result"],
+            'curve': form_data["curve"],
+            'note': std["notes"],
+            'status': std["status"],
+
+        })
+        doc.insert()
+        doc.submit()
+
+    print("Form Data:", form_data)
+    print("Students Data:", students_data)
+
+    return 'Results submitted successfully!'
+
 
 def fines():
     current_date = datetime.now()
