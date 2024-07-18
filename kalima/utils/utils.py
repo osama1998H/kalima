@@ -101,6 +101,8 @@ def submit_student_results(student_results):
             'module': result["module"],
             'teacher': result["teacher"],
             'round': result["round"],
+            'stage': result["stage"],
+            'academic_system_type': result["academic_system_type"],
 
             'exam_max_result': result["exam_mark"],
             'result':result["final_result"],
@@ -126,7 +128,7 @@ def get_student_sheet( stage, department,module,semester,academic_system_type,ro
     fields = ['name', 'stage', 'final_selected_course']
     
     students = frappe.get_list('Student', filters=filters, fields=fields)
-    
+
     stds= []
     for student in students:   
         std = {}
@@ -145,6 +147,9 @@ def get_student_sheet( stage, department,module,semester,academic_system_type,ro
         final_exam_result = 0
         
         cons = frappe.get_list('Student Result Log', filters=res_filters, fields=res_fields)
+        print("---------")
+        print(res_filters)
+        print(cons)
 
         for cont in cons:
             if(cont.type == "Class Continuous Exam" or cont.type == "Assignment"):
@@ -155,6 +160,9 @@ def get_student_sheet( stage, department,module,semester,academic_system_type,ro
                     final_exam_result = cont.result
                     std["final_exam_result"]= final_exam_result if cont.present == 1 else 0
 
+        print(form_assess)
+        print(midterm)
+        print(std)
         std["formative_assessment"]=form_assess
         std["midterm"]=midterm
         std["name"]=student.name
@@ -162,15 +170,31 @@ def get_student_sheet( stage, department,module,semester,academic_system_type,ro
         # std["final_exam_result"]= final_exam_result if student.present == 1 else 0
         
         stds.append(std)
-  
+
     return stds
+
 
 @frappe.whitelist()
 def submit_student_sheet(form_data, students_data):
+    settings = frappe.get_single("Kalima Settings")
+
+    if(settings.annual_max_number_of_simultaneous_tries == 0 or settings.courses_max_number_of_simultaneous_tries == 0 or settings.bologna_max_number_of_simultaneous_tries == 0 ):
+        frappe.throw(_("Please Set Try Number in Settings"))
+
     form_data = frappe._dict(json.loads(form_data))
     students_data = json.loads(students_data)
     
     for std in students_data:
+        # Check if a record with the same student, type, module, round, and stage already exists
+        existing_record = frappe.db.exists('Student Result Log', {
+            'student': std["name"],
+            'type': 'Final Grade',
+            'module': form_data["module"],
+            'round': form_data["round"],
+            'stage': form_data["stage"]
+        })
+
+        # if not not existing_record:
         doc = frappe.get_doc({
             'doctype': 'Student Result Log',
             'type': 'Final Grade',
@@ -179,16 +203,20 @@ def submit_student_sheet(form_data, students_data):
             'round': form_data["round"],
             'stage': form_data["stage"],
             'academic_system_type': form_data["academic_system_type"],
-                        
+
             'student': std["name"],
             'final_grade': std["result"],
             'curve': form_data["curve"],
             'note': std["notes"],
             'status': std["status"],
-
         })
         doc.insert()
         doc.submit()
+        
+        update_student_stage(std["name"],std["status"] == "Passed",form_data["module"])
+            
+        # else:
+        #     print(f"Record already exists for student: {std['name']}")
 
     print("Form Data:", form_data)
     print("Students Data:", students_data)
@@ -196,6 +224,92 @@ def submit_student_sheet(form_data, students_data):
     return 'Results submitted successfully!'
 
 
+def update_student_stage(student_name,passed,module):
+    # Fetch the student document
+    student = frappe.get_doc("Student", student_name)
+    passed_all = True
+    try_count = 0
+    settings = frappe.get_single("Kalima Settings")
+
+    if student.academic_system_type == "Annual":
+        try_threshold = settings.annual_max_number_of_simultaneous_tries
+    elif student.academic_system_type == "Coursat":
+        try_threshold = settings.courses_max_number_of_simultaneous_tries
+    elif student.academic_system_type == "Bologna":
+        try_threshold = settings.bologna_max_number_of_simultaneous_tries
+
+    for mod in student.enrolled_modules:
+        print("module")
+        print(mod.module)
+        print(module)
+        if mod.module == module:
+            print("passed")
+            print(passed)
+            if(passed):
+                mod.status = "Passed"
+                print("setting to passed")
+            else:
+                rounds = [
+                    "First",
+                    "Second",
+                    "Third",
+                ]
+                current_round_index = rounds.index(mod.round)
+                mod.status = "Failed"
+
+                if current_round_index == len(rounds) - 1:
+                    print(f"Student Failed")
+                    
+                    if(mod.try_number == "Second"):
+                        mod.try_number = "Third"
+                    elif(mod.try_number == "Third"):
+                        mod.try_number = "Fourth"
+                    elif(mod.try_number == "Fourth"):
+                        pass
+                        # mod.try_number = "Third"
+                else:
+                    print("step round")
+                    mod.round = rounds[current_round_index + 1]
+                    
+            if(mod.status == "Failed" or mod.status == "Ongoing"):
+                try_count = try_count + 1
+                
+            if(try_count > try_threshold):
+                passed_all = False 
+    if(passed_all):
+        # Define the stage options
+        stages = [
+            "First Year",
+            "Second Year",
+            "Third Year",
+            "Fourth Year",
+            "Fifth Year"
+        ]
+        
+        # Find the current stage index
+        try:
+            current_stage_index = stages.index(student.stage)
+        except ValueError:
+            print(f"Invalid stage '{student.stage}' for student '{student_name}'")
+            return
+
+        # Check if it is the last stage
+        if(student.academic_system_type == "Annual"):
+            if current_stage_index == len(stages) - 1:
+                print(f"Student '{student_name}' is already in the last stage: {student.stage}")
+            else:
+                # Update to the next stage
+                student.stage = stages[current_stage_index + 1]
+                student.save()
+                frappe.db.commit()  # Commit the changes to the database
+                print(f"Student '{student_name}' stage updated to: {student.stage}")
+    else:
+        pass
+    
+    student.save()
+    print("student.enrolled_modules")
+    print(student.enrolled_modules[0].status)
+    
 def fines():
     current_date = datetime.now()
 

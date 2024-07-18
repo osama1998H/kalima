@@ -26,6 +26,8 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                             frappe.db.get_doc('Presented Module', doc.module).then(module_doc => {
                                 form.set_value('stage', module_doc.stage);
                                 let department = module_doc.department;
+                                console.log(module_doc.academic_system_type);
+                                form.set_value('academic_system_type', module_doc.academic_system_type);
 
                                 // Fetch students with the same stage and department
                                 fetch_students(module_doc.stage, department,);
@@ -56,6 +58,12 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                 fieldtype: 'Data',
                 fieldname: 'stage',
                 label: 'Stage',
+                read_only: 1
+            },            
+            {
+                fieldtype: 'Data',
+                fieldname: 'academic_system_type',
+                label: 'Academic system type',
                 read_only: 1
             },
             {
@@ -168,6 +176,8 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
             let module = form.get_value('module');
             let teacher = form.get_value('teacher');
             let round = form.get_value('round');
+            let stage = form.get_value('stage');
+            let academic_system_type = form.get_value('academic_system_type');
             let student_results = [];
             let valid = true;
 
@@ -189,6 +199,8 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                     prototype: prototype,
                     round: round,
                     module: module,
+                    stage: stage,
+                    academic_system_type: academic_system_type,
                     teacher: teacher
                 };
                 student_results.push(student_result);

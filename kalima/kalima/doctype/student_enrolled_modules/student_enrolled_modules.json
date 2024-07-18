@@ -8,9 +8,10 @@
  "field_order": [
   "module",
   "status",
-  "department",
-  "semester",
-  "template"
+  "try_number",
+  "stage",
+  "round",
+  "semester"
  ],
  "fields": [
   {
@@ -25,14 +26,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
-   "options": "Ongoing\nCompleted"
-  },
-  {
-   "fetch_from": "module.department",
-   "fieldname": "department",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Department"
+   "options": "Ongoing\nPassed\nFailed"
   },
   {
    "fetch_from": "module.semester",
@@ -42,15 +36,31 @@
    "label": "Semester"
   },
   {
-   "fieldname": "template",
-   "fieldtype": "Data",
-   "label": "Template"
+   "fieldname": "stage",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Stage",
+   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year"
+  },
+  {
+   "fieldname": "round",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Round",
+   "options": "First\nSecond\nThird"
+  },
+  {
+   "fieldname": "try_number",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Try Number",
+   "options": "Second\nThird\nFourth"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-08 15:31:03.412558",
+ "modified": "2024-07-18 14:28:18.920745",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student Enrolled Modules",

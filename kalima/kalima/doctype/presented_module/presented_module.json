@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "hash",
  "creation": "2024-05-26 14:00:36.902047",
@@ -15,6 +16,7 @@
   "academic_system_type",
   "column_break_gjxd",
   "module",
+  "module_name",
   "ects",
   "swl",
   "sswl",
@@ -430,11 +432,17 @@
    "fieldtype": "Select",
    "label": "Academic System Type",
    "options": "Coursat\nBologna\nAnnual"
+  },
+  {
+   "fetch_from": "module.module",
+   "fieldname": "module_name",
+   "fieldtype": "Data",
+   "label": "Module Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-17 14:49:50.393892",
+ "modified": "2024-07-18 14:52:31.212183",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Presented Module",

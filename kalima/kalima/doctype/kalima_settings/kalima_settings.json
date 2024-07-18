@@ -1,0 +1,106 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-18 14:15:43.667603",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "annual_section",
+  "annual_max_number_of_simultaneous_tries",
+  "column_break_ggqu",
+  "annual_number_of_rounds",
+  "courses_section",
+  "courses_max_number_of_simultaneous_tries",
+  "column_break_azus",
+  "courses_number_of_rounds",
+  "bologna_section",
+  "bologna_max_number_of_simultaneous_tries",
+  "column_break_znry",
+  "bologna_number_of_rounds"
+ ],
+ "fields": [
+  {
+   "fieldname": "annual_section",
+   "fieldtype": "Section Break",
+   "label": "Annual"
+  },
+  {
+   "fieldname": "courses_section",
+   "fieldtype": "Section Break",
+   "label": "Courses"
+  },
+  {
+   "fieldname": "bologna_section",
+   "fieldtype": "Section Break",
+   "label": "Bologna"
+  },
+  {
+   "fieldname": "column_break_ggqu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_azus",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bologna_max_number_of_simultaneous_tries",
+   "fieldtype": "Int",
+   "label": "Max Number of simultaneous tries"
+  },
+  {
+   "fieldname": "column_break_znry",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bologna_number_of_rounds",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Number of Rounds"
+  },
+  {
+   "fieldname": "courses_max_number_of_simultaneous_tries",
+   "fieldtype": "Int",
+   "label": "Max Number of simultaneous tries"
+  },
+  {
+   "fieldname": "courses_number_of_rounds",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Number of Rounds"
+  },
+  {
+   "fieldname": "annual_number_of_rounds",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Number of Rounds"
+  },
+  {
+   "fieldname": "annual_max_number_of_simultaneous_tries",
+   "fieldtype": "Int",
+   "label": "Max Number of simultaneous tries"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-07-18 14:26:25.948511",
+ "modified_by": "Administrator",
+ "module": "Kalima",
+ "name": "Kalima Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -33,5 +33,104 @@ frappe.ui.form.on("Student", {
             frm.disable_save();
         }
 
+    // Ensure all required fields are present
+    if (frm.doc.final_selected_course && frm.doc.semester && frm.doc.stage && frm.doc.academic_system_type) {
+        // Fetch presented modules based on the student's department, semester, stage, and academic system type
+        frappe.call({
+            method: "frappe.client.get_list",
+            args: {
+                doctype: "Presented Module",
+                filters: {
+                    department: frm.doc.final_selected_course,
+                    // semester: frm.doc.semester,
+                    // stage: frm.doc.stage,
+                    academic_system_type: frm.doc.academic_system_type
+                },
+                fields: ["name", "stage", "module", "module_name"]  // Adjust fields as per your DocType structure
+            },
+            callback: function(r) {
+                if (r.message) {
+
+                    // Organize modules by stage
+                    let stages = ["First Year", "Second Year", "Third Year", "Fourth Year", "Fifth Year"];
+                    let stageModules = {};
+
+                    stages.forEach(stage => {
+                        stageModules[stage] = [];
+                    });
+
+                    r.message.forEach(function(module) {
+                        if (stageModules[module.stage]) {
+                            stageModules[module.stage].push(module);
+                        }
+                    });
+
+                    // Find the maximum number of modules in any stage to determine the number of rows needed
+                    let maxModules = Math.max(...stages.map(stage => stageModules[stage].length));
+
+                    // Generate HTML table
+                    let html = `
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                    `;
+
+                    stages.forEach(stage => {
+                        html += `<th>${stage}</th>`;
+                    });
+
+                    html += `</tr></thead><tbody>`;
+
+                    // Create rows for modules
+                    for (let i = 0; i < maxModules; i++) {
+                        html += `<tr>`;
+                        stages.forEach(stage => {
+                            let module = stageModules[stage][i];
+                            let cellContent = "";
+                            let cellStyle = "";
+
+                            if (module) {
+
+                                // Find the enrolled module in the student's data
+                                let enrolledModule = frm.doc.enrolled_modules.find(em => em.module === module.name);
+  
+                                cellContent = module.module_name;
+                                cellContent = module.module;
+                                if (enrolledModule) {
+                                    if (enrolledModule.status === "Ongoing") {
+                                        cellStyle = "background-color: yellow;";
+                                    } else if (enrolledModule.status === "Passed") {
+                                        cellStyle = "background-color: lightgreen;";
+                                    } else if (enrolledModule.status === "Failed") {
+                                        
+                                        cellStyle = "background-color: orange;";
+                                        cellContent = cellContent + " - " + enrolledModule.try_number + " Try";
+
+                                    }
+                                }
+
+
+                            }
+
+                            html += `<td style="${cellStyle}">${cellContent}</td>`;
+                        });
+                        html += `</tr>`;
+                    }
+
+                    html += `</tbody></table>`;
+
+                    // Set the HTML content in the HTML field
+                    frm.fields_dict['module_visualization'].html(html);
+                } else {
+                    // If no modules found, show a message
+                    frm.fields_dict['module_visualization'].html("<p>No modules found for the selected filters.</p>");
+                }
+            }
+        });
+    } else {
+        // If required fields are missing, show a message
+        frm.fields_dict['module_visualization'].html("<p>Please ensure the department, semester, stage, and academic system type are set.</p>");
+    }
+
     },
 });

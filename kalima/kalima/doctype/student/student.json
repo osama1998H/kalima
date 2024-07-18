@@ -89,6 +89,10 @@
   "semester",
   "fee_category",
   "study_system",
+  "results_section",
+  "enrolled_modules",
+  "results",
+  "module_visualization",
   "external_account_tab",
   "university_email",
   "column_break_tfjr",
@@ -138,9 +142,6 @@
   "graduation_tab",
   "graduate_date",
   "graduate_order_number",
-  "results_tab",
-  "results",
-  "enrolled_modules",
   "absences_list_tab",
   "student_absences_list",
   "account_tab",
@@ -551,11 +552,6 @@
    "label": "Graduate Order Number"
   },
   {
-   "fieldname": "results_tab",
-   "fieldtype": "Tab Break",
-   "label": "Results"
-  },
-  {
    "fieldname": "results",
    "fieldtype": "Table",
    "label": "Results",
@@ -869,7 +865,7 @@
    "fieldname": "semester",
    "fieldtype": "Select",
    "label": "Semester",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSprint Semester\nShort Semester"
   },
   {
    "fieldname": "study_system",
@@ -900,11 +896,21 @@
    "fieldtype": "Select",
    "label": "Academic System Type",
    "options": "Coursat\nBologna\nAnnual"
+  },
+  {
+   "fieldname": "results_section",
+   "fieldtype": "Section Break",
+   "label": "Results"
+  },
+  {
+   "fieldname": "module_visualization",
+   "fieldtype": "HTML",
+   "label": "Module Visualization"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-17 15:02:13.268826",
+ "modified": "2024-07-18 13:30:29.827670",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student",
