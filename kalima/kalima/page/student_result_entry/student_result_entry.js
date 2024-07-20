@@ -30,7 +30,8 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                                 form.set_value('academic_system_type', module_doc.academic_system_type);
 
                                 // Fetch students with the same stage and department
-                                fetch_students(module_doc.stage, department,);
+                                // fetch_students(module_doc.stage, department,);
+                                fetch_students(doc.module);
                             });
                         });
                     }
@@ -79,16 +80,11 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
     form.make();
 
     // Function to fetch students and display them in a table
-    function fetch_students(stage, department) {
+    function fetch_students(module) {
         frappe.call({
-            method: 'frappe.client.get_list',
+            method: 'kalima.utils.utils.get_student_from_prototype',
             args: {
-                doctype: 'Student',
-                filters: {
-                    'stage': stage,
-                    'final_selected_course': department
-                },
-                fields: ['name', 'stage', 'final_selected_course']
+                module: module
             },
             callback: function (response) {
                 if (response.message) {
@@ -98,6 +94,24 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                 }
             }
         });
+        // frappe.call({
+        //     method: 'frappe.client.get_list',
+        //     args: {
+        //         doctype: 'Student',
+        //         filters: {
+        //             'stage': stage,
+        //             'final_selected_course': department
+        //         },
+        //         fields: ['name', 'stage', 'final_selected_course']
+        //     },
+        //     callback: function (response) {
+        //         if (response.message) {
+        //             let students = response.message;
+        //             display_students(students);
+
+        //         }
+        //     }
+        // });
     }
 
     // Function to display students in a Bootstrap table

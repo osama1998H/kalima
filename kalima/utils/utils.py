@@ -117,18 +117,79 @@ def submit_student_results(student_results):
 
 
 
-@frappe.whitelist()
-def get_student_sheet( stage, department,module,semester,academic_system_type,round):
-    filters = {
-        'stage': stage,
-        'academic_system_type': academic_system_type,
-        'final_selected_course': department
-    }
+# @frappe.whitelist()
+# def get_student_sheet( stage, department,module,semester,academic_system_type,round):
+#     filters = {
+#         'stage': stage,
+#         'academic_system_type': academic_system_type,
+#         'final_selected_course': department
+#     }
     
-    fields = ['name', 'stage', 'final_selected_course']
+#     fields = ['name', 'stage', 'final_selected_course']
     
-    students = frappe.get_list('Student', filters=filters, fields=fields)
+#     students = frappe.get_list('Student', filters=filters, fields=fields)
 
+#     stds= []
+#     for student in students:   
+#         std = {}
+#         form_assess = 0
+#         midterm = 0
+#         res_filters = {
+#             'student': student.name,
+#             'module': module,
+#             'stage': stage,
+#             'academic_system_type': academic_system_type,
+#         }
+        
+            
+#         res_fields = ['net_score', 'score','result', 'round', 'midterm', 'type', 'present']
+        
+#         final_exam_result = 0
+        
+#         cons = frappe.get_list('Student Result Log', filters=res_filters, fields=res_fields)
+
+
+#         for cont in cons:
+#             if(cont.type == "Class Continuous Exam" or cont.type == "Assignment"):
+#                 form_assess += cont.net_score
+#                 midterm += cont.midterm
+#             else:
+#                 if cont.round == round or True:
+#                     final_exam_result = cont.result
+#                     std["final_exam_result"]= final_exam_result if cont.present == 1 else 0
+
+#         std["formative_assessment"]=form_assess
+#         std["midterm"]=midterm
+#         std["name"]=student.name
+#         std["present"]="Yes" if student.present == 1 else "No"
+#         # std["final_exam_result"]= final_exam_result if student.present == 1 else 0
+        
+#         stds.append(std)
+
+#     return stds
+
+
+@frappe.whitelist()
+def get_student_sheet(module,round):
+    modl = frappe.get_doc("Presented Module", module)
+    academic_system_type = modl.academic_system_type
+    department = modl.department
+
+    query = """
+        SELECT s.name
+        FROM `tabStudent` s
+        INNER JOIN `tabStudent Enrolled Modules` sem
+        ON s.name = sem.parent
+        WHERE s.academic_system_type = %s
+        AND s.final_selected_course = %s
+        AND sem.module = %s
+        AND sem.status != 'Passed'
+    """
+
+    students = frappe.db.sql(query, (academic_system_type, department, module), as_dict=True)
+    print("students")
+    print(students)
+    # return
     stds= []
     for student in students:   
         std = {}
@@ -136,9 +197,9 @@ def get_student_sheet( stage, department,module,semester,academic_system_type,ro
         midterm = 0
         res_filters = {
             'student': student.name,
-            'module': module,
-            'stage': stage,
-            'academic_system_type': academic_system_type,
+            'module': modl.name,
+            # 'stage': modl.stage,
+            'academic_system_type':modl.academic_system_type,
         }
         
             
@@ -148,7 +209,11 @@ def get_student_sheet( stage, department,module,semester,academic_system_type,ro
         
         cons = frappe.get_list('Student Result Log', filters=res_filters, fields=res_fields)
 
-
+        # print("cons")
+        # print(cons)
+        # print(modl.academic_system_type)
+        # print(modl.name)
+        
         for cont in cons:
             if(cont.type == "Class Continuous Exam" or cont.type == "Assignment"):
                 form_assess += cont.net_score
@@ -167,7 +232,6 @@ def get_student_sheet( stage, department,module,semester,academic_system_type,ro
         stds.append(std)
 
     return stds
-
 
 @frappe.whitelist()
 def submit_student_sheet(form_data, students_data):
@@ -218,6 +282,34 @@ def submit_student_sheet(form_data, students_data):
 
     return 'Results submitted successfully!'
 
+
+
+@frappe.whitelist()
+def get_student_from_prototype(module):
+    module = frappe.get_doc("Presented Module",module)
+    
+    academic_system_type = module.academic_system_type
+    department = module.department
+
+    query = """
+        SELECT s.name
+        FROM `tabStudent` s
+        INNER JOIN `tabStudent Enrolled Modules` sem
+        ON s.name = sem.parent
+        WHERE s.academic_system_type = %s
+        AND s.final_selected_course = %s
+        AND sem.module = %s
+        AND sem.status != 'Passed'
+    """
+
+    students = frappe.db.sql(query, (academic_system_type, department, module.name), as_dict=True)
+    print("students")
+    print(students)
+    print(academic_system_type)
+    print(department)
+    print(module)
+    return students
+    
 @frappe.whitelist()
 def update_student_stage(student_name,passed,module):
     passed = (passed == "1")
@@ -335,6 +427,7 @@ def update_student_stage(student_name,passed,module):
     student.save()
 
     return True
+
 def fines():
     current_date = datetime.now()
 

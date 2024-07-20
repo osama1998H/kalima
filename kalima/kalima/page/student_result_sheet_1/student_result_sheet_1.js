@@ -16,24 +16,40 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
                 // options: 'Faculty Department', 
                 options: 'Department',
                 read_only: 0,
+                reqd:1,
+
             },
             {
                 fieldtype: 'Link',
                 fieldname: 'module',
                 label: 'Module',
+                reqd:1,
+                onchange: async function (v) {
+                    var mod =  await frappe.db.get_doc("Presented Module",form.get_value('module'));
+                    form.set_value("stage",mod.stage);
+                    form.set_value("academic_system_type",mod.academic_system_type);
+                },
                 options: 'Presented Module', // Replace 'Doctype' with the actual doctype you want to link to
                 read_only: 0
             },
+            // {
+            //     fieldtype: 'Select',
+            //     fieldname: 'semester',
+            //     label: 'Semester',
+            //     options: "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+            // },
             {
                 fieldtype: 'Select',
-                fieldname: 'semester',
-                label: 'Semester',
-                options: "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+                fieldname: 'round',
+                label: 'Round',
+                reqd:1,
+                options: "First\nSecond\nThird"
             },
             {
                 fieldtype: 'Button',
                 fieldname: 'fetch_students',
                 label: 'Fetch Students',
+
                 click: function () {
                     let stage = form.get_value('stage');
                     let department = form.get_value('department');
@@ -43,7 +59,7 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
                     let academic_system_type = form.get_value('academic_system_type');
                     fetch_students(stage, department, semester, module, round,academic_system_type);
                 }
-            },
+            },         
             {
                 fieldtype: 'Column Break',
                 fieldname: 'clmn',
@@ -53,20 +69,17 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
                 fieldtype: 'Select',
                 fieldname: 'stage',
                 label: 'Stage',
-                options: "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year"
+                options: "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year",
+                read_only: 1
             },
 			{
                 fieldtype: 'Select',
                 fieldname: 'academic_system_type',
                 label: 'Academic system type',
-                options: "Coursat\nBologna\nAnnual"
+                options: "Coursat\nBologna\nAnnual",
+                read_only: 1
             },
-            {
-                fieldtype: 'Select',
-                fieldname: 'round',
-                label: 'Round',
-                options: "First\nSecond\nThird"
-            },
+
             {
                 fieldtype: 'Section Break',
                 fieldname: 'scnb',
@@ -99,12 +112,12 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
         frappe.call({
             method: 'kalima.utils.utils.get_student_sheet',
             args: {
-                stage: stage,
-                department: department,
+                // stage: stage,
+                // department: department,
                 module: module,
-                semester: semester,
+                // semester: semester,
                 round: round,
-                academic_system_type: academic_system_type,
+                // academic_system_type: academic_system_type,
             },
             callback: function (response) {
                 if (response.message) {
