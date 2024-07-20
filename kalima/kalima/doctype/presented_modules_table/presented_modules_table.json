@@ -38,7 +38,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Semester",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual",
+   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual",
    "reqd": 1
   },
   {
@@ -46,19 +46,19 @@
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "ECTS",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual"
   },
   {
    "fieldname": "sswl",
    "fieldtype": "Int",
    "label": "SSWL",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual"
   },
   {
    "fieldname": "usswl",
    "fieldtype": "Int",
    "label": "USSWL",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual"
   },
   {
    "default": "0",

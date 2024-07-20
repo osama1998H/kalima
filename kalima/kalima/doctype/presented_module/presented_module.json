@@ -101,7 +101,7 @@
    "fieldname": "semester",
    "fieldtype": "Select",
    "label": "Semester",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester"
   },
   {
    "fieldname": "stage",
@@ -442,7 +442,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-18 14:52:31.212183",
+ "modified": "2024-07-20 16:41:50.456644",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Presented Module",

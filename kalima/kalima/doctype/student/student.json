@@ -866,7 +866,7 @@
    "fieldname": "semester",
    "fieldtype": "Select",
    "label": "Semester",
-   "options": "Fall Semester\nSprint Semester\nShort Semester"
+   "options": "Fall Semester\nSpring Semester\nShort Semester"
   },
   {
    "fieldname": "study_system",

@@ -719,7 +719,7 @@ function createFormDialogNew(templateName) {
                     fieldname: "semester",
                     fieldtype: "Select",
                     label: "Semester",
-                    options: "Fall Semester\nSprint Semester\nShort Semester\nAnnual",
+                    options: "Fall Semester\nSpring Semester\nShort Semester\nAnnual",
                     hidden:1,
                     default: current_class.semester, 
 

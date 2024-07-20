@@ -59,7 +59,7 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                 fieldtype: 'Select',
                 fieldname: 'semester',
                 label: 'Semester',
-                options: 'Fall Semester\nSprint Semester\nShort Semester\nAnnual',
+                options: 'Fall Semester\nSpring Semester\nShort Semester\nAnnual',
             },
             {
                 fieldtype: 'Select',
