@@ -147,9 +147,7 @@ def get_student_sheet( stage, department,module,semester,academic_system_type,ro
         final_exam_result = 0
         
         cons = frappe.get_list('Student Result Log', filters=res_filters, fields=res_fields)
-        print("---------")
-        print(res_filters)
-        print(cons)
+
 
         for cont in cons:
             if(cont.type == "Class Continuous Exam" or cont.type == "Assignment"):
@@ -160,9 +158,6 @@ def get_student_sheet( stage, department,module,semester,academic_system_type,ro
                     final_exam_result = cont.result
                     std["final_exam_result"]= final_exam_result if cont.present == 1 else 0
 
-        print(form_assess)
-        print(midterm)
-        print(std)
         std["formative_assessment"]=form_assess
         std["midterm"]=midterm
         std["name"]=student.name
@@ -223,28 +218,34 @@ def submit_student_sheet(form_data, students_data):
 
     return 'Results submitted successfully!'
 
-
+@frappe.whitelist()
 def update_student_stage(student_name,passed,module):
+    passed = (passed == "1")
+    print(passed)
+    print(type(passed))
     # Fetch the student document
     student = frappe.get_doc("Student", student_name)
     passed_all = True
     try_count = 0
     settings = frappe.get_single("Kalima Settings")
+    permitted_not_passed_modules_in_a_year = 0
+    not_passed_modules_in_a_year = 0
 
     if student.academic_system_type == "Annual":
         try_threshold = settings.annual_max_number_of_simultaneous_tries
+        permitted_not_passed_modules_in_a_year = settings.number_of_permited_fails_to_pass_a_year
     elif student.academic_system_type == "Coursat":
         try_threshold = settings.courses_max_number_of_simultaneous_tries
+        permitted_not_passed_modules_in_a_year = settings.courses_number_of_permited_fails_to_pass_a_year
     elif student.academic_system_type == "Bologna":
         try_threshold = settings.bologna_max_number_of_simultaneous_tries
-
+        permitted_not_passed_modules_in_a_year = settings.bologna_number_of_permited_fails_to_pass_a_year
+        
+    modules_stages = set()
+    # modules_stages = {}
     for mod in student.enrolled_modules:
-        print("module")
-        print(mod.module)
-        print(module)
+        modules_stages.add(mod.stage)
         if mod.module == module:
-            print("passed")
-            print(passed)
             if(passed):
                 mod.status = "Passed"
                 print("setting to passed")
@@ -259,16 +260,19 @@ def update_student_stage(student_name,passed,module):
 
                 if current_round_index == len(rounds) - 1:
                     print(f"Student Failed")
+                    print(mod.try_number)
                     
                     if(mod.try_number == "Second"):
-                        mod.try_number = "Third"
+                        mod.try_number = "Third"               
                     elif(mod.try_number == "Third"):
                         mod.try_number = "Fourth"
                     elif(mod.try_number == "Fourth"):
                         pass
+                    
+                    mod.round = "First"
                         # mod.try_number = "Third"
                 else:
-                    print("step round")
+                    print("next round")
                     mod.round = rounds[current_round_index + 1]
                     
             if(mod.status == "Failed" or mod.status == "Ongoing"):
@@ -276,6 +280,23 @@ def update_student_stage(student_name,passed,module):
                 
             if(try_count > try_threshold):
                 passed_all = False 
+    
+            
+        # print("+++++++++++++++++++++")
+        # print(mod.stage)   
+        # print(student.stage)   
+        # print(mod.status)   
+        if(mod.stage == student.stage and mod.status != "Passed"):
+            not_passed_modules_in_a_year = not_passed_modules_in_a_year + 1
+            
+    # print("not_passed_modules_in_a_year")
+    # print(not_passed_modules_in_a_year)   
+    # print("permitted_not_passed_modules_in_a_year")
+    # print(permitted_not_passed_modules_in_a_year)
+    
+    if(not_passed_modules_in_a_year > permitted_not_passed_modules_in_a_year):
+        passed_all = False
+    
     if(passed_all):
         # Define the stage options
         stages = [
@@ -298,18 +319,22 @@ def update_student_stage(student_name,passed,module):
             if current_stage_index == len(stages) - 1:
                 print(f"Student '{student_name}' is already in the last stage: {student.stage}")
             else:
+                # print("+++++++++++++++++++++++++++")
+                # print(stages[current_stage_index])
+                # print(modules_stages)
+                # print(stages[current_stage_index]  in modules_stages)
                 # Update to the next stage
-                student.stage = stages[current_stage_index + 1]
-                student.save()
-                frappe.db.commit()  # Commit the changes to the database
-                print(f"Student '{student_name}' stage updated to: {student.stage}")
+                if(stages[current_stage_index]  in modules_stages):
+                    student.stage = stages[current_stage_index + 1]
+                    student.save()
+                    frappe.db.commit()  # Commit the changes to the database
+                    print(f"Student '{student_name}' stage updated to: {student.stage}")
     else:
         pass
     
     student.save()
-    print("student.enrolled_modules")
-    print(student.enrolled_modules[0].status)
-    
+
+    return True
 def fines():
     current_date = datetime.now()
 

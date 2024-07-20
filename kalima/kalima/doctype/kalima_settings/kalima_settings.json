@@ -7,14 +7,17 @@
  "field_order": [
   "annual_section",
   "annual_max_number_of_simultaneous_tries",
+  "number_of_permited_fails_to_pass_a_year",
   "column_break_ggqu",
   "annual_number_of_rounds",
   "courses_section",
   "courses_max_number_of_simultaneous_tries",
+  "courses_number_of_permited_fails_to_pass_a_year",
   "column_break_azus",
   "courses_number_of_rounds",
   "bologna_section",
   "bologna_max_number_of_simultaneous_tries",
+  "bologna_number_of_permited_fails_to_pass_a_year",
   "column_break_znry",
   "bologna_number_of_rounds"
  ],
@@ -78,12 +81,27 @@
    "fieldname": "annual_max_number_of_simultaneous_tries",
    "fieldtype": "Int",
    "label": "Max Number of simultaneous tries"
+  },
+  {
+   "fieldname": "number_of_permited_fails_to_pass_a_year",
+   "fieldtype": "Int",
+   "label": "Number of permited Fails to pass a year"
+  },
+  {
+   "fieldname": "courses_number_of_permited_fails_to_pass_a_year",
+   "fieldtype": "Int",
+   "label": "Number of permited Fails to pass a year Copy"
+  },
+  {
+   "fieldname": "bologna_number_of_permited_fails_to_pass_a_year",
+   "fieldtype": "Int",
+   "label": "Number of permited Fails to pass a year"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-07-18 14:26:25.948511",
+ "modified": "2024-07-20 11:09:20.690306",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Kalima Settings",
