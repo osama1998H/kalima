@@ -60,6 +60,10 @@ async function content_manager(dont_click = false) {
                 await attendance(contentColumn, columns);
             }
 
+            if (template === 'final-results') {
+                await final_results(contentColumn);
+            }
+
 
             if (template === 'exam-results') {
                 await exam_results(contentColumn);
@@ -696,6 +700,90 @@ function createTable(records, columns) {
 }
 
 
+async function final_results(container) {
+    var data = await frappe.call({
+        method: 'kalima.utils.utils.get_student_final_results',
+        args: {
+            student_name: selected_student
+        }
+    });
+    console.log(data);
+
+    // Group data by year
+    const resultsByYear = data.message.reduce((acc, result) => {
+        const year = result.stage || 'Unknown Year'; // Handle cases where year is null
+        if (!acc[year]) {
+            acc[year] = [];
+        }
+        acc[year].push(result);
+        return acc;
+    }, {});
+
+    // Sort years in descending order
+    const sortedYears = Object.keys(resultsByYear).sort((a, b) => b - a);
+
+    sortedYears.forEach((year, index) => {
+        // Create collapse button
+        const collapseButton = document.createElement('button');
+        collapseButton.className = 'btn btn-primary my-2';
+        collapseButton.type = 'button';
+        collapseButton.setAttribute('data-toggle', 'collapse');
+        collapseButton.setAttribute('data-target', `#collapseYear${index}`);
+        collapseButton.setAttribute('aria-expanded', 'false');
+        collapseButton.setAttribute('aria-controls', `collapseYear${index}`);
+        collapseButton.innerHTML = `${year} <span class="bi bi-chevron-down"></span>`;
+
+        // Create collapse container
+        const collapseContainer = document.createElement('div');
+        collapseContainer.className = 'collapse';
+        collapseContainer.id = `collapseYear${index}`;
+
+        // Create table for each year
+        const table = document.createElement('table');
+        table.className = 'table table-striped table-bordered my-2';
+        table.id = `table-${year}`;
+
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
+
+        // Create header row
+        const headerRow = document.createElement('tr');
+        ['Module', 'Round', 'Final Grade',  'Status', 'Cheating', 'Present'].forEach(text => {
+            const th = document.createElement('th');
+            th.textContent = text;
+            th.className = 'text-center';
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Create data rows
+        resultsByYear[year].forEach(result => {
+            const row = document.createElement('tr');
+            ['module', 'round', 'final_grade',  'status', 'cheating', 'present'].forEach(key => {
+                const td = document.createElement('td');
+                td.className = 'text-center';
+                if (key === 'cheating' || key === 'present') {
+                    td.innerHTML = result[key] ? '<i class="bi bi-check-lg"></i>' : '<i class="bi bi-x-lg"></i>';
+                } else {
+                    td.textContent = result[key];
+                }
+                row.appendChild(td);
+            });
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+
+        // Append elements to the container
+        container.appendChild(collapseButton);
+        container.appendChild(document.createElement('br'));
+        collapseContainer.appendChild(table);
+        container.appendChild(collapseContainer);
+        container.appendChild(document.createElement('br'));
+        container.appendChild(document.createElement('hr'));
+        container.appendChild(document.createElement('br'));
+    });
+}
 
 
 function toKebabCase(str) {

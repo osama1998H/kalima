@@ -68,8 +68,6 @@ def get_student_attendance(student_name):
 
 @frappe.whitelist()
 def get_student_results(student_name):
-    print(student_name)
-
     # Define the SQL query
     query = """
         SELECT ser.*
@@ -79,6 +77,21 @@ def get_student_results(student_name):
     records = frappe.db.sql(query, (student_name,), as_dict=True)
     return records
 
+
+@frappe.whitelist()
+def get_student_final_results(student_name):
+    print("student_name")
+    print(student_name)
+
+    # Define the SQL query
+    query = """
+        SELECT ser.*
+        FROM `tabStudent Result Log` ser
+        WHERE ser.student = %s
+        and type = "Final Grade";
+    """
+    records = frappe.db.sql(query, (student_name,), as_dict=True)
+    return records
 
 @frappe.whitelist()
 def get_current_user_student():
