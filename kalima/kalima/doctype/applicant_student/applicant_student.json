@@ -53,6 +53,7 @@
   "admission_status",
   "application_channel",
   "martyr_relative",
+  "year",
   "prefered_departments",
   "external_account_tab",
   "high_school_information_section",
@@ -765,11 +766,17 @@
    "fieldname": "guardian_email",
    "fieldtype": "Data",
    "label": "Email"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Link",
+   "label": "Year",
+   "options": "Educational Year"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-17 14:32:04.516011",
+ "modified": "2024-07-21 14:13:42.209759",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Applicant Student",
