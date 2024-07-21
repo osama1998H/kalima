@@ -18,6 +18,7 @@
   "teacher",
   "round",
   "present",
+  "module_department",
   "final_grade_section",
   "final_grade",
   "note",
@@ -95,6 +96,7 @@
    "options": "Employee"
   },
   {
+   "fetch_from": "module.stage",
    "fieldname": "stage",
    "fieldtype": "Select",
    "label": "Stage",
@@ -313,13 +315,19 @@
    "fieldtype": "Select",
    "label": "Final Status",
    "options": "Passed\nFailed"
+  },
+  {
+   "fetch_from": "module.department",
+   "fieldname": "module_department",
+   "fieldtype": "Data",
+   "label": "Module Department"
   }
  ],
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-17 15:58:17.984935",
+ "modified": "2024-07-21 14:47:28.104466",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student Result Log",
