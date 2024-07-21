@@ -71,7 +71,10 @@ class Student(Document):
 	def check_student_stage(self):
 		# Get the number of permitted fails to pass a year from Kalima Setting
 		kalima_setting = frappe.get_single("Kalima Settings")
-		number_of_permitted_fails_to_pass_a_year = kalima_setting.get("number_of_permited_fails_to_pass_a_year")
+		if(self.academic_system_type == "Coursat"):
+			number_of_permitted_fails_to_pass_a_year = kalima_setting.get("courses_number_of_permited_fails_to_pass_a_year")
+		elif(self.academic_system_type == "Annual"):
+			number_of_permitted_fails_to_pass_a_year = kalima_setting.get("number_of_permited_fails_to_pass_a_year")
 
 		# Stage mapping: map stage names to numeric values
 		stage_mapping = {
@@ -100,6 +103,9 @@ class Student(Document):
 			
 			if module.status == "Passed":
 				passed_modules_per_stage[stage_num] += 1
+    
+		print("passed_modules_per_stage")
+		print(passed_modules_per_stage)
 
 		# Determine the highest stage the student qualifies for
 		for stage_num, passed_count in passed_modules_per_stage.items():
@@ -111,10 +117,16 @@ class Student(Document):
 		
 		# Add one to the highest qualified stage
 		highest_qualified_stage += 1
+		print("highest_qualified_stage")
+		print(highest_qualified_stage)
 
 		# Map the numeric stage back to the stage name
 		reversed_stage_mapping = {v: k for k, v in stage_mapping.items()}
 		new_stage_name = reversed_stage_mapping.get(highest_qualified_stage, "Unknown Stage")
+		print("new_stage_name")
+		print(new_stage_name)
+		print("reversed_stage_mapping")
+		print(reversed_stage_mapping)
 
 		# Correct the student's stage if necessary
 		if self.stage != new_stage_name:

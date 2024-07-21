@@ -283,7 +283,6 @@ def submit_student_sheet(form_data, students_data):
     return 'Results submitted successfully!'
 
 
-
 @frappe.whitelist()
 def get_student_from_prototype(module):
     module = frappe.get_doc("Presented Module",module)
@@ -313,9 +312,7 @@ def get_student_from_prototype(module):
 @frappe.whitelist()
 def update_student_stage(student_name,passed,module):
     passed = (passed == "1")
-    print(passed)
-    print(type(passed))
-    # Fetch the student document
+    
     student = frappe.get_doc("Student", student_name)
     passed_all = True
     try_count = 0
@@ -372,20 +369,10 @@ def update_student_stage(student_name,passed,module):
                 
             if(try_count > try_threshold):
                 passed_all = False 
-    
-            
-        # print("+++++++++++++++++++++")
-        # print(mod.stage)   
-        # print(student.stage)   
-        # print(mod.status)   
+
         if(mod.stage == student.stage and mod.status != "Passed"):
             not_passed_modules_in_a_year = not_passed_modules_in_a_year + 1
-            
-    # print("not_passed_modules_in_a_year")
-    # print(not_passed_modules_in_a_year)   
-    # print("permitted_not_passed_modules_in_a_year")
-    # print(permitted_not_passed_modules_in_a_year)
-    
+
     if(not_passed_modules_in_a_year > permitted_not_passed_modules_in_a_year):
         passed_all = False
     
@@ -407,15 +394,11 @@ def update_student_stage(student_name,passed,module):
             return
 
         # Check if it is the last stage
-        if(student.academic_system_type == "Annual"):
+        if(student.academic_system_type == "Annual" or student.academic_system_type == "Coursat"):
             if current_stage_index == len(stages) - 1:
                 print(f"Student '{student_name}' is already in the last stage: {student.stage}")
             else:
-                # print("+++++++++++++++++++++++++++")
-                # print(stages[current_stage_index])
-                # print(modules_stages)
-                # print(stages[current_stage_index]  in modules_stages)
-                # Update to the next stage
+                
                 if(stages[current_stage_index]  in modules_stages):
                     student.stage = stages[current_stage_index + 1]
                     student.save()
@@ -463,7 +446,6 @@ def fines():
             fine_doc.insert()
             frappe.db.commit()
             
-
 
 @frappe.whitelist()
 def get_student_classes(student_name):

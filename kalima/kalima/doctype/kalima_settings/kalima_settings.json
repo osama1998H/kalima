@@ -90,7 +90,7 @@
   {
    "fieldname": "courses_number_of_permited_fails_to_pass_a_year",
    "fieldtype": "Int",
-   "label": "Number of permited Fails to pass a year Copy"
+   "label": "Number of permited Fails to pass a year"
   },
   {
    "fieldname": "bologna_number_of_permited_fails_to_pass_a_year",
@@ -101,7 +101,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-07-20 11:09:20.690306",
+ "modified": "2024-07-21 10:37:24.794116",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Kalima Settings",
