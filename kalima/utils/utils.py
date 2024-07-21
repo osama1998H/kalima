@@ -1,16 +1,17 @@
 import frappe
 import json
 from datetime import datetime, timedelta
-
+import json
 
 @frappe.whitelist()
-def get_sessions(student_classes):
-    student_classes = json.loads(student_classes)
-    student_classes_str = ', '.join([f"'{cls}'" for cls in student_classes])
+def get_sessions(student_name):
+    student_classes = get_student_classes(student_name)
+    # Join the list elements into a single string with each element quoted
+    student_classes_str = ', '.join(f"'{cls}'" for cls in student_classes)
 
     query = f"""
         SELECT
-            cs.module,
+            cs.`module`,
             cs.title,
             cs.class,
             cs.issue_date,
@@ -26,7 +27,7 @@ def get_sessions(student_classes):
         WHERE
             cs.class IN ({student_classes_str})
         GROUP BY
-            cs.module, cs.title, cs.class, cs.issue_date, cs.expiration_date, cs.description
+            cs.`module`, cs.title, cs.class, cs.issue_date, cs.expiration_date, cs.description
         ORDER BY
             cs.issue_date DESC
     """
@@ -39,7 +40,6 @@ def get_sessions(student_classes):
             item['session_files'] = item['session_files'].split(', ')
 
     return data
-
 
 @frappe.whitelist()
 def get_classes_for_teacher(teacher_name):
@@ -466,3 +466,28 @@ def get_student_classes(student_name):
         
     return lst
     
+    
+@frappe.whitelist()
+def get_student_tasks(student_name):
+    student_classes = get_student_classes(student_name)
+    # Join the list elements into a single string with each element quoted
+    student_classes_str = ', '.join(f"'{cls}'" for cls in student_classes)
+
+    query = f"""
+        SELECT
+            at.*,
+            af.*
+        FROM
+            `tabAssignments and Tasks` at
+        LEFT JOIN
+            `tabAssignment Files` af
+        ON
+            at.name = af.parent
+        WHERE
+            at.class IN ({student_classes_str})
+    """
+    
+    # Execute the SQL query
+    records = frappe.db.sql(query, as_dict=True)
+    
+    return records
