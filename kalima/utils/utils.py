@@ -270,11 +270,14 @@ def submit_student_sheet(form_data, students_data):
         doc = frappe.get_doc({
             'doctype': 'Student Result Log',
             'type': 'Final Grade',
+            'year':  form_data["year"],
 
             'module': form_data["module"],
             'round': form_data["round"],
             'stage': form_data["stage"],
             'academic_system_type': form_data["academic_system_type"],
+            
+            'final_status': "Passed" if (float(std["result"]) > 49) else "Failed" ,
 
             'student': std["name"],
             'final_grade': std["result"],

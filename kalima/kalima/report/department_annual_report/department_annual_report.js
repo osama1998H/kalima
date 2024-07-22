@@ -1,8 +1,13 @@
-// Copyright (c) 2024, e2next and contributors
-// For license information, please see license.txt
+// your_app_name/your_module/department_annual_report.js
 
 frappe.query_reports["Department Annual Report"] = {
-	"filters": [
-
-	]
+    "filters": [
+        {
+            "fieldname": "department",
+            "label": __("Department"),
+            "fieldtype": "Link",
+            "options": "Department",
+            "reqd": 0
+        }
+    ]
 };

@@ -79,7 +79,14 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
                 options: "Coursat\nBologna\nAnnual",
                 read_only: 1
             },
-
+			{
+                fieldtype: 'Link',
+                fieldname: 'year',
+                label: 'Year',
+                options: "Educational Year",
+                reqd:1,
+                read_only: 0
+            },
             {
                 fieldtype: 'Section Break',
                 fieldname: 'scnb',

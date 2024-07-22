@@ -102,13 +102,11 @@
   "passport",
   "id",
   "last_certificate",
-  "residence_document",
-  "nationality_certificate",
-  "column_break_hgxi",
-  "obligation_form",
-  "invoice_form",
-  "coupons_form",
   "medical_test",
+  "column_break_hgxi",
+  "invoice_form",
+  "nationality_certificate",
+  "residence_document",
   "other",
   "sponsorship",
   "choose_us_tab",
@@ -504,18 +502,11 @@
   {
    "fieldname": "sponsorship",
    "fieldtype": "Attach",
-   "label": "Sponsorship",
-   "reqd": 1
+   "label": "Sponsorship"
   },
   {
    "fieldname": "column_break_hgxi",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "obligation_form",
-   "fieldtype": "Attach",
-   "label": "Your Obligation Form",
-   "reqd": 1
   },
   {
    "fieldname": "invoice_form",
@@ -524,16 +515,9 @@
    "reqd": 1
   },
   {
-   "fieldname": "coupons_form",
-   "fieldtype": "Attach",
-   "label": "Your Coupons Form",
-   "reqd": 1
-  },
-  {
    "fieldname": "other",
    "fieldtype": "Attach",
-   "label": "Other",
-   "reqd": 1
+   "label": "Other"
   },
   {
    "fieldname": "admission_status",
@@ -598,14 +582,12 @@
   {
    "fieldname": "residence_document",
    "fieldtype": "Attach",
-   "label": "Residence Document",
-   "reqd": 1
+   "label": "Residence Document"
   },
   {
    "fieldname": "nationality_certificate",
    "fieldtype": "Attach",
-   "label": "Nationality Certificate",
-   "reqd": 1
+   "label": "Nationality Certificate"
   },
   {
    "fieldname": "medical_test",
@@ -776,7 +758,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-21 14:13:42.209759",
+ "modified": "2024-07-22 11:09:53.832222",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Applicant Student",
