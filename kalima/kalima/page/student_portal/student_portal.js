@@ -725,7 +725,9 @@ const resultsByYear = (data.message || []).reduce((acc, result) => {
     }, {});
 
     // Sort years in descending order
-    const sortedYears = Object.keys(resultsByYear).sort((a, b) => b - a);
+const sortedYears = Object.keys(resultsByYear)
+    .map(year => parseInt(year, 10))
+    .sort((a, b) => b - a);
 
     sortedYears.forEach((year, index) => {
         // Create collapse button
