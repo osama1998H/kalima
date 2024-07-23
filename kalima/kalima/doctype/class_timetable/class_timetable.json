@@ -20,19 +20,26 @@
   {
    "fieldname": "class",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Class",
-   "options": "Class"
+   "options": "Class",
+   "reqd": 1
   },
   {
    "fieldname": "teacher",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Teacher",
-   "options": "Employee"
+   "options": "Employee",
+   "reqd": 1
   },
   {
    "fieldname": "day",
-   "fieldtype": "Data",
-   "label": "Day"
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Day",
+   "options": "Week Day",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_oimt",
@@ -42,13 +49,15 @@
    "fieldname": "start",
    "fieldtype": "Time",
    "label": "Start",
-   "options": "Employee"
+   "options": "Employee",
+   "reqd": 1
   },
   {
    "fieldname": "finish",
    "fieldtype": "Time",
    "label": "Finish",
-   "options": "Employee"
+   "options": "Employee",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_cvsm",
@@ -63,13 +72,15 @@
   {
    "fieldname": "module",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Module",
-   "options": "Presented Module"
+   "options": "Presented Module",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-10 15:36:21.414854",
+ "modified": "2024-07-23 14:04:18.884333",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class Timetable",

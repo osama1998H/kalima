@@ -710,14 +710,13 @@ async function final_results(container) {
     console.log(data);
 
     // Group data by year
-const resultsByYear = (data.message || []).reduce((acc, result) => {
-    const year = result.stage || 'Unknown Year';
-    if (!acc[year]) {
-        acc[year] = [];
-    }
-    acc[year].push(result);
-    return acc;
-}, {});
+    const resultsByYear = data.message.reduce((acc, result) => {
+        const year = result.stage || 'Unknown Year'; // Handle cases where year is null
+        if (!acc[year]) {
+            acc[year] = [];
+        }
+        acc[year].push(result);
+        return acc;
     }, {});
 
     // Sort years in descending order

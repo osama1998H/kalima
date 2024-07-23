@@ -8,7 +8,9 @@
  "field_order": [
   "student",
   "status",
-  "leave"
+  "leave",
+  "number_of_hours",
+  "attendance_duration"
  ],
  "fields": [
   {
@@ -31,12 +33,24 @@
    "fieldtype": "Check",
    "in_list_view": 1,
    "label": "Leave"
+  },
+  {
+   "fieldname": "number_of_hours",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Lecture Duration"
+  },
+  {
+   "fieldname": "attendance_duration",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Attendance Duration"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-26 13:52:47.139698",
+ "modified": "2024-07-23 14:14:40.247337",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Attednance",

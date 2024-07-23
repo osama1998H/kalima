@@ -2,6 +2,7 @@ import frappe
 import json
 from datetime import datetime, timedelta
 import json
+from frappe import _
 
 @frappe.whitelist()
 def get_sessions(student_name):
@@ -80,13 +81,8 @@ def get_student_results(student_name):
 
 @frappe.whitelist()
 def get_student_final_results(student_name):
-import logging
-
-logger = logging.getLogger(__name__)
-
-@frappe.whitelist()
-def get_student_final_results(student_name):
-    logger.info(f"student_name: {student_name}")
+    print("student_name")
+    print(student_name)
 
     # Define the SQL query
     query = """
@@ -95,7 +91,8 @@ def get_student_final_results(student_name):
         WHERE ser.student = %s
         and type = "Final Grade";
     """
-    return frappe.db.sql(query, (student_name,), as_dict=True)
+    records = frappe.db.sql(query, (student_name,), as_dict=True)
+    return records
 
 @frappe.whitelist()
 def get_current_user_student():
@@ -254,15 +251,8 @@ def get_student_sheet(module,round):
 def submit_student_sheet(form_data, students_data):
     settings = frappe.get_single("Kalima Settings")
 
-def check_simultaneous_tries(settings):
-    return (
-        settings.annual_max_number_of_simultaneous_tries == 0 or
-        settings.courses_max_number_of_simultaneous_tries == 0 or
-        settings.bologna_max_number_of_simultaneous_tries == 0
-    )
-
-if check_simultaneous_tries(settings):
-    frappe.throw(_("Please Set Try Number in Settings"))
+    if(settings.annual_max_number_of_simultaneous_tries == 0 or settings.courses_max_number_of_simultaneous_tries == 0 or settings.bologna_max_number_of_simultaneous_tries == 0 ):
+        frappe.throw(_("Please Set Try Number in Settings"))
 
     form_data = frappe._dict(json.loads(form_data))
     students_data = json.loads(students_data)
@@ -513,5 +503,42 @@ def get_student_tasks(student_name):
         WHERE
             at.class IN ({student_classes_str})
     """
+    
+    # Execute the SQL query
+    records = frappe.db.sql(query, as_dict=True)
+    
+    return records
 
-    return frappe.db.sql(query, as_dict=True)
+@frappe.whitelist()
+def get_class_timetable(selected_class, selected_teacher, current_day):
+    # Fetch the class timetable
+    timetable_entries = frappe.get_all('Class Timetable', 
+                                       filters={
+                                           'class': selected_class,
+                                           'teacher': selected_teacher,
+                                           'day': current_day
+                                       }, 
+                                       fields=["name", "start", "finish"], 
+                                       limit=1)
+
+    if not timetable_entries:
+        return {'message': 'No timetable entry found'}
+
+    # Get the first result
+    timetable_entry = timetable_entries[0]
+
+    # Calculate lecture time (assuming start and finish are datetime strings)
+    start_time = frappe.utils.get_datetime(timetable_entry["start"])
+    finish_time = frappe.utils.get_datetime(timetable_entry["finish"])
+    lecture_duration = finish_time - start_time
+
+    return {
+        'name': timetable_entry['name'],
+        'start': timetable_entry['start'],
+        'finish': timetable_entry['finish'],
+        'lecture_duration': str(lecture_duration)
+    }
+
+    
+    
+    
