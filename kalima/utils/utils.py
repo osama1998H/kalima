@@ -86,7 +86,7 @@ logger = logging.getLogger(__name__)
 
 @frappe.whitelist()
 def get_student_final_results(student_name):
-    logger.info(f"student_name: {student_name}")
+    logger.debug(f"student_name: {student_name}")
 
     # Define the SQL query
     query = """
