@@ -115,16 +115,14 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
     form.make();
 
     // Function to fetch students and display them in a table
-    function fetch_students(stage, department, semester, module, round,academic_system_type) {
+    function fetch_students(stage, department, semester, module, round, academic_system_type) {
         frappe.call({
             method: 'kalima.utils.utils.get_student_sheet',
             args: {
-                // stage: stage,
-                // department: department,
                 module: module,
-                // semester: semester,
                 round: round,
-                // academic_system_type: academic_system_type,
+            },
+            callback: function (response) {
             },
             callback: function (response) {
                 if (response.message) {
