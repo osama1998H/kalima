@@ -255,8 +255,15 @@ def get_student_sheet(module,round):
 def submit_student_sheet(form_data, students_data):
     settings = frappe.get_single("Kalima Settings")
 
-    if(settings.annual_max_number_of_simultaneous_tries == 0 or settings.courses_max_number_of_simultaneous_tries == 0 or settings.bologna_max_number_of_simultaneous_tries == 0 ):
-        frappe.throw(_("Please Set Try Number in Settings"))
+def check_simultaneous_tries(settings):
+    return (
+        settings.annual_max_number_of_simultaneous_tries == 0 or
+        settings.courses_max_number_of_simultaneous_tries == 0 or
+        settings.bologna_max_number_of_simultaneous_tries == 0
+    )
+
+if check_simultaneous_tries(settings):
+    frappe.throw(_("Please Set Try Number in Settings"))
 
     form_data = frappe._dict(json.loads(form_data))
     students_data = json.loads(students_data)
