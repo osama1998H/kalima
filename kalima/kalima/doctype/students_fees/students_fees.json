@@ -11,6 +11,7 @@
   "fee_category",
   "year",
   "stage",
+  "academic_system_type",
   "column_break_ctre",
   "semester",
   "study_system",
@@ -198,6 +199,13 @@
    "label": "Payment Term",
    "options": "Payment Terms Template",
    "reqd": 1
+  },
+  {
+   "fetch_from": "fee_structure.academic_system_type",
+   "fieldname": "academic_system_type",
+   "fieldtype": "Select",
+   "label": "Academic System Type",
+   "options": "Coursat\nBologna\nAnnual"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -208,7 +216,7 @@
    "link_fieldname": "custom_student_fee"
   }
  ],
- "modified": "2024-07-06 13:26:07.234606",
+ "modified": "2024-07-17 14:47:12.080052",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Students Fees",

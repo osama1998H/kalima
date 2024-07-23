@@ -14,16 +14,15 @@
   "last_name",
   "fourth_name",
   "full_name_in_arabic",
-  "date_of_birth",
+  "english_student_full_name",
   "column_break_aqxi",
+  "date_of_birth",
   "gender",
   "nationality",
-  "subsidy_type",
   "criminal_conviction",
   "blood_type",
   "email",
   "column_break_qozq",
-  "english_student_full_name",
   "phone_number",
   "phone_number_2",
   "mother_name",
@@ -54,6 +53,7 @@
   "admission_status",
   "application_channel",
   "martyr_relative",
+  "year",
   "prefered_departments",
   "external_account_tab",
   "high_school_information_section",
@@ -102,14 +102,11 @@
   "passport",
   "id",
   "last_certificate",
-  "residence_document",
-  "nationality_certificate",
-  "ration_card",
-  "column_break_hgxi",
-  "obligation_form",
-  "invoice_form",
-  "coupons_form",
   "medical_test",
+  "column_break_hgxi",
+  "invoice_form",
+  "nationality_certificate",
+  "residence_document",
   "other",
   "sponsorship",
   "choose_us_tab",
@@ -201,12 +198,6 @@
    "fieldname": "martyr_relative",
    "fieldtype": "Data",
    "label": "Martyr Relative"
-  },
-  {
-   "fieldname": "subsidy_type",
-   "fieldtype": "Select",
-   "label": "Subsidy Type",
-   "options": "Normal\nShahidan\nSJN"
   },
   {
    "fieldname": "criminal_conviction",
@@ -511,18 +502,11 @@
   {
    "fieldname": "sponsorship",
    "fieldtype": "Attach",
-   "label": "Sponsorship",
-   "reqd": 1
+   "label": "Sponsorship"
   },
   {
    "fieldname": "column_break_hgxi",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "obligation_form",
-   "fieldtype": "Attach",
-   "label": "Your Obligation Form",
-   "reqd": 1
   },
   {
    "fieldname": "invoice_form",
@@ -531,16 +515,9 @@
    "reqd": 1
   },
   {
-   "fieldname": "coupons_form",
-   "fieldtype": "Attach",
-   "label": "Your Coupons Form",
-   "reqd": 1
-  },
-  {
    "fieldname": "other",
    "fieldtype": "Attach",
-   "label": "Other",
-   "reqd": 1
+   "label": "Other"
   },
   {
    "fieldname": "admission_status",
@@ -605,20 +582,12 @@
   {
    "fieldname": "residence_document",
    "fieldtype": "Attach",
-   "label": "Residence Document",
-   "reqd": 1
+   "label": "Residence Document"
   },
   {
    "fieldname": "nationality_certificate",
    "fieldtype": "Attach",
-   "label": "Nationality Certificate",
-   "reqd": 1
-  },
-  {
-   "fieldname": "ration_card",
-   "fieldtype": "Attach",
-   "label": "Ration card",
-   "reqd": 1
+   "label": "Nationality Certificate"
   },
   {
    "fieldname": "medical_test",
@@ -734,10 +703,11 @@
    "label": "Address"
   },
   {
+   "default": "General channel",
    "fieldname": "application_channel",
    "fieldtype": "Select",
    "label": "Application Channel",
-   "options": "Martyrs' relatives\nRelatives of the martyrs of the Popular Mobilization Forces\nRelatives of victims of war operations\nGeneral channel\nTeaching"
+   "options": "General channel\nMartyrs\nTeachers\nAthletes\nCertificate holders\nDistinguished\nPolitical prisoners\nExpatriates\nStudents of Kurdistan Region\nFree scholarship"
   },
   {
    "fieldname": "institute_name",
@@ -778,11 +748,17 @@
    "fieldname": "guardian_email",
    "fieldtype": "Data",
    "label": "Email"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Link",
+   "label": "Year",
+   "options": "Educational Year"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-07 15:37:40.143362",
+ "modified": "2024-07-22 11:09:53.832222",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Applicant Student",

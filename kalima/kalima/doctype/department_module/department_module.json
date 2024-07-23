@@ -10,11 +10,12 @@
   "module",
   "semester",
   "department",
+  "code",
   "column_break_aolq",
   "template",
+  "academic_system_type",
   "type",
   "credit",
-  "code",
   "prerequisites_section",
   "prerequisite_modules"
  ],
@@ -40,7 +41,7 @@
    "fieldname": "semester",
    "fieldtype": "Select",
    "label": "Semester",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual"
   },
   {
    "fieldname": "department",
@@ -57,7 +58,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Template",
-   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna",
+   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year",
    "reqd": 1
   },
   {
@@ -87,11 +88,19 @@
    "fieldtype": "Table",
    "label": "Prerequisite Modules",
    "options": "Prerequisites Modules"
+  },
+  {
+   "fieldname": "academic_system_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Academic System Type",
+   "options": "Coursat\nBologna\nAnnual",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-27 13:36:11.322295",
+ "modified": "2024-07-17 14:49:19.268677",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Department Module",

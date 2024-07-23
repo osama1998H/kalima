@@ -83,8 +83,15 @@ frappe.ui.form.on("Applicant Student", {
     },
 
     validate(frm) {
-        if (frm.doc.prefered_departments.length > 4) {
-            frappe.throw(__('You can Only Select 4 departments'))
-        }
+        if (frm.doc.application_channel != "Martyrs") {
+                    if (frm.doc.prefered_departments.length > 4) {
+                        frappe.throw(__('You can Only Select 4 departments'))
+                    }
+                }
+        else if (frm.doc.prefered_departments.length > 6) {
+                        frappe.throw(__('You can Only Select 6 departments'))
+                    }
+
+
     },
 });

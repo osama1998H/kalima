@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:{arabic_title} | {english_title}",
  "creation": "2024-05-26 13:53:39.834076",
@@ -24,7 +25,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-27 13:21:39.664103",
+ "modified": "2024-07-18 14:37:46.833769",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Module",

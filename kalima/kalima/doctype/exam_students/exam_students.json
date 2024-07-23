@@ -10,6 +10,7 @@
   "class_code",
   "department",
   "stage",
+  "academic_system_type",
   "study_system"
  ],
  "fields": [
@@ -39,7 +40,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Stage",
-   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna"
+   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year"
   },
   {
    "fieldname": "study_system",
@@ -47,12 +48,19 @@
    "in_list_view": 1,
    "label": "Study System",
    "options": "Morning\nEvening"
+  },
+  {
+   "fieldname": "academic_system_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Academic System Type",
+   "options": "Coursat\nBologna\nAnnual"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-24 13:20:25.373387",
+ "modified": "2024-07-17 15:00:39.744482",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Exam Students",
