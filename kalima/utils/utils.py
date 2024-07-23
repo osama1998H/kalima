@@ -95,8 +95,7 @@ def get_student_final_results(student_name):
         WHERE ser.student = %s
         and type = "Final Grade";
     """
-    records = frappe.db.sql(query, (student_name,), as_dict=True)
-    return records
+    return frappe.db.sql(query, (student_name,), as_dict=True)
 
 @frappe.whitelist()
 def get_current_user_student():
