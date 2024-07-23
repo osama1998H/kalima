@@ -9,6 +9,7 @@
   "year",
   "status",
   "stage",
+  "academic_system_type",
   "semester",
   "ects",
   "sswl",
@@ -29,7 +30,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Stage",
-   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna",
+   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year",
    "reqd": 1
   },
   {
@@ -37,7 +38,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Semester",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual",
+   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual",
    "reqd": 1
   },
   {
@@ -45,19 +46,19 @@
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "ECTS",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual"
   },
   {
    "fieldname": "sswl",
    "fieldtype": "Int",
    "label": "SSWL",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual"
   },
   {
    "fieldname": "usswl",
    "fieldtype": "Int",
    "label": "USSWL",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual"
   },
   {
    "default": "0",
@@ -72,12 +73,20 @@
    "label": "Status",
    "options": "Active\nInactive",
    "reqd": 1
+  },
+  {
+   "fieldname": "academic_system_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Academic System Type",
+   "options": "Coursat\nBologna\nAnnual",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-29 15:15:10.258704",
+ "modified": "2024-07-17 15:01:29.659784",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Presented Modules Table",

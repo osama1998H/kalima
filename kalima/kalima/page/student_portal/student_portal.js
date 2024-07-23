@@ -60,6 +60,10 @@ async function content_manager(dont_click = false) {
                 await attendance(contentColumn, columns);
             }
 
+            if (template === 'final-results') {
+                await final_results(contentColumn);
+            }
+
 
             if (template === 'exam-results') {
                 await exam_results(contentColumn);
@@ -89,7 +93,9 @@ async function content_manager(dont_click = false) {
 
             }
             if (template === 'tasks') {
-                await populateTable('Exam Schedule', contentColumn, columns);
+                // await populateTable('Exam Schedule', contentColumn, columns);/
+                await displayTasks(contentColumn);
+
             }
 
         });
@@ -381,7 +387,8 @@ async function populateCards(doctype, container, columns) {
         method: 'kalima.utils.utils.get_sessions',
         args:
         {
-            student_classes: student_classes
+            // student_classes: student_classes,
+            student_name: selected_student
         }
     });
     if (response.message) {
@@ -693,8 +700,199 @@ function createTable(records, columns) {
 }
 
 
+async function final_results(container) {
+    var data = await frappe.call({
+        method: 'kalima.utils.utils.get_student_final_results',
+        args: {
+            student_name: selected_student
+        }
+    });
+    console.log(data);
+
+    // Group data by year
+const resultsByYear = (data.message || []).reduce((acc, result) => {
+    const year = result.stage || 'Unknown Year';
+    if (!acc[year]) {
+        acc[year] = [];
+    }
+    acc[year].push(result);
+    return acc;
+}, {});
+    }, {});
+
+    // Sort years in descending order
+    const sortedYears = Object.keys(resultsByYear).sort((a, b) => b - a);
+
+    sortedYears.forEach((year, index) => {
+        // Create collapse button
+        const collapseButton = document.createElement('button');
+        collapseButton.className = 'btn btn-primary my-2';
+        collapseButton.type = 'button';
+        collapseButton.setAttribute('data-toggle', 'collapse');
+        collapseButton.setAttribute('data-target', `#collapseYear${index}`);
+        collapseButton.setAttribute('aria-expanded', 'false');
+        collapseButton.setAttribute('aria-controls', `collapseYear${index}`);
+        collapseButton.innerHTML = `${year} <span class="bi bi-chevron-down"></span>`;
+
+        // Create collapse container
+        const collapseContainer = document.createElement('div');
+        collapseContainer.className = 'collapse';
+        collapseContainer.id = `collapseYear${index}`;
+
+        // Create table for each year
+        const table = document.createElement('table');
+        table.className = 'table table-striped table-bordered my-2';
+        table.id = `table-${year}`;
+
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
+
+        // Create header row
+        const headerRow = document.createElement('tr');
+        ['Module', 'Round', 'Final Grade',  'Status', 'Cheating', 'Present'].forEach(text => {
+            const th = document.createElement('th');
+            th.textContent = text;
+            th.className = 'text-center';
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Create data rows
+        resultsByYear[year].forEach(result => {
+            const row = document.createElement('tr');
+            ['module', 'round', 'final_grade',  'status', 'cheating', 'present'].forEach(key => {
+                const td = document.createElement('td');
+                td.className = 'text-center';
+                if (key === 'cheating' || key === 'present') {
+                    td.innerHTML = result[key] ? '<i class="bi bi-check-lg"></i>' : '<i class="bi bi-x-lg"></i>';
+                } else {
+                    td.textContent = result[key];
+                }
+                row.appendChild(td);
+            });
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+
+        // Append elements to the container
+        container.appendChild(collapseButton);
+        container.appendChild(document.createElement('br'));
+        collapseContainer.appendChild(table);
+        container.appendChild(collapseContainer);
+        container.appendChild(document.createElement('br'));
+        container.appendChild(document.createElement('hr'));
+        container.appendChild(document.createElement('br'));
+    });
+}
 
 
 function toKebabCase(str) {
     return str.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '').toLowerCase();
+}
+
+
+async function displayTasks(container) {
+    var data;
+    let response = await frappe.call({
+        method: 'kalima.utils.utils.get_student_tasks',
+        args: {
+            student_name: selected_student
+        }
+    });
+    if (response.message) {
+        data = response.message;
+        console.log(data);
+    }
+
+    // Group data by class
+    const groupedData = data.reduce((acc, row) => {
+        const studentClass = row.class || 'Unknown Class'; // Handle cases where class is null
+        if (!acc[studentClass]) {
+            acc[studentClass] = [];
+        }
+        acc[studentClass].push(row);
+        return acc;
+    }, {});
+
+    // Generate a unique identifier for each group
+    let groupCounter = 0;
+    for (const [studentClass, records] of Object.entries(groupedData)) {
+        groupCounter++;
+
+        // Create header for the class group
+        const classHeader = document.createElement('h3');
+        classHeader.className = 'mt-4';
+        classHeader.textContent = studentClass;
+        container.appendChild(classHeader);
+
+        // Create collapse container for the class group
+        const collapseContainer = document.createElement('div');
+        collapseContainer.className = 'mb-3';
+
+        // Create cards for each record within the class group
+        records.forEach((record, index) => {
+            const cardContainer = document.createElement('div');
+            cardContainer.className = 'card mb-3 w-100';
+            cardContainer.style.border = '1px solid #ddd';
+            cardContainer.style.borderRadius = '8px';
+            cardContainer.style.padding = '16px';
+            cardContainer.style.marginBottom = '16px';
+
+            // Create card header (collapsible button)
+            const cardHeader = document.createElement('button');
+            cardHeader.className = 'btn btn-link text-left w-100';
+            cardHeader.type = 'button';
+            cardHeader.setAttribute('data-toggle', 'collapse');
+            cardHeader.setAttribute('data-target', `#collapseCard${groupCounter}-${index}`);
+            cardHeader.setAttribute('aria-expanded', 'false');
+            cardHeader.setAttribute('aria-controls', `collapseCard${groupCounter}-${index}`);
+            cardHeader.innerHTML = `${record.title} - ${record.creation || ''} <span class="bi bi-chevron-down"></span>`;
+
+            // Create card collapse container
+            const cardCollapseContainer = document.createElement('div');
+            cardCollapseContainer.className = 'collapse';
+            cardCollapseContainer.id = `collapseCard${groupCounter}-${index}`;
+
+            // Create card body
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
+
+            // Add card content
+            for (const key in record) {
+                if (key !== 'title' && key !== 'creation' && record[key]) {
+                    if (key === 'file') {
+                        const cardText = document.createElement('p');
+                        cardText.className = 'card-text';
+                        cardText.innerHTML = `<strong>Files:</strong> `;
+                        const files = record[key].split(', ');
+                        files.forEach(file => {
+                            const link = document.createElement('a');
+                            link.href = file;
+                            link.target = '_blank';
+                            link.className = 'btn btn-primary my-1';
+                            const fileName = file.split('/').pop();
+                            link.textContent = fileName;
+                            cardText.appendChild(link);
+                            cardText.appendChild(document.createElement('br'));
+                        });
+                        cardBody.appendChild(cardText);
+                    } else {
+                        const cardText = document.createElement('p');
+                        cardText.className = 'card-text';
+                        cardText.innerHTML = `<strong>${key}:</strong> ${record[key]}`;
+                        cardBody.appendChild(cardText);
+                    }
+                }
+            }
+
+            cardCollapseContainer.appendChild(cardBody);
+            cardContainer.appendChild(cardHeader);
+            cardContainer.appendChild(cardCollapseContainer);
+            collapseContainer.appendChild(cardContainer);
+        });
+
+        // Append elements to the container
+        container.appendChild(collapseContainer);
+    }
 }

@@ -11,6 +11,7 @@
   "fee_category",
   "year",
   "stage",
+  "academic_system_type",
   "column_break_xlbt",
   "semester",
   "study_system",
@@ -55,13 +56,13 @@
    "fieldname": "stage",
    "fieldtype": "Select",
    "label": "Stage",
-   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna"
+   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year"
   },
   {
    "fieldname": "semester",
    "fieldtype": "Select",
    "label": "Semester",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual"
   },
   {
    "fieldname": "year",
@@ -150,12 +151,18 @@
    "label": "Title",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "academic_system_type",
+   "fieldtype": "Select",
+   "label": "Academic System Type",
+   "options": "Coursat\nBologna\nAnnual"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-23 11:31:35.482462",
+ "modified": "2024-07-17 14:47:03.934299",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student Fee Structure",

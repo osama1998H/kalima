@@ -26,6 +26,7 @@
   "blood_type",
   "marital_status",
   "religion",
+  "discount",
   "column_break_kttf",
   "english_student_full_name",
   "phone_number",
@@ -77,19 +78,21 @@
   "employer_address",
   "notes_section",
   "notes",
-  "overview_tab",
-  "admission_office_section",
-  "status",
-  "final_selected_course",
   "study_info_tab",
   "current_info_section",
-  "year",
+  "status",
+  "final_selected_course",
   "stage",
-  "discount",
+  "academic_system_type",
   "column_break_qbgh",
+  "year",
   "semester",
   "fee_category",
   "study_system",
+  "results_section",
+  "enrolled_modules",
+  "results",
+  "module_visualization",
   "external_account_tab",
   "university_email",
   "column_break_tfjr",
@@ -139,9 +142,6 @@
   "graduation_tab",
   "graduate_date",
   "graduate_order_number",
-  "results_tab",
-  "results",
-  "enrolled_modules",
   "absences_list_tab",
   "student_absences_list",
   "account_tab",
@@ -552,13 +552,9 @@
    "label": "Graduate Order Number"
   },
   {
-   "fieldname": "results_tab",
-   "fieldtype": "Tab Break",
-   "label": "Results"
-  },
-  {
    "fieldname": "results",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "Results",
    "options": "Student Results"
   },
@@ -629,16 +625,6 @@
    "options": "Student Enrolled Modules"
   },
   {
-   "fieldname": "overview_tab",
-   "fieldtype": "Tab Break",
-   "label": "Overview"
-  },
-  {
-   "fieldname": "admission_office_section",
-   "fieldtype": "Section Break",
-   "label": "Admission Office"
-  },
-  {
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
@@ -647,7 +633,7 @@
   {
    "fieldname": "final_selected_course",
    "fieldtype": "Link",
-   "label": "Final Selected Course",
+   "label": "Department",
    "options": "Department"
   },
   {
@@ -870,7 +856,7 @@
    "fieldname": "stage",
    "fieldtype": "Select",
    "label": "Stage",
-   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna"
+   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year"
   },
   {
    "fieldname": "column_break_qbgh",
@@ -880,7 +866,7 @@
    "fieldname": "semester",
    "fieldtype": "Select",
    "label": "Semester",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester"
   },
   {
    "fieldname": "study_system",
@@ -905,11 +891,27 @@
    "fieldname": "further_information",
    "fieldtype": "Data",
    "label": "Further Information"
+  },
+  {
+   "fieldname": "academic_system_type",
+   "fieldtype": "Select",
+   "label": "Academic System Type",
+   "options": "Coursat\nBologna\nAnnual"
+  },
+  {
+   "fieldname": "results_section",
+   "fieldtype": "Section Break",
+   "label": "Results"
+  },
+  {
+   "fieldname": "module_visualization",
+   "fieldtype": "HTML",
+   "label": "Module Visualization"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-07 15:23:53.002388",
+ "modified": "2024-07-20 11:20:59.438865",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student",

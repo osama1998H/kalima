@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "hash",
  "creation": "2024-05-26 14:00:36.902047",
@@ -12,8 +13,10 @@
   "faculty",
   "semester",
   "stage",
+  "academic_system_type",
   "column_break_gjxd",
   "module",
+  "module_name",
   "ects",
   "swl",
   "sswl",
@@ -98,13 +101,13 @@
    "fieldname": "semester",
    "fieldtype": "Select",
    "label": "Semester",
-   "options": "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
+   "options": "Fall Semester\nSpring Semester\nShort Semester"
   },
   {
    "fieldname": "stage",
    "fieldtype": "Select",
    "label": "Stage",
-   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year\nBologna"
+   "options": "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year"
   },
   {
    "fieldname": "column_break_gjxd",
@@ -423,11 +426,23 @@
    "fieldtype": "Int",
    "label": "SWL",
    "read_only": 1
+  },
+  {
+   "fieldname": "academic_system_type",
+   "fieldtype": "Select",
+   "label": "Academic System Type",
+   "options": "Coursat\nBologna\nAnnual"
+  },
+  {
+   "fetch_from": "module.module",
+   "fieldname": "module_name",
+   "fieldtype": "Data",
+   "label": "Module Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-07 15:27:55.467903",
+ "modified": "2024-07-20 16:41:50.456644",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Presented Module",
