@@ -706,7 +706,11 @@ async function final_results(container) {
         args: {
             student_name: selected_student
         }
-    });
+const resultsByYear = data.message?.reduce((acc, result) => {
+    const year = result.stage || 'Unknown Year';
+    (acc[year] = acc[year] || []).push(result);
+    return acc;
+}, {}) || {};
     console.log(data);
 
     // Group data by year
