@@ -161,7 +161,14 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
         `;
 
         students.forEach(student => {
-            var res = student.formative_assessment + student.midterm + student.final_exam_result + crv;
+function calculateResult(student, crv) {
+    return student.formative_assessment + student.midterm + student.final_exam_result + crv;
+}
+
+students.forEach(student => {
+    var res = calculateResult(student, crv);
+    var status = "Failed";
+    if (res > 49) {
             var status = "Failed";
             if (res > 49) {
                 status = "Passed"
