@@ -514,8 +514,5 @@ def get_student_tasks(student_name):
         WHERE
             at.class IN ({student_classes_str})
     """
-    
-    # Execute the SQL query
-    records = frappe.db.sql(query, as_dict=True)
-    
-    return records
+
+    return frappe.db.sql(query, as_dict=True)
