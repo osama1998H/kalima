@@ -147,6 +147,7 @@ async function content_manager(dont_click = false) {
                 ];
                 await populateTable('Student Attendance Entry', contentColumn, columns);
             } else if (templateName == "time-table") {
+
                 const columns = [
                     { label: 'Class', fieldname: 'class' },
                     { label: 'Day', fieldname: 'day' },
@@ -339,10 +340,10 @@ function createFormDialogNew(templateName) {
         var fields = [];
         var default_module = null;
         current_class.class_modules.forEach(element => {
-            if(element.teacher = selectedTeacher){
+            if (element.teacher = selectedTeacher) {
                 default_module = element.module;
             }
-            
+
         });
         if (templateName == "sessions-list") {
             fields = [
@@ -364,8 +365,8 @@ function createFormDialogNew(templateName) {
                     label: 'Module',
                     fieldname: 'module',
                     fieldtype: 'Link',
-                    options:"Presented Module",
-                    default :default_module,
+                    options: "Presented Module",
+                    default: default_module,
                     read_only: default_module == null ? 0 : 1
                 },
                 {
@@ -424,13 +425,13 @@ function createFormDialogNew(templateName) {
                     fieldtype: "Select",
                     label: "Type",
                     options: "Normal Exam\nAttendance\nProject\nSeminar\nQuiz"
-                }, 
+                },
                 {
                     label: 'Module',
                     fieldname: 'module',
                     fieldtype: 'Link',
-                    options:"Presented Module",
-                    default :default_module,
+                    options: "Presented Module",
+                    default: default_module,
                     read_only: default_module == null ? 0 : 1
                 },
                 {
@@ -511,18 +512,18 @@ function createFormDialogNew(templateName) {
                         { fieldname: 'net_score', fieldtype: 'Float', in_list_view: 0, read_only: 1, label: 'Net Score' },
                         {
                             fieldname: 'is_absent', fieldtype: 'Check', in_list_view: 1, label: 'Is Absent',
-                             change: async function () {
+                            change: async function () {
                                 const row = this;
 
                                 if (row.doc.is_absent) {
-                                    
-                                row.doc.net_score = 0;
-                                row.doc.score = 0;
 
-                                d.fields_dict['continuous_exam_result'].grid.refresh();
+                                    row.doc.net_score = 0;
+                                    row.doc.score = 0;
+
+                                    d.fields_dict['continuous_exam_result'].grid.refresh();
                                 } else {
                                 }
-            
+
                             }
                         },
                         { fieldname: 'Description', fieldtype: 'Data', in_list_view: 0, label: 'Description' },
@@ -551,13 +552,13 @@ function createFormDialogNew(templateName) {
                     fieldname: "percentage",
                     fieldtype: "Percent",
                     label: "Percentage"
-                }, 
+                },
                 {
                     label: 'Module',
                     fieldname: 'module',
                     fieldtype: 'Link',
-                    options:"Presented Module",
-                    default :default_module,
+                    options: "Presented Module",
+                    default: default_module,
                     read_only: default_module == null ? 0 : 1
                 },
                 {
@@ -630,8 +631,8 @@ function createFormDialogNew(templateName) {
                     label: 'Module',
                     fieldname: 'module',
                     fieldtype: 'Link',
-                    options:"Presented Module",
-                    default :default_module,
+                    options: "Presented Module",
+                    default: default_module,
                     read_only: default_module == null ? 0 : 1
                 },
                 {
@@ -654,16 +655,16 @@ function createFormDialogNew(templateName) {
                     label: "Class",
                     default: selected_class,
                     read_only: 1,
-                    hidden:1,
+                    hidden: 1,
                     options: "Class"
                 }, {
                     fieldname: "teacher",
                     fieldtype: "Link",
                     label: "Teacher",
-                    default: selectedTeacher, 
+                    default: selectedTeacher,
                     read_only: 1,
                     options: "Employee",
-                    hidden:1
+                    hidden: 1
                 },
                 {
                     fieldname: "year",
@@ -672,9 +673,9 @@ function createFormDialogNew(templateName) {
                     label: "Year",
                     options: "Educational Year",
                     reqd: 1,
-                    default: current_class.year, 
+                    default: current_class.year,
 
-                    hidden:1
+                    hidden: 1
                 },
                 {
                     fieldname: "department",
@@ -684,9 +685,9 @@ function createFormDialogNew(templateName) {
                     // options: "Faculty Department",
                     options: "Department",
                     reqd: 1,
-                    default: current_class.department, 
-                    hidden:1
-                },  {
+                    default: current_class.department,
+                    hidden: 1
+                }, {
                     fieldname: "date",
                     fieldtype: "Date",
                     label: "Date",
@@ -697,8 +698,8 @@ function createFormDialogNew(templateName) {
                     label: 'Module',
                     fieldname: 'module',
                     fieldtype: 'Link',
-                    options:"Presented Module",
-                    default :default_module,
+                    options: "Presented Module",
+                    default: default_module,
                     read_only: default_module == null ? 0 : 1
                 },
                 {
@@ -710,26 +711,26 @@ function createFormDialogNew(templateName) {
                     fieldtype: "Link",
                     label: "Presented Module",
                     options: "Presented Module",
-                    hidden:1,
-                    default: current_class.module, 
+                    hidden: 1,
+                    default: current_class.module,
 
                 },
-              
+
                 {
                     fieldname: "semester",
                     fieldtype: "Select",
                     label: "Semester",
                     options: "Fall Semester\nSpring Semester\nShort Semester\nAnnual",
-                    hidden:1,
-                    default: current_class.semester, 
+                    hidden: 1,
+                    default: current_class.semester,
 
                 }, {
                     fieldname: "stage",
                     fieldtype: "Select",
                     label: "Stage",
                     options: "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year",
-                    hidden:1,
-                    default: current_class.stage, 
+                    hidden: 1,
+                    default: current_class.stage,
 
                 },
                 {
@@ -813,11 +814,11 @@ function createFormDialogNew(templateName) {
                     label: 'Module',
                     fieldname: 'module',
                     fieldtype: 'Link',
-                    options:"Presented Module",
-                    default :default_module,
+                    options: "Presented Module",
+                    default: default_module,
                     read_only: default_module == null ? 0 : 1
                 },
-                 {
+                {
                     fieldname: "column_break_wvoi",
                     fieldtype: "Column Break"
                 },
@@ -885,13 +886,30 @@ function createFormDialogNew(templateName) {
                 if (templateName == "attendance-entry") {
                     values["attednance"] = [];
                     var idx = 1;
+                    var today = new Date();
+                    var dayNumber = today.getDay();
+                    var weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                    var currentDay = weekdayNames[dayNumber];
+                    // Call the custom server-side method
+                    var tt = await frappe.call({
+                        method: 'kalima.utils.utils.get_class_timetable',
+                        args: {
+                            selected_class: selected_class,
+                            selected_teacher: selectedTeacher,
+                            current_day: currentDay
+                        }
+                    });
+                    var lecture_time = tt.message["lecture_duration"];
+
                     for (const [key, value] of Object.entries(naming_maps)) {
                         if (values[key] == 1) {
+
                             values["attednance"].push({
                                 "idx": idx,
                                 "__islocal": true,
                                 "student": value, // Access the name directly
                                 "status": "Present",
+                                "number_of_hours": parseFloat(lecture_time),
                             });
                             idx++;
                         }
@@ -1006,7 +1024,7 @@ function createFormDialogNew(templateName) {
     const btn = $('<button class="btn btn-info border hover">View List</button>').appendTo(parent);
     btn.click(async function () {
         const encodedClass = encodeURIComponent(selected_class);
-        
+
         let url = "";
         if (templateName == "attendance-entry") {
             url = `/app/student-attendance-entry?class=${encodedClass}`;
@@ -1021,12 +1039,12 @@ function createFormDialogNew(templateName) {
         } else if (templateName == "time-table") {
             url = `/app/class-timetable?class=${encodedClass}`;
         }
-    
+
         if (url !== "") {
             window.open(url, '_blank');
         }
     });
-    
+
 }
 
 
