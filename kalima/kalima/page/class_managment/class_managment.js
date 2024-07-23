@@ -737,27 +737,7 @@ function createFormDialogNew(templateName) {
                     fieldname: "section_break_fsrg",
                     fieldtype: "Section Break"
                 },
-                // {
-                //     label: 'Attednance',
-                //     fieldname: 'attednance',
-                //     fieldtype: 'Table',
-                //     cannot_add_rows: false,
-                //     in_place_edit: false,
-                //     fields: [
-                //         { fieldname: 'student', fieldtype: 'Link', options: 'Student', in_list_view: 1, label: 'Student' },
-                //         { fieldname: 'status', fieldtype: 'Select', options: "Absent\nDelayed\nPresent", in_list_view: 1, label: 'Status' },
-                //         { fieldname: 'leave', fieldtype: 'Check', in_list_view: 1, label: 'leave' },
-                //     ]
-                // },
             ];
-            // current_class.student_list.forEach(element => {
-            //     fields.push({
-            //         fieldname: element.name,
-            //         fieldtype: "Check",
-            //         label: element.student,
-            //     });
-            //     naming_maps[element.name] = element.student;
-            // });
 
             let student_count = current_class.student_list.length;
             let column_count = Math.ceil(student_count / 3);
@@ -910,6 +890,7 @@ function createFormDialogNew(templateName) {
                                 "student": value, // Access the name directly
                                 "status": "Present",
                                 "number_of_hours": parseFloat(lecture_time),
+                                "attendance_duration": parseFloat(lecture_time),
                             });
                             idx++;
                         }

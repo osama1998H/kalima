@@ -99,12 +99,12 @@
   "table_lhlt",
   "section_break_bdtf",
   "student_image",
-  "passport",
   "id",
   "last_certificate",
   "medical_test",
-  "column_break_hgxi",
   "invoice_form",
+  "column_break_hgxi",
+  "passport",
   "nationality_certificate",
   "residence_document",
   "other",
@@ -484,8 +484,7 @@
   {
    "fieldname": "passport",
    "fieldtype": "Attach",
-   "label": "Passport",
-   "reqd": 1
+   "label": "Passport"
   },
   {
    "fieldname": "id",
@@ -758,7 +757,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-22 11:09:53.832222",
+ "modified": "2024-07-23 15:03:31.126246",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Applicant Student",
