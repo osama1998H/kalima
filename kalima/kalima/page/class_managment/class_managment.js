@@ -158,6 +158,9 @@ async function content_manager(dont_click = false) {
             } else if (templateName == "student-list") {
                 populateStudents(contentColumn);
             }
+            else if (templateName == "dissolution") {
+                populateStudents(contentColumn);
+            }
 
 
         });

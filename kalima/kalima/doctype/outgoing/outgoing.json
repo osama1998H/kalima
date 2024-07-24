@@ -10,9 +10,11 @@
   "title",
   "date",
   "sent_to",
+  "column_break_udxe",
   "document_number",
   "amended_from",
-  "column_break_yevt",
+  "section_break_hlnd",
+  "template",
   "description",
   "receives_section",
   "column_break_zjfa",
@@ -68,10 +70,6 @@
    "label": "Description"
   },
   {
-   "fieldname": "column_break_yevt",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "receivers_type",
    "fieldtype": "Select",
    "label": "Receivers Type",
@@ -116,12 +114,26 @@
    "depends_on": "eval:doc.receivers_type == \"Teachers\"",
    "fieldname": "column_break_zjfa",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_udxe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_hlnd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "label": "Template",
+   "options": "Terms and Conditions"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-29 11:58:19.896757",
+ "modified": "2024-07-24 13:24:17.786974",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Outgoing",
