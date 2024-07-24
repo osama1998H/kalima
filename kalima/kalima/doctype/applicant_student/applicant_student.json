@@ -30,6 +30,7 @@
   "religion",
   "notes_section",
   "notes",
+  "disability",
   "legal_guardian_section",
   "legal_guardian_name",
   "relation",
@@ -60,7 +61,6 @@
   "institute_name",
   "branch",
   "specialization",
-  "center",
   "province",
   "column_break_pasl",
   "attempt",
@@ -120,8 +120,7 @@
   "tv",
   "colleagues",
   "school_college",
-  "column_break_dsgr",
-  "disability"
+  "column_break_dsgr"
  ],
  "fields": [
   {
@@ -248,11 +247,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "center",
-   "fieldtype": "Data",
-   "label": "Exam Center"
-  },
-  {
    "fieldname": "examination_number",
    "fieldtype": "Data",
    "label": "Examination Number"
@@ -374,7 +368,7 @@
   },
   {
    "fieldname": "final_average",
-   "fieldtype": "Float",
+   "fieldtype": "Data",
    "label": "Average in words"
   },
   {
@@ -467,7 +461,7 @@
   },
   {
    "fieldname": "disability",
-   "fieldtype": "Text",
+   "fieldtype": "Small Text",
    "label": "Disability"
   },
   {
@@ -717,7 +711,7 @@
    "fieldname": "attempt",
    "fieldtype": "Select",
    "label": "Attempt",
-   "options": "First\nSecond\nThird"
+   "options": "First Round\nSecond\nThird"
   },
   {
    "fieldname": "mobile_no",
@@ -740,7 +734,7 @@
   },
   {
    "fieldname": "total_in_words",
-   "fieldtype": "Float",
+   "fieldtype": "Data",
    "label": "Total in Words"
   },
   {
@@ -757,7 +751,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-23 15:03:31.126246",
+ "modified": "2024-07-24 15:59:18.750233",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Applicant Student",
