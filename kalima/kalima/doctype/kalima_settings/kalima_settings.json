@@ -19,7 +19,13 @@
   "bologna_max_number_of_simultaneous_tries",
   "bologna_number_of_permited_fails_to_pass_a_year",
   "column_break_znry",
-  "bologna_number_of_rounds"
+  "bologna_number_of_rounds",
+  "attendance_section",
+  "notify",
+  "first_warning",
+  "column_break_wdib",
+  "second_warning",
+  "final_warning"
  ],
  "fields": [
   {
@@ -96,12 +102,45 @@
    "fieldname": "bologna_number_of_permited_fails_to_pass_a_year",
    "fieldtype": "Int",
    "label": "Number of permited Fails to pass a year"
+  },
+  {
+   "fieldname": "attendance_section",
+   "fieldtype": "Section Break",
+   "label": "Attendance"
+  },
+  {
+   "default": "3",
+   "fieldname": "notify",
+   "fieldtype": "Percent",
+   "label": "Notify"
+  },
+  {
+   "default": "7",
+   "fieldname": "first_warning",
+   "fieldtype": "Percent",
+   "label": "First Warning"
+  },
+  {
+   "default": "15",
+   "fieldname": "second_warning",
+   "fieldtype": "Percent",
+   "label": "Second Warning"
+  },
+  {
+   "default": "21",
+   "fieldname": "final_warning",
+   "fieldtype": "Percent",
+   "label": "Final Warning"
+  },
+  {
+   "fieldname": "column_break_wdib",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-07-21 10:37:24.794116",
+ "modified": "2024-07-23 15:46:28.098192",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Kalima Settings",

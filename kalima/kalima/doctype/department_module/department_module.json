@@ -8,8 +8,8 @@
  "field_order": [
   "faculty",
   "module",
-  "semester",
   "department",
+  "semester",
   "code",
   "column_break_aolq",
   "template",
@@ -34,8 +34,7 @@
    "in_list_view": 1,
    "label": "Module",
    "options": "Module",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "fieldname": "semester",
@@ -47,7 +46,8 @@
    "fieldname": "department",
    "fieldtype": "Link",
    "label": "Department",
-   "options": "Department"
+   "options": "Department",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_aolq",
@@ -68,6 +68,7 @@
    "options": "Core\nElective\nGeneral\nSupported Module\nEngineering Project\nInternship"
   },
   {
+   "depends_on": "eval:doc.academic_system_type == \"Bologna\"",
    "fieldname": "credit",
    "fieldtype": "Int",
    "label": "Credit"
@@ -100,7 +101,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-17 14:49:19.268677",
+ "modified": "2024-07-25 10:43:09.017151",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Department Module",

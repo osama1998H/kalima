@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class FacultyDepartment(Document):
+class BooksTags(Document):
 	pass

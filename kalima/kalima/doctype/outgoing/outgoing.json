@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:KOUT-{date}-{#####}",
+ "autoname": "format:KOUT-{#####}",
  "creation": "2024-06-05 11:17:04.895201",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -10,9 +10,11 @@
   "title",
   "date",
   "sent_to",
+  "column_break_udxe",
   "document_number",
   "amended_from",
-  "column_break_yevt",
+  "section_break_hlnd",
+  "template",
   "description",
   "receives_section",
   "column_break_zjfa",
@@ -65,11 +67,8 @@
   {
    "fieldname": "description",
    "fieldtype": "Text Editor",
-   "label": "Description"
-  },
-  {
-   "fieldname": "column_break_yevt",
-   "fieldtype": "Column Break"
+   "label": "Description",
+   "reqd": 1
   },
   {
    "fieldname": "receivers_type",
@@ -116,12 +115,26 @@
    "depends_on": "eval:doc.receivers_type == \"Teachers\"",
    "fieldname": "column_break_zjfa",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_udxe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_hlnd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "label": "Template",
+   "options": "Terms and Conditions"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-29 11:58:19.896757",
+ "modified": "2024-07-24 16:39:10.959751",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Outgoing",

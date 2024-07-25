@@ -7,13 +7,9 @@
  "engine": "InnoDB",
  "field_order": [
   "year",
-  "class",
   "date",
-  "student",
   "column_break_wvoi",
   "department",
-  "module",
-  "semester",
   "section_break_fsrg",
   "message"
  ],
@@ -27,45 +23,13 @@
    "reqd": 1
   },
   {
-   "fetch_from": "class.department",
-   "fieldname": "department",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Department",
-   "options": "Department",
-   "read_only": 1
-  },
-  {
-   "fieldname": "class",
-   "fieldtype": "Link",
-   "label": "Class",
-   "options": "Class",
-   "reqd": 1
-  },
-  {
    "fieldname": "column_break_wvoi",
    "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "class.module",
-   "fieldname": "module",
-   "fieldtype": "Link",
-   "label": "Module",
-   "options": "Department Module",
-   "read_only": 1
   },
   {
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
-  },
-  {
-   "fetch_from": "class.semester",
-   "fieldname": "semester",
-   "fieldtype": "Select",
-   "label": "Semester",
-   "options": "Fall Semester\nSpring Semester\nShort Semester\nAnnual",
-   "read_only": 1
   },
   {
    "fieldname": "section_break_fsrg",
@@ -79,15 +43,15 @@
    "reqd": 1
   },
   {
-   "fieldname": "student",
+   "fieldname": "department",
    "fieldtype": "Link",
-   "label": "Student",
-   "options": "Student"
+   "label": "Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-29 11:48:52.350363",
+ "modified": "2024-07-24 16:36:23.504745",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Complaints",

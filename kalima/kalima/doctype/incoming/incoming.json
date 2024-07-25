@@ -15,6 +15,7 @@
   "sender",
   "amended_from",
   "section_break_kjri",
+  "template",
   "description",
   "document_receivers"
  ],
@@ -37,18 +38,21 @@
    "fetch_from": "outgoing.sent_to",
    "fieldname": "sender",
    "fieldtype": "Data",
-   "label": "Sender"
+   "label": "Sender",
+   "reqd": 1
   },
   {
    "fetch_from": "outgoing.document_number",
    "fieldname": "document_number",
    "fieldtype": "Data",
-   "label": "Document Number"
+   "label": "Document Number",
+   "reqd": 1
   },
   {
    "fieldname": "receiving_date",
    "fieldtype": "Date",
-   "label": "Receiving Date"
+   "label": "Receiving Date",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_pzva",
@@ -77,7 +81,8 @@
    "fieldname": "description",
    "fieldtype": "Text Editor",
    "label": "Description",
-   "read_only_depends_on": "eval:doc.outgoing != null"
+   "read_only_depends_on": "eval:doc.outgoing != null",
+   "reqd": 1
   },
   {
    "fieldname": "document_receivers",
@@ -85,12 +90,18 @@
    "label": "Document Receivers",
    "options": "Document Receivers",
    "read_only": 1
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "label": "Template",
+   "options": "Terms and Conditions"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-06 15:44:28.203198",
+ "modified": "2024-07-24 16:37:58.687173",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Incoming",
