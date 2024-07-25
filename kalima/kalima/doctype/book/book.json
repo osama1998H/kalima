@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "hash",
+ "autoname": "field:title",
  "creation": "2024-05-26 14:29:49.030059",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -9,18 +9,26 @@
   "title",
   "library",
   "category",
-  "class",
   "number_of_copies",
   "book_type",
   "language",
-  "column_break_cdpt",
   "author",
+  "column_break_cdpt",
   "pages",
   "edition",
   "no_of_vols",
   "publisher",
   "place_of_publish",
   "date_of_publish",
+  "link",
+  "numbers_section",
+  "classification_number",
+  "allocation_number",
+  "column_break_wfec",
+  "serial_number",
+  "tags",
+  "section_break_slrc",
+  "description",
   "section_break_aqan",
   "remark",
   "isbn",
@@ -49,13 +57,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Title",
-   "reqd": 1
-  },
-  {
-   "fieldname": "class",
-   "fieldtype": "Link",
-   "label": "Class",
-   "options": "Class"
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "author",
@@ -117,7 +120,7 @@
    "fieldname": "book_type",
    "fieldtype": "Select",
    "label": "Book Type",
-   "options": "Book\nThesis\nEbook"
+   "options": "Theses and Dissertations\nPeriodicals\nIndexing\nIndexes\nManuscripts\nAdvanced Search\nBook\nOther"
   },
   {
    "fieldname": "right_to_use",
@@ -146,16 +149,59 @@
   {
    "fieldname": "column_break_gpak",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "numbers_section",
+   "fieldtype": "Section Break",
+   "label": "Numbers"
+  },
+  {
+   "fieldname": "classification_number",
+   "fieldtype": "Data",
+   "label": "Classification number"
+  },
+  {
+   "fieldname": "allocation_number",
+   "fieldtype": "Data",
+   "label": "Allocation number"
+  },
+  {
+   "fieldname": "column_break_wfec",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "serial_number",
+   "fieldtype": "Data",
+   "label": "Serial Number"
+  },
+  {
+   "fieldname": "section_break_slrc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "link",
+   "fieldtype": "Data",
+   "label": "Link"
+  },
+  {
+   "fieldname": "tags",
+   "fieldtype": "Table MultiSelect",
+   "label": "Tags",
+   "options": "Books Tags"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-06 15:43:52.998740",
-
+ "modified": "2024-07-25 13:22:13.441404",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Book",
- "naming_rule": "Random",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

@@ -15,6 +15,7 @@
   "section_break_ilot",
   "participants_type",
   "departments",
+  "staff_activity_list",
   "amended_from"
  ],
  "fields": [
@@ -56,6 +57,7 @@
    "label": "Activity Date"
   },
   {
+   "depends_on": "eval:doc.participants_type == \"Departments\"",
    "fieldname": "departments",
    "fieldtype": "Table",
    "label": "Departments",
@@ -80,12 +82,19 @@
    "fieldtype": "Select",
    "label": "Participants Type",
    "options": "General\nStaff\nDepartments"
+  },
+  {
+   "depends_on": "eval:doc.participants_type == \"Staff\"",
+   "fieldname": "staff_activity_list",
+   "fieldtype": "Table",
+   "label": "Staff",
+   "options": "Staff Activity List"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-06 13:29:56.052812",
+ "modified": "2024-07-25 11:54:11.099458",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity Announcement",
