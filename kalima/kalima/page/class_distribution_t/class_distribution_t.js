@@ -143,7 +143,7 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
         }
 
         frappe.call({
-            method: "kalima.kalima.doctype.group_class.group_class.fetch_students",
+            method: "kalima.utils.group_class.fetch_students",
             args: {
                 selected_modules: JSON.stringify(selected_modules),
                 stage: stage,
@@ -291,7 +291,7 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
 		}
 	
 		frappe.call({
-			method: "kalima.kalima.doctype.group_class.group_class.create_classes",
+			method: "kalima.utils.group_class.create_classes",
 			args: {
 				group_title: group_title,
 				year: year,

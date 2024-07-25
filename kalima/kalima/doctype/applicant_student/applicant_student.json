@@ -716,7 +716,8 @@
   {
    "fieldname": "mobile_no",
    "fieldtype": "Phone",
-   "label": "Mobile No."
+   "label": "Mobile No.",
+   "reqd": 1
   },
   {
    "fieldname": "notes_section",
@@ -751,7 +752,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-24 15:59:18.750233",
+ "modified": "2024-07-24 16:22:46.820935",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Applicant Student",
