@@ -21,6 +21,7 @@
   "retake_exam",
   "finilized",
   "has_midterm",
+  "disabled",
   "section_break_ueai",
   "teachers",
   "column_break_hpag",
@@ -155,11 +156,17 @@
    "label": "Academic System Type",
    "options": "Coursat\nBologna\nAnnual",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-17 14:45:09.507677",
+ "modified": "2024-07-24 13:10:52.751828",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class",

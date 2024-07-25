@@ -1,0 +1,99 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"3OcoteH-cB\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Teacher</span>\",\"col\":12}},{\"id\":\"nv8MjX8V4v\",\"type\":\"card\",\"data\":{\"card_name\":\"Teacher Doctypes\",\"col\":4}}]",
+ "creation": "2024-07-24 13:13:16.786365",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "dashboard",
+ "idx": 0,
+ "indicator_color": "cyan",
+ "is_hidden": 0,
+ "label": "Teacher",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Teacher Doctypes",
+   "link_count": 6,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class",
+   "link_count": 0,
+   "link_to": "Class",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class Timetable",
+   "link_count": 0,
+   "link_to": "Class Timetable",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Exam Schedule",
+   "link_count": 0,
+   "link_to": "Exam Schedule",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Attendance Entry",
+   "link_count": 0,
+   "link_to": "Student Attendance Entry",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Assignments and Tasks",
+   "link_count": 0,
+   "link_to": "Assignments and Tasks",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class Continuous Exam",
+   "link_count": 0,
+   "link_to": "Class Continuous Exam",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-07-24 13:38:09.962918",
+ "modified_by": "Administrator",
+ "module": "Kalima",
+ "name": "Teacher",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 40.0,
+ "shortcuts": [],
+ "title": "Teacher"
+}

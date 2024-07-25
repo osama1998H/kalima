@@ -7,12 +7,15 @@
  "engine": "InnoDB",
  "field_order": [
   "book",
+  "book_author",
   "borrowing_period",
   "borrowing_days",
   "user",
-  "return_date",
+  "loaned_person_name",
   "is_returned",
   "column_break_sbra",
+  "lending_date",
+  "return_date",
   "user_type",
   "fining_system",
   "extra_period",
@@ -84,6 +87,7 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "default": "0",
    "fieldname": "is_returned",
    "fieldtype": "Check",
@@ -92,6 +96,7 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "return_date",
    "fieldtype": "Date",
    "label": "Return Date",
@@ -107,12 +112,34 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fetch_from": "user.full_name",
+   "fieldname": "loaned_person_name",
+   "fieldtype": "Data",
+   "label": "Loaned Person Name",
+   "read_only_depends_on": "eval:doc.is_returned == 1"
+  },
+  {
+   "fetch_from": "book.author",
+   "fieldname": "book_author",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Book Author",
+   "read_only_depends_on": "eval:doc.is_returned == 1"
+  },
+  {
+   "fieldname": "lending_date",
+   "fieldtype": "Date",
+   "label": "Lending Date",
+   "options": "User",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-06 14:46:33.488894",
+ "modified": "2024-07-25 11:38:50.447563",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Lend Book",

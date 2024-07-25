@@ -12,7 +12,10 @@
   "column_break_bwzt",
   "cerificate",
   "status",
-  "amended_from"
+  "amended_from",
+  "template_section",
+  "template",
+  "description"
  ],
  "fields": [
   {
@@ -57,12 +60,28 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "template_section",
+   "fieldtype": "Section Break",
+   "label": "Template"
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "label": "Template",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-06 14:03:43.128372",
+ "modified": "2024-07-24 13:44:38.072371",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity Certificate",

@@ -12,7 +12,6 @@
   "middle_name",
   "last_name",
   "fourth_name",
-  "sure_name",
   "full_name_in_arabic",
   "mother_name",
   "email",
@@ -21,7 +20,6 @@
   "column_break_aqxi",
   "gender",
   "nationality",
-  "subsidy_type",
   "criminal_conviction",
   "blood_type",
   "marital_status",
@@ -102,11 +100,7 @@
   "ministry_exam_results",
   "ministry_exam_section",
   "total",
-  "ten_percent_g10",
-  "ten_percent_g11",
   "column_break_wont",
-  "eighty_percent_g12",
-  "average_g12",
   "final_average",
   "qualifications_tab",
   "english_language_qualifications_section",
@@ -126,19 +120,16 @@
   "year_of_student_admission",
   "section_break_vbsh",
   "student_image",
-  "passport",
   "id",
   "last_certificate",
-  "sponsorship",
-  "residence_document",
-  "nationality_certificate",
-  "column_break_hgxi",
-  "obligation_form",
-  "invoice_form",
-  "coupons_form",
-  "other",
   "medical_test",
-  "ration_card",
+  "invoice_form",
+  "column_break_hgxi",
+  "residence_document",
+  "passport",
+  "other",
+  "nationality_certificate",
+  "sponsorship",
   "graduation_tab",
   "graduate_date",
   "graduate_order_number",
@@ -163,27 +154,26 @@
   {
    "fieldname": "first_name",
    "fieldtype": "Data",
-   "label": "First Name"
+   "label": "First Name",
+   "reqd": 1
   },
   {
    "fieldname": "middle_name",
    "fieldtype": "Data",
-   "label": "Middle Name"
+   "label": "Middle Name",
+   "reqd": 1
   },
   {
    "fieldname": "last_name",
    "fieldtype": "Data",
-   "label": "Last Name"
+   "label": "Last Name",
+   "reqd": 1
   },
   {
    "fieldname": "fourth_name",
    "fieldtype": "Data",
-   "label": "Fourth Name"
-  },
-  {
-   "fieldname": "sure_name",
-   "fieldtype": "Data",
-   "label": "Sure Name"
+   "label": "Fourth Name",
+   "reqd": 1
   },
   {
    "fieldname": "mother_name",
@@ -203,14 +193,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Full name in Arabic",
-   "reqd": 1,
+   "read_only": 1,
    "unique": 1
-  },
-  {
-   "fieldname": "subsidy_type",
-   "fieldtype": "Select",
-   "label": "Subsidy Type",
-   "options": "Normal\nShahidan\nSJN"
   },
   {
    "depends_on": "eval:doc.application_channel == \"Martyrs' relatives\"",
@@ -435,26 +419,6 @@
    "label": "Total"
   },
   {
-   "fieldname": "average_g12",
-   "fieldtype": "Float",
-   "label": "Average (G12)"
-  },
-  {
-   "fieldname": "ten_percent_g10",
-   "fieldtype": "Float",
-   "label": "10% (G10)"
-  },
-  {
-   "fieldname": "ten_percent_g11",
-   "fieldtype": "Float",
-   "label": "10% (G11)"
-  },
-  {
-   "fieldname": "eighty_percent_g12",
-   "fieldtype": "Float",
-   "label": "80% (G12)"
-  },
-  {
    "fieldname": "final_average",
    "fieldtype": "Float",
    "label": "Final Average"
@@ -494,7 +458,8 @@
   {
    "fieldname": "student_image",
    "fieldtype": "Attach",
-   "label": "Student Image"
+   "label": "Student Image",
+   "reqd": 1
   },
   {
    "fieldname": "passport",
@@ -504,12 +469,14 @@
   {
    "fieldname": "id",
    "fieldtype": "Attach",
-   "label": "ID"
+   "label": "ID",
+   "reqd": 1
   },
   {
    "fieldname": "last_certificate",
    "fieldtype": "Attach",
-   "label": "Your Last Certificate"
+   "label": "Your Last Certificate",
+   "reqd": 1
   },
   {
    "fieldname": "sponsorship",
@@ -517,19 +484,10 @@
    "label": "Sponsorship"
   },
   {
-   "fieldname": "obligation_form",
-   "fieldtype": "Attach",
-   "label": "Your Obligation Form"
-  },
-  {
    "fieldname": "invoice_form",
    "fieldtype": "Attach",
-   "label": "Your Invoice Form"
-  },
-  {
-   "fieldname": "coupons_form",
-   "fieldtype": "Attach",
-   "label": "Your Coupons Form"
+   "label": "Your Invoice Form",
+   "reqd": 1
   },
   {
    "fieldname": "other",
@@ -710,7 +668,8 @@
   {
    "fieldname": "mobile_no",
    "fieldtype": "Phone",
-   "label": "Mobile No."
+   "label": "Mobile No.",
+   "reqd": 1
   },
   {
    "fieldname": "email",
@@ -727,7 +686,7 @@
    "fieldname": "application_channel",
    "fieldtype": "Select",
    "label": "Application Channel",
-   "options": "Martyrs' relatives\nRelatives of the martyrs of the Popular Mobilization Forces\nRelatives of victims of war operations\nGeneral channel\nTeaching"
+   "options": "General channel\nMartyrs\nTeachers\nAthletes\nCertificate holders\nDistinguished\nPolitical prisoners\nExpatriates\nStudents of Kurdistan Region\nFree scholarship"
   },
   {
    "fieldname": "id_section",
@@ -798,12 +757,8 @@
   {
    "fieldname": "medical_test",
    "fieldtype": "Attach",
-   "label": "Medical Test"
-  },
-  {
-   "fieldname": "ration_card",
-   "fieldtype": "Attach",
-   "label": "Ration card"
+   "label": "Medical Test",
+   "reqd": 1
   },
   {
    "fieldname": "customer",
@@ -911,7 +866,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-20 11:20:59.438865",
+ "modified": "2024-07-24 16:26:09.303472",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student",

@@ -56,7 +56,9 @@ class Student(Document):
 	
 			doc.total = ttl
 			doc.final_average = ttl/len(doc.ministry_exam_results)
-			
+   
+		doc.full_name_in_arabic = f"{doc.first_name} {doc.second_name} {doc.third_name} {doc.fourth_name}"
+                
 	def after_save(doc):
 		# user = frappe.get_doc("User", doc.user)
 		if(doc.password != None and doc.password != ""):
@@ -75,6 +77,8 @@ class Student(Document):
 			number_of_permitted_fails_to_pass_a_year = kalima_setting.get("courses_number_of_permited_fails_to_pass_a_year")
 		elif(self.academic_system_type == "Annual"):
 			number_of_permitted_fails_to_pass_a_year = kalima_setting.get("number_of_permited_fails_to_pass_a_year")
+		elif(self.academic_system_type == "Bologna"):
+			number_of_permitted_fails_to_pass_a_year = kalima_setting.get("bologna_number_of_permited_fails_to_pass_a_year")
 
 		# Stage mapping: map stage names to numeric values
 		stage_mapping = {

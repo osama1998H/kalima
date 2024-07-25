@@ -8,7 +8,6 @@
  "field_order": [
   "title",
   "faculty",
-  "department",
   "description",
   "column_break_qkzn",
   "library_users"
@@ -25,12 +24,6 @@
    "fieldtype": "Link",
    "label": "Faculty",
    "options": "Faculty"
-  },
-  {
-   "fieldname": "department",
-   "fieldtype": "Link",
-   "label": "Department",
-   "options": "Department"
   },
   {
    "fieldname": "column_break_qkzn",
@@ -50,7 +43,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-28 15:23:54.239746",
+ "modified": "2024-07-25 11:01:45.358036",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Library",

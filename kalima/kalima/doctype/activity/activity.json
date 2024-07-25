@@ -16,10 +16,13 @@
   "venue",
   "participant_count",
   "description",
+  "type",
   "section_break_cfjo",
-  "activity_participants_list",
+  "departments",
+  "staff_activity_list",
   "requirements",
-  "amended_from"
+  "amended_from",
+  "activity_deliverers"
  ],
  "fields": [
   {
@@ -54,12 +57,12 @@
   },
   {
    "fieldname": "start_date",
-   "fieldtype": "Date",
+   "fieldtype": "Datetime",
    "label": "Start Date"
   },
   {
    "fieldname": "end_date",
-   "fieldtype": "Date",
+   "fieldtype": "Datetime",
    "label": "End Date"
   },
   {
@@ -71,17 +74,13 @@
   {
    "fieldname": "participant_count",
    "fieldtype": "Int",
-   "label": "Participant Count"
+   "label": "Participant Count",
+   "non_negative": 1,
+   "reqd": 1
   },
   {
    "fieldname": "section_break_cfjo",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "activity_participants_list",
-   "fieldtype": "Table",
-   "label": "Activity Participants List",
-   "options": "Activity Participants List"
   },
   {
    "fieldname": "activity_execution",
@@ -106,12 +105,39 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "activity_deliverers",
+   "fieldtype": "Table",
+   "label": "Activity Speakers",
+   "options": "Activity Deliverers"
+  },
+  {
+   "depends_on": "eval:doc.type == \"Departments\"",
+   "fieldname": "departments",
+   "fieldtype": "Table",
+   "label": "Departments",
+   "options": "Activity Departments"
+  },
+  {
+   "fetch_from": "activity_request.participants_type",
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "label": "type",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.type == \"Staff\"",
+   "fieldname": "staff_activity_list",
+   "fieldtype": "Table",
+   "label": "Staff",
+   "options": "Activity Departments"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-06 13:37:07.476786",
+ "modified": "2024-07-25 12:42:28.944089",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity",
