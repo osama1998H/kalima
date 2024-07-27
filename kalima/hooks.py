@@ -23,6 +23,18 @@ fixtures = [
         ]
     },
     {
+        "dt": "Notification",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "Incoming Document"
+                ]
+            ]
+        ]
+    },
+    {
         "dt": "Week Day",
     },
 ]
