@@ -23,7 +23,9 @@
   "staff_activity_list",
   "requirements",
   "amended_from",
-  "activity_deliverers"
+  "activity_deliverers",
+  "is_published",
+  "route"
  ],
  "fields": [
   {
@@ -140,12 +142,25 @@
    "fieldname": "certificates_generated",
    "fieldtype": "Check",
    "label": "Certificates Generated"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "label": "Is Published"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
   }
  ],
+ "has_web_view": 1,
  "index_web_pages_for_search": 1,
+ "is_published_field": "is_published",
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-27 11:01:56.933887",
+ "modified": "2024-07-27 14:57:29.827676",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity",
@@ -165,6 +180,7 @@
    "write": 1
   }
  ],
+ "route": "activity",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
