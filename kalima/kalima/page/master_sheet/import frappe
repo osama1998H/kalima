@@ -1,0 +1,94 @@
+import frappe
+from frappe import _
+import json
+
+@frappe.whitelist()
+def get_master_sheet_data(filters=None):
+    filters = json.loads(filters)
+    columns, data = [], []
+
+
+    # Fetch columns based on the filters
+    module_columns = get_columns(filters)
+    columns.extend(module_columns)
+
+
+
+    # Fetch student data based on filters
+    students = get_students(filters)
+
+    # Populate data with empty values
+    for student in students:
+        row = {"student": student["name"]}
+        for col in columns[1:]:  # Skip the first column (student)
+            row[col["fieldname"]] = ''
+        data.append(row)
+
+    return {"columns": columns, "data": data}
+
+def get_columns(filters):
+    columns = []
+
+    query = """
+        SELECT pm.name, pm.module_name
+        FROM `tabPresented Module` pm
+        LEFT JOIN `tabDepartment` d ON pm.department = d.name
+        WHERE 1 = 1
+    """
+
+    if filters.get("department"):
+        query += " AND pm.department = %(department)s"
+    if filters.get("stage"):
+        query += " AND pm.stage = %(stage)s"
+    if filters.get("year"):
+        query += " AND pm.year = %(year)s"
+    if filters.get("study_system"):
+        if filters["study_system"] == "Morning":
+            query += " AND d.custom_morning = 1"
+        elif filters["study_system"] == "Evening":
+            query += " AND d.custom_evening = 1"
+
+    presented_modules = frappe.db.sql(query, filters, as_dict=True)
+
+    # Add main columns (module names) and sub-columns
+    for module in presented_modules:
+        module_fieldname = module["name"].lower().replace(" ", "_")
+        
+        # Add module name column
+        columns.append({
+            "fieldname": module_fieldname,
+            "label": frappe._(module["module_name"]),
+            "fieldtype": "Data",
+            "width": 240
+        })
+        
+        # Add sub-columns for the module
+        for suffix in ['_a', '_b', '_c', '_d']:
+            columns.append({
+                "fieldname": f"{module_fieldname}{suffix}",
+                # "label": suffix[-1].upper(),
+                "label": "س" if suffix == "_a" else ("د" if suffix == "_b" else ("ن" if suffix == "_c" else ("ق"))),
+                "fieldtype": "Data",
+                "width": 60
+            })
+
+    return columns
+
+def get_students(filters):
+    query = """
+        SELECT DISTINCT s.name
+        FROM `tabStudent` s
+        INNER JOIN `tabStudent Enrolled Modules` sem
+        ON s.name = sem.parent
+        WHERE 1 = 1
+    """
+
+    if filters.get("academic_system_type"):
+        query += " AND s.academic_system_type = %(academic_system_type)s"
+    if filters.get("department"):
+        query += " AND s.final_selected_course = %(department)s"
+    if filters.get("module"):
+        query += " AND sem.module = %(module)s"
+
+    students = frappe.db.sql(query, filters, as_dict=True)
+    return students
