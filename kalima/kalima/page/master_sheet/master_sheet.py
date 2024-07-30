@@ -47,11 +47,13 @@ def get_columns(filters):
     for module in presented_modules:
         module_fieldname = module["name"].lower().replace(" ", "_")
         module_name = module["module_name"].lower().replace(" ", "_")
+        nm = module["name"]
         
         # Add module name column
         columns.append({
             "fieldname": module_fieldname,
             "module_name": module_name,
+            "nm": nm,
             "label": frappe._(module["module_name"]),
             "fieldtype": "Data",
             "width": 240
@@ -61,6 +63,7 @@ def get_columns(filters):
         for suffix in ['_a', '_b', '_c', '_d']:
             columns.append({
                 "fieldname": f"{module_fieldname}{suffix}",
+                "nm": nm,
                 "module_name": module_name,
                 # "label": suffix[-1].upper(),
                 "label": "س" if suffix == "_a" else ("د" if suffix == "_b" else ("ن" if suffix == "_c" else ("ق"))),
@@ -94,24 +97,60 @@ def get_student_module_grades(students, columns,filters):
 
     for student in students:
         student_data = {"student_name": student["name"], "modules": []}
+
+        failed_modules = 0
+        ongoing = 0
+        final_avg= 0
         
         for col in columns:
             if col["fieldname"].endswith("_a"):
                 module_name = col["module_name"]#[:-2]  # Remove the suffix to get the module name
                 module_data = {"module_name": module_name}
-                
-                a,b,c,d = get_student_data(student["name"],module_name,filters)
+                a,b,c,d = get_student_data(student["name"],col["nm"],filters)
                 module_data["a"] = a#get_random_grade()
                 module_data["b"] = b#get_random_grade()
                 module_data["c"] = c#get_random_grade()
                 module_data["d"] = d#get_random_grade()
 
                 student_data["modules"].append(module_data)
-        
-            student_data["Status"] = get_random_grade()
-            student_data["Grade"] = get_random_grade()
-            student_data["Evaluation"] = get_random_grade()
-            student_data["Notes"] = get_random_grade()
+                final_avg = final_avg + c+d
+                if(c + d < 50):
+                    failed_modules =failed_modules+1
+                if(a == 0 or b == 0):
+                    ongoing = ongoing+1
+            studend_study_type = frappe.db.get_value("Student",student["name"],"academic_system_type")
+            
+            settings = frappe.get_single("Kalima Settings")
+            permitted_not_passed_modules_in_a_year = 0
+            if studend_study_type == "Annual":
+                permitted_not_passed_modules_in_a_year = settings.number_of_permited_fails_to_pass_a_year
+            elif studend_study_type == "Coursat":
+                permitted_not_passed_modules_in_a_year = settings.courses_number_of_permited_fails_to_pass_a_year
+            elif studend_study_type == "Bologna":
+                permitted_not_passed_modules_in_a_year = settings.bologna_number_of_permited_fails_to_pass_a_year
+            
+            student_data["Status"] = "Passed" if (permitted_not_passed_modules_in_a_year > failed_modules) else "Ongoing" if ongoing > 0 else "Failed" #"Passed" if c+d > 49 else "Failed"
+            student_data["Grade"] = final_avg
+            
+            evaluation = ""
+            if ongoing > 0:
+                evaluation = "ongoing"
+            else:
+                if final_avg <50:
+                    evaluation = "Failed"
+                elif final_avg <60:
+                    evaluation = "Acceptable"
+                elif final_avg <70:
+                    evaluation = "Medium"
+                elif final_avg <80:
+                    evaluation = "Good"
+                elif final_avg <90:
+                    evaluation = "Very Good"
+                elif final_avg <100:
+                    evaluation = "Excellent"
+                
+            student_data["Evaluation"] =evaluation
+            student_data["Notes"] = ""
             
                 
         student_module_grades.append(student_data)
@@ -147,16 +186,14 @@ def get_student_data(student_name,module_name,filters):
     res_filters = {
         'student': student_name,
         'module': module_name,
-        'academic_system_type':filters.get("study_system"),
+        # 'academic_system_type':filters.get("study_system"),
         'stage':filters.get("stage"),
-        'year':filters.get("year"),
+        # 'year':filters.get("year"),
         'department':filters.get("department"),
     }
     
-    
-    print("res_filters")
-    print(res_filters)
-    
+    # print("module_name")
+    # print(module_name)
     
     res_fields = ['net_score', 'score','result', 'round', 'midterm', 'type', 'present']
     
@@ -182,7 +219,7 @@ def get_student_data(student_name,module_name,filters):
     
         # Define the SQL query
     query = """
-        SELECT ser.final_grade
+        SELECT ser.final_grade,ser.curve
         FROM `tabStudent Result Log` ser
         WHERE ser.student = %s
         and type = "Final Grade"
@@ -191,7 +228,7 @@ def get_student_data(student_name,module_name,filters):
     records = frappe.db.sql(query, (student_name,module_name), as_dict=True)
 
     try:
-        d = records[0]["final_grade"]
+        d = records[0]["curve"]
     except:
         d=0
         
