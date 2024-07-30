@@ -1,0 +1,21 @@
+<div class="col-md-4">
+	<div class="card mb-3">
+		<div class="card-body">
+			<h5 class="card-title">
+				<a href="{{ doc.route }}" class="text-decoration-none">{{ doc.title or doc.name }}</a>
+			</h5>
+			{% if doc.start_date %}
+				<p class="card-text"><small class="text-muted">Start Date: {{ doc.start_date }}</small></p>
+			{% endif %}
+			{% if doc.end_date %}
+				<p class="card-text"><small class="text-muted">End Date: {{ doc.end_date }}</small></p>
+			{% endif %}
+			{% if doc.venue %}
+				<p class="card-text"><small class="text-muted">Venue: {{ doc.venue }}</small></p>
+			{% endif %}
+			{% if doc.description %}
+				<p class="card-text">{{ doc.description }}</p>
+			{% endif %}
+		</div>
+	</div>
+</div>

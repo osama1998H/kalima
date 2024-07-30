@@ -282,6 +282,5 @@ frappe.ui.form.on("Student", {
             dialog.show();
         });
 
-
     },
 });

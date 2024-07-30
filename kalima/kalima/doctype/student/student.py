@@ -57,7 +57,7 @@ class Student(Document):
 			doc.total = ttl
 			doc.final_average = ttl/len(doc.ministry_exam_results)
    
-		doc.full_name_in_arabic = f"{doc.first_name} {doc.second_name} {doc.third_name} {doc.fourth_name}"
+		doc.full_name_in_arabic = f"{doc.first_name} {doc.middle_name} {doc.last_name} {doc.fourth_name}"
                 
 	def after_save(doc):
 		# user = frappe.get_doc("User", doc.user)

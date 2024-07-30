@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:title",
+ "autoname": "format:Book-{title}",
  "creation": "2024-05-26 14:29:49.030059",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -35,7 +35,10 @@
   "right_to_use",
   "column_break_gpak",
   "ebook_file",
-  "barcode"
+  "barcode",
+  "website_section",
+  "is_published",
+  "route"
  ],
  "fields": [
   {
@@ -193,15 +196,34 @@
    "fieldtype": "Table MultiSelect",
    "label": "Tags",
    "options": "Books Tags"
+  },
+  {
+   "fieldname": "website_section",
+   "fieldtype": "Section Break",
+   "label": "Website"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "label": "Is Published"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route",
+   "read_only": 1
   }
  ],
+ "has_web_view": 1,
  "index_web_pages_for_search": 1,
+ "is_published_field": "is_published",
  "links": [],
- "modified": "2024-07-25 13:22:13.441404",
+ "modified": "2024-07-27 15:18:06.970303",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Book",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -217,6 +239,7 @@
    "write": 1
   }
  ],
+ "route": "books",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",

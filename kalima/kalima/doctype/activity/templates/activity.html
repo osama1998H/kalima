@@ -1,0 +1,84 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-4">
+    <div class="card-body">
+        <h1 class="card-title">{{ doc.title }}</h1>
+        <h5 class="card-subtitle mb-2 text-muted">{{ doc.status }}</h5>
+
+        {% if doc.start_date %}
+            <p class="card-text"><strong>Start Date:</strong> {{ doc.start_date }}</p>
+        {% endif %}
+        
+        {% if doc.end_date %}
+            <p class="card-text"><strong>End Date:</strong> {{ doc.end_date }}</p>
+        {% endif %}
+        
+        {% if doc.venue %}
+            <p class="card-text"><strong>Venue:</strong> {{ doc.venue }}</p>
+        {% endif %}
+        
+        {% if doc.participant_count %}
+            <p class="card-text"><strong>Participant Count:</strong> {{ doc.participant_count }}</p>
+        {% endif %}
+        
+        {% if doc.description %}
+            <p class="card-text">{{ doc.description }}</p>
+        {% endif %}
+        
+        {% if doc.requirements %}
+            <h5 class="mt-3">Requirements</h5>
+            <ul>
+                {% for requirement in doc.requirements %}
+                    <li>{{ requirement }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        {% if doc.activity_deliverers %}
+            <h5 class="mt-3">Activity Speakers</h5>
+            <ul>
+                {% for deliverer in doc.activity_deliverers %}
+                    <li>{{ deliverer.name }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if doc.ebook_file %}
+            <p class="card-text mt-3"><strong>File:</strong> 
+                <a href="{{ doc.ebook_file }}" class="btn btn-primary" target="_blank">Download</a>
+            </p>
+        {% endif %}
+
+        {% set request = frappe.get_doc("Activity Request", doc.activity_request) %}
+        <div class="mt-5">
+            <h3>Activity Request Details</h3>
+
+            <p class="card-text"><strong>Title:</strong> {{ request.title }}</p>
+            <p class="card-text"><strong>Type:</strong> {{ request.type }}</p>
+            <p class="card-text"><strong>Venue:</strong> {{ request.venue }}</p>
+            <p class="card-text"><strong>Date:</strong> {{ request.date }}</p>
+            <p class="card-text"><strong>Status:</strong> {{ request.status }}</p>
+            <p class="card-text"><strong>Description:</strong> {{ request.description }}</p>
+
+            {% if request.activity_deliverers %}
+                <h5 class="mt-3">Activity Speakers</h5>
+                <ul>
+                    {% for deliverer in request.activity_deliverers %}
+                        <li>{{ deliverer.speaker }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if request.cv %}
+                <p class="card-text mt-3"><strong>Activity Owner CV:</strong>
+                    <a href="{{ request.cv }}" class="btn btn-secondary" target="_blank">View CV</a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
