@@ -36,7 +36,7 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
             //     fieldtype: 'Select',
             //     fieldname: 'semester',
             //     label: 'Semester',
-            //     options: "Fall Semester\nSpring Semester\nShort Semester\nAnnual"
+            //     options: "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
             // },
             {
                 fieldtype: 'Select',
@@ -79,14 +79,7 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
                 options: "Coursat\nBologna\nAnnual",
                 read_only: 1
             },
-			{
-                fieldtype: 'Link',
-                fieldname: 'year',
-                label: 'Year',
-                options: "Educational Year",
-                reqd:1,
-                read_only: 0
-            },
+
             {
                 fieldtype: 'Section Break',
                 fieldname: 'scnb',
@@ -115,14 +108,16 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
     form.make();
 
     // Function to fetch students and display them in a table
-    function fetch_students(stage, department, semester, module, round, academic_system_type) {
+    function fetch_students(stage, department, semester, module, round,academic_system_type) {
         frappe.call({
             method: 'kalima.utils.utils.get_student_sheet',
             args: {
+                // stage: stage,
+                // department: department,
                 module: module,
+                // semester: semester,
                 round: round,
-            },
-            callback: function (response) {
+                // academic_system_type: academic_system_type,
             },
             callback: function (response) {
                 if (response.message) {
@@ -161,14 +156,7 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
         `;
 
         students.forEach(student => {
-function calculateResult(student, crv) {
-    return student.formative_assessment + student.midterm + student.final_exam_result + crv;
-}
-
-students.forEach(student => {
-    var res = calculateResult(student, crv);
-    var status = "Failed";
-    if (res > 49) {
+            var res = student.formative_assessment + student.midterm + student.final_exam_result + crv;
             var status = "Failed";
             if (res > 49) {
                 status = "Passed"

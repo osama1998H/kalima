@@ -1,0 +1,30 @@
+
+<div class="container mt-4">adsdasdasd
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                {% if doc.cover_image %}
+                    <img src="{{ doc.cover_image }}" class="card-img" alt="{{ doc.title }}">
+                {% else %}
+                    <img src="/path/to/default/image.jpg" class="card-img" alt="{{ doc.title }}">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ doc.route }}">{{ doc.title or doc.name }}</a>
+                    </h5>
+                    {% if doc.author %}
+                        <p class="card-text"><small class="text-muted">Author: {{ doc.author }}</small></p>
+                    {% endif %}
+                    {% if doc.description %}
+                        <p class="card-text">{{ doc.description }}</p>
+                    {% endif %}
+                    {% if doc.ebook_file %}
+                        <a href="{{ doc.ebook_file }}" class="btn btn-primary mt-3">Download Ebook</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

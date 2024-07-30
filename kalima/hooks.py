@@ -23,6 +23,18 @@ fixtures = [
         ]
     },
     {
+        "dt": "Notification",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "Incoming Document"
+                ]
+            ]
+        ]
+    },
+    {
         "dt": "Week Day",
     },
 ]
@@ -153,7 +165,7 @@ doctype_js = {"Employee" : "public/js/employee.js"}
 
 scheduler_events = {
     "daily": [
-        "kalima.kalima.utils.utils.fines"
+        "kalima.utils.utils.fines"
     ]
 }
 

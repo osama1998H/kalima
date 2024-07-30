@@ -1,0 +1,38 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<div class="container mt-4">
+        <div class="row no-gutters">
+            {% if doc.cover_image %}
+                <div class="col-md-4">
+                    <img src="{{ doc.cover_image }}" class="card-img" alt="{{ doc.title }}">
+                </div>
+            {% endif %}
+            <div class="{% if doc.cover_image %}col-md-8{% else %}col-md-12{% endif %}">
+                <div class="card-body">
+                    <h1 class="card-title">{{ doc.title }}</h1>
+                    {% if doc.author %}
+                        <h5 class="card-text text-muted">Author: {{ doc.author }}</h5>
+                    {% endif %}
+                    {% if doc.publisher %}
+                        <h6 class="card-text text-muted">Publisher: {{ doc.publisher }}</h6>
+                    {% endif %}
+                    {% if doc.date_of_publish %}
+                        <h6 class="card-text text-muted">Published on: {{ doc.date_of_publish }}</h6>
+                    {% endif %}
+                    {% if doc.language %}
+                        <h6 class="card-text text-muted">Language: {{ doc.language }}</h6>
+                    {% endif %}
+                    {% if doc.description %}
+                        <p class="card-text mt-4">{{ doc.description }}</p>
+                    {% endif %}
+                    {% if doc.ebook_file %}
+                        <a href="{{ doc.ebook_file }}" class="btn btn-primary mt-3">Download Ebook</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+</div>
+
+{% endblock %}
