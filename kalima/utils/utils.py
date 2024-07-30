@@ -81,8 +81,6 @@ def get_student_results(student_name):
 
 @frappe.whitelist()
 def get_student_final_results(student_name):
-
-
     # Define the SQL query
     query = """
         SELECT ser.*
@@ -129,59 +127,6 @@ def submit_student_results(student_results):
     return "Results submitted successfully"
 
 
-
-# @frappe.whitelist()
-# def get_student_sheet( stage, department,module,semester,academic_system_type,round):
-#     filters = {
-#         'stage': stage,
-#         'academic_system_type': academic_system_type,
-#         'final_selected_course': department
-#     }
-    
-#     fields = ['name', 'stage', 'final_selected_course']
-    
-#     students = frappe.get_list('Student', filters=filters, fields=fields)
-
-#     stds= []
-#     for student in students:   
-#         std = {}
-#         form_assess = 0
-#         midterm = 0
-#         res_filters = {
-#             'student': student.name,
-#             'module': module,
-#             'stage': stage,
-#             'academic_system_type': academic_system_type,
-#         }
-        
-            
-#         res_fields = ['net_score', 'score','result', 'round', 'midterm', 'type', 'present']
-        
-#         final_exam_result = 0
-        
-#         cons = frappe.get_list('Student Result Log', filters=res_filters, fields=res_fields)
-
-
-#         for cont in cons:
-#             if(cont.type == "Class Continuous Exam" or cont.type == "Assignment"):
-#                 form_assess += cont.net_score
-#                 midterm += cont.midterm
-#             else:
-#                 if cont.round == round or True:
-#                     final_exam_result = cont.result
-#                     std["final_exam_result"]= final_exam_result if cont.present == 1 else 0
-
-#         std["formative_assessment"]=form_assess
-#         std["midterm"]=midterm
-#         std["name"]=student.name
-#         std["present"]="Yes" if student.present == 1 else "No"
-#         # std["final_exam_result"]= final_exam_result if student.present == 1 else 0
-        
-#         stds.append(std)
-
-#     return stds
-
-
 @frappe.whitelist()
 def get_student_sheet(module,round):
     modl = frappe.get_doc("Presented Module", module)
@@ -200,8 +145,7 @@ def get_student_sheet(module,round):
     """
 
     students = frappe.db.sql(query, (academic_system_type, department, module), as_dict=True)
-    print("students")
-    print(students)
+
     # return
     stds= []
     for student in students:   

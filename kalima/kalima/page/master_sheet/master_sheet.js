@@ -75,19 +75,21 @@ frappe.pages['master-sheet'].on_page_load = function (wrapper) {
 
         // Create table body with dynamic data
         const tbody = $('<tbody></tbody>');
-        data.data.forEach(item => {
+        data.data.forEach(item => {;
             const row = $('<tr></tr>');
-            row.append(`<td>${item.student}</td>`);
-
-            data.columns.forEach(col => {
-                if (col.fieldname !== 'student') {
-                    if (item[col.fieldname] !== undefined) {
-                        row.append(`<td>${item[col.fieldname]}</td>`);
-                    } else {
-                        row.append('<td></td>');
-                    }
-                }
+            row.append(`<td>${item.student_name}</td>`);
+            
+            item.modules.forEach(module => {
+                row.append(`<td>${module.a}</td>`);
+                row.append(`<td>${module.b}</td>`);
+                row.append(`<td>${module.c}</td>`);
+                row.append(`<td>${module.d}</td>`);
+    
             });
+            row.append(`<td>${item.Status}</td>`);
+            row.append(`<td>${item.Grade}</td>`);
+            row.append(`<td>${item.Evaluation}</td>`);
+            row.append(`<td>${item.Notes}</td>`);
 
             tbody.append(row);
         });
