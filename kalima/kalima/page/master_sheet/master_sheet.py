@@ -25,7 +25,7 @@ def get_columns(filters):
     columns = []
 
     query = """
-        SELECT pm.name, pm.module_name
+        SELECT pm.name, pm.module
         FROM `tabPresented Module` pm
         LEFT JOIN `tabDepartment` d ON pm.department = d.name
         WHERE 1 = 1
@@ -43,14 +43,16 @@ def get_columns(filters):
         elif filters["study_system"] == "Evening":
             query += " AND d.custom_evening = 1"
 
-    query += " GROUP BY pm.module_name"
+    query += " GROUP BY pm.module"
 
     presented_modules = frappe.db.sql(query, filters, as_dict=True)
 
+
     # Add main columns (module names) and sub-columns
     for module in presented_modules:
+        print(module)
         module_fieldname = module["name"].lower().replace(" ", "_")
-        module_name = module["module_name"].lower().replace(" ", "_")
+        module_name = module["module"].lower().replace(" ", "_")
         nm = module["name"]
         
         # Add module name column
@@ -58,7 +60,7 @@ def get_columns(filters):
             "fieldname": module_fieldname,
             "module_name": module_name,
             "nm": nm,
-            "label": frappe._(module["module_name"]),
+            "label": frappe._(module["module"]),
             "fieldtype": "Data",
             "width": 240
         })

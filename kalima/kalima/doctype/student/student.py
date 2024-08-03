@@ -31,6 +31,8 @@ class Student(Document):
 				}
 			)
 			user_doc.save()
+   
+			doc.full_name_in_arabic = doc.first_name + " " + doc.middle_name + " " + doc.last_name
 
 			customer = frappe.get_doc(
 				{
@@ -73,12 +75,13 @@ class Student(Document):
 	def check_student_stage(self):
 		# Get the number of permitted fails to pass a year from Kalima Setting
 		kalima_setting = frappe.get_single("Kalima Settings")
+		number_of_permitted_fails_to_pass_a_year = 2
 		if(self.academic_system_type == "Coursat"):
-			number_of_permitted_fails_to_pass_a_year = kalima_setting.get("courses_number_of_permited_fails_to_pass_a_year")
+			number_of_permitted_fails_to_pass_a_year = kalima_setting.courses_number_of_permited_fails_to_pass_a_year
 		elif(self.academic_system_type == "Annual"):
-			number_of_permitted_fails_to_pass_a_year = kalima_setting.get("number_of_permited_fails_to_pass_a_year")
+			number_of_permitted_fails_to_pass_a_year = kalima_setting.number_of_permited_fails_to_pass_a_year
 		elif(self.academic_system_type == "Bologna"):
-			number_of_permitted_fails_to_pass_a_year = kalima_setting.get("bologna_number_of_permited_fails_to_pass_a_year")
+			number_of_permitted_fails_to_pass_a_year = kalima_setting.bologna_number_of_permited_fails_to_pass_a_year
 
 		# Stage mapping: map stage names to numeric values
 		stage_mapping = {

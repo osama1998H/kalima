@@ -9,11 +9,13 @@
   "title",
   "type",
   "venue",
+  "status",
+  "column_break_msoa",
   "date",
   "deliverer_type",
   "cv",
-  "status",
-  "column_break_msoa",
+  "details_section",
+  "template",
   "description",
   "section_break_brcz",
   "activity_deliverers",
@@ -114,12 +116,23 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "label": "Template",
+   "options": "Terms and Conditions"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-06 13:26:49.131513",
+ "modified": "2024-08-03 13:01:33.277969",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity Request",

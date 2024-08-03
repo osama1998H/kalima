@@ -78,23 +78,23 @@
    "search_index": 1
   },
   {
-   "fieldname": "participants_type",
-   "fieldtype": "Select",
-   "label": "Participants Type",
-   "options": "General\nStaff\nDepartments"
-  },
-  {
    "depends_on": "eval:doc.participants_type == \"Staff\"",
    "fieldname": "staff_activity_list",
    "fieldtype": "Table",
    "label": "Staff",
    "options": "Staff Activity List"
+  },
+  {
+   "fetch_from": "activity_request.participants_type",
+   "fieldname": "participants_type",
+   "fieldtype": "Data",
+   "label": "Participants Type"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-27 16:27:33.088762",
+ "modified": "2024-08-03 13:05:37.043058",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity Announcement",

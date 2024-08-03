@@ -128,10 +128,10 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval:doc.academic_system_type == \"Bologna\"",
    "fieldname": "usswl",
    "fieldtype": "Int",
    "label": "USSWL",
-   "options": "Module",
    "read_only": 1
   },
   {
@@ -437,7 +437,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-25 10:59:34.971582",
+ "modified": "2024-08-03 12:46:28.153973",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Presented Module",
