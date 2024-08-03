@@ -374,14 +374,14 @@ def fines():
     lend_books = frappe.get_all(
         "Lend Book",
         filters={
-            'creation': ('>', (current_date - timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S'))  # Example: 30 days ago
+            'creation': ('<', (current_date - timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S'))  # Example: 30 days ago
         },
         fields=["name", "creation", "borrowing_days", "extra_period", "book", "user", "user_type", "fine_amount"]
     )
     
     for lend_book in lend_books:
         creation_date = lend_book.get('creation')
-        borrowing_days = int(lend_book.get('borrowing_days')) + int(lend_book.get('extra_period'))
+        borrowing_days = int(lend_book.get('borrowing_days')) + int(lend_book.get('extra_period') if lend_book.get('extra_period') != None else "0")
 
         # Calculate the difference in days between the current date and the creation date
         day_difference = (current_date - creation_date).days

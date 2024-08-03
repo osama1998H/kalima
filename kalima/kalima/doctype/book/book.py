@@ -6,4 +6,10 @@ from frappe.website.website_generator import WebsiteGenerator
 
 
 class Book(WebsiteGenerator):
-	pass
+	def before_save(doc):
+		tags = doc.get_tags()
+		for tag in tags:
+			print(tag)
+			doc.append("tags",{
+				"tag":tag
+			})
