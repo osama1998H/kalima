@@ -262,11 +262,7 @@ def get_student_from_prototype(module):
     """
 
     students = frappe.db.sql(query, (academic_system_type, department, module.name), as_dict=True)
-    print("students")
-    print(students)
-    print(academic_system_type)
-    print(department)
-    print(module)
+
     return students
     
 @frappe.whitelist()
