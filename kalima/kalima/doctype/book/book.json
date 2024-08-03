@@ -195,7 +195,8 @@
    "fieldname": "tags",
    "fieldtype": "Table MultiSelect",
    "label": "Tags",
-   "options": "Books Tags"
+   "options": "Books Tags",
+   "read_only": 1
   },
   {
    "fieldname": "website_section",
@@ -219,7 +220,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "is_published",
  "links": [],
- "modified": "2024-07-27 15:18:06.970303",
+ "modified": "2024-08-03 15:32:55.436770",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Book",
