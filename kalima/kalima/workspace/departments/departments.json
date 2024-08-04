@@ -1,0 +1,237 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"4uQR9G6onj\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Departments</span>\",\"col\":12}},{\"id\":\"4BVsFB0rRZ\",\"type\":\"card\",\"data\":{\"card_name\":\"Department\",\"col\":4}},{\"id\":\"7QCD9y2WnZ\",\"type\":\"card\",\"data\":{\"card_name\":\"Class\",\"col\":4}},{\"id\":\"kUjdPpffln\",\"type\":\"card\",\"data\":{\"card_name\":\"Others\",\"col\":4}}]",
+ "creation": "2024-08-04 20:18:50.018606",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "education",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Departments",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Department",
+   "link_count": 7,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student",
+   "link_count": 0,
+   "link_to": "Student",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Question Prototype",
+   "link_count": 0,
+   "link_to": "Question Prototype",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Module",
+   "link_count": 0,
+   "link_to": "Module",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Presented Module",
+   "link_count": 0,
+   "link_to": "Presented Module",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class Distribution Tool",
+   "link_count": 0,
+   "link_to": "class-distribution-t",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Result Entry",
+   "link_count": 0,
+   "link_to": "student-result-entry",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class Managment",
+   "link_count": 0,
+   "link_to": "class-managment",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Others",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Incoming",
+   "link_count": 0,
+   "link_to": "Incoming",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Outgoing",
+   "link_count": 0,
+   "link_to": "Outgoing",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class",
+   "link_count": 0,
+   "link_to": "Class",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Faculty",
+   "link_count": 0,
+   "link_to": "Faculty",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class",
+   "link_count": 7,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class Session",
+   "link_count": 0,
+   "link_to": "Class Session",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class Continuous Exam",
+   "link_count": 0,
+   "link_to": "Class Continuous Exam",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Exam Questions",
+   "link_count": 0,
+   "link_to": "Exam Questions",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Exam Result Entry",
+   "link_count": 0,
+   "link_to": "Exam Result Entry",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Exam Result",
+   "link_count": 0,
+   "link_to": "Student Exam Result",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Assignments and Tasks",
+   "link_count": 0,
+   "link_to": "Assignments and Tasks",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Class Timetable",
+   "link_count": 0,
+   "link_to": "Class Timetable",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-08-04 20:29:01.776680",
+ "modified_by": "Administrator",
+ "module": "Kalima",
+ "name": "Departments",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 46.0,
+ "shortcuts": [],
+ "title": "Departments"
+}

@@ -35,7 +35,7 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                                 }
                                 else if(module_doc.academic_system_type == "Coursat") {
                                     form.fields_dict['exam_type'].df.hidden = 0;
-                                    form.fields_dict['exam_type'].df.options = "Course Final Exam";
+                                    form.fields_dict['exam_type'].df.options = "First Course Exam\nSecond Course Exam\nCourse Try Exam";
                                 }
                                 else if(module_doc.academic_system_type == "Bologna") {
                                     form.fields_dict['exam_type'].df.hidden = 1;

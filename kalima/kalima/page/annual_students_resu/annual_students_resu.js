@@ -4,6 +4,8 @@ frappe.pages['annual-students-resu'].on_page_load = function (wrapper) {
 		title: 'Annual Students Result Sheet',
 		single_column: true
 	});
+
+	
 	var crv = 0;
 
 	// Create a form container
