@@ -1,11 +1,11 @@
-frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
-    var page = frappe.ui.make_app_page({
-        parent: wrapper,
-        title: 'Bologna Students Result Sheet',
-        single_column: true
-    });
-    var crv = 0;
+frappe.pages['annual-students-resu'].on_page_load = function(wrapper) {
+	var page = frappe.ui.make_app_page({
+		parent: wrapper,
+		title: 'Annual Students Result Sheet',
+		single_column: true
+	});
 
+	
     // Create a form container
     let form = new frappe.ui.FieldGroup({
         fields: [

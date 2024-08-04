@@ -1,19 +1,19 @@
 {
  "content": null,
- "creation": "2024-07-04 15:30:54.355908",
+ "creation": "2024-08-03 15:48:37.509053",
  "docstatus": 0,
  "doctype": "Page",
- "idx": 2,
- "modified": "2024-08-03 15:39:57.724911",
+ "idx": 0,
+ "modified": "2024-08-03 15:48:37.509053",
  "modified_by": "Administrator",
  "module": "Kalima",
- "name": "student-result-sheet-1",
+ "name": "courses-students-res",
  "owner": "Administrator",
- "page_name": "student-result-sheet-1",
+ "page_name": "courses-students-res",
  "roles": [],
  "script": null,
  "standard": "Yes",
  "style": null,
  "system_page": 0,
- "title": "bologna Students Result Sheet"
+ "title": "Courses Students Result Sheet"
 }
