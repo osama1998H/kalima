@@ -21,6 +21,7 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                         frappe.db.get_doc('Question Prototype', prototype).then(doc => {
                             form.set_value('module', doc.module);
                             form.set_value('teacher', doc.teacher);
+                            form.set_value('exam_max_mark', doc.exam_max_mark);
 
                             // Get the stage and department from the selected module
                             frappe.db.get_doc('Presented Module', doc.module).then(module_doc => {
@@ -50,7 +51,12 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                 label: 'Teacher',
                 options: 'Employee', // Replace 'Doctype' with the actual doctype you want to link to
                 read_only: 1
-            },
+            },            {
+                fieldtype: 'Float',
+                fieldname: 'exam_max_mark',
+                label: 'Exam max mark',
+                read_only: 1,
+            },    
             {
                 fieldtype: 'Column Break',
                 fieldname: 'clmn',
@@ -60,7 +66,8 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                 fieldname: 'stage',
                 label: 'Stage',
                 read_only: 1
-            },            
+            },               
+        
             {
                 fieldtype: 'Data',
                 fieldname: 'academic_system_type',
@@ -94,24 +101,6 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                 }
             }
         });
-        // frappe.call({
-        //     method: 'frappe.client.get_list',
-        //     args: {
-        //         doctype: 'Student',
-        //         filters: {
-        //             'stage': stage,
-        //             'final_selected_course': department
-        //         },
-        //         fields: ['name', 'stage', 'final_selected_course']
-        //     },
-        //     callback: function (response) {
-        //         if (response.message) {
-        //             let students = response.message;
-        //             display_students(students);
-
-        //         }
-        //     }
-        // });
     }
 
     // Function to display students in a Bootstrap table
@@ -142,7 +131,7 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
             table_html += `
                 <tr>
                     <td>${student.name}</td>
-                    <td>50</td>
+                    <td>${form.values.academic_system_type}</td>
                     <td><input type="number" class="form-control final-result" placeholder="Final Result" min="0" max="50" required></td>
                     <td>
                         <select class="form-control">

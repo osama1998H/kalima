@@ -1,19 +1,19 @@
 {
  "content": null,
- "creation": "2024-07-04 15:30:54.355908",
+ "creation": "2024-08-03 15:45:06.558858",
  "docstatus": 0,
  "doctype": "Page",
- "idx": 2,
- "modified": "2024-08-03 15:39:57.724911",
+ "idx": 0,
+ "modified": "2024-08-03 15:45:06.558858",
  "modified_by": "Administrator",
  "module": "Kalima",
- "name": "student-result-sheet-1",
+ "name": "annual-students-resu",
  "owner": "Administrator",
- "page_name": "student-result-sheet-1",
+ "page_name": "annual-students-resu",
  "roles": [],
  "script": null,
  "standard": "Yes",
  "style": null,
  "system_page": 0,
- "title": "bologna Students Result Sheet"
+ "title": "Annual Students Result Sheet"
 }

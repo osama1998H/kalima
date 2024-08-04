@@ -48,6 +48,7 @@
   "prototype",
   "exam_max_result",
   "result",
+  "final_exam_type",
   "column_break_cmbi",
   "status",
   "cheating",
@@ -321,13 +322,19 @@
    "fieldname": "module_department",
    "fieldtype": "Data",
    "label": "Module Department"
+  },
+  {
+   "fieldname": "final_exam_type",
+   "fieldtype": "Select",
+   "label": "Final Exam Type",
+   "options": "\nCourse Final Exam\nAnnual Final Exam\nAnnual Half Year Exam"
   }
  ],
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-21 14:47:28.104466",
+ "modified": "2024-08-04 11:27:38.269374",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student Result Log",
