@@ -9,8 +9,11 @@
   "section_break_pqvw",
   "module",
   "teacher",
-  "questions_prototype",
-  "amended_from"
+  "column_break_leui",
+  "exam_max_mark",
+  "amended_from",
+  "section_break_suic",
+  "questions_prototype"
  ],
  "fields": [
   {
@@ -48,12 +51,25 @@
    "label": "Teacher",
    "options": "Employee",
    "reqd": 1
+  },
+  {
+   "fieldname": "column_break_leui",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_suic",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "exam_max_mark",
+   "fieldtype": "Float",
+   "label": "Exam Max Mark"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-06 14:29:09.836072",
+ "modified": "2024-08-04 11:48:25.826124",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Question Prototype",
