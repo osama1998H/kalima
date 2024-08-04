@@ -34,3 +34,7 @@ class LendBook(Document):
 			# Check if the user has exceeded the borrowing limit
 			if len(not_returned_books) > limit:
 				frappe.throw(_("The user has exceeded the borrowing limit for {0}").format(self.user_type))
+
+		if(self.extra_period == None):
+			self.extra_period = frappe.get_value("Fining System",self.fining_system,"period")
+			
