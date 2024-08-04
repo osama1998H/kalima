@@ -28,6 +28,22 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                                 form.set_value('stage', module_doc.stage);
                                 let department = module_doc.department;
                                 console.log(module_doc.academic_system_type);
+
+                                if (module_doc.academic_system_type == "Annual") {
+                                    form.fields_dict['exam_type'].df.hidden = 0;
+                                    form.fields_dict['exam_type'].df.options = "Annual Final Exam\nAnnual Half Year Exam";
+                                }
+                                else if(module_doc.academic_system_type == "Coursat") {
+                                    form.fields_dict['exam_type'].df.hidden = 0;
+                                    form.fields_dict['exam_type'].df.options = "Course Final Exam";
+                                }
+                                else if(module_doc.academic_system_type == "Bologna") {
+                                    form.fields_dict['exam_type'].df.hidden = 1;
+                                }
+
+                                form.fields_dict['exam_type'].refresh();
+
+
                                 form.set_value('academic_system_type', module_doc.academic_system_type);
 
                                 // Fetch students with the same stage and department
@@ -51,12 +67,13 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                 label: 'Teacher',
                 options: 'Employee', // Replace 'Doctype' with the actual doctype you want to link to
                 read_only: 1
-            },            {
+            }, {
                 fieldtype: 'Float',
                 fieldname: 'exam_max_mark',
                 label: 'Exam max mark',
                 read_only: 1,
-            },    
+                default: 0
+            },
             {
                 fieldtype: 'Column Break',
                 fieldname: 'clmn',
@@ -66,8 +83,8 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                 fieldname: 'stage',
                 label: 'Stage',
                 read_only: 1
-            },               
-        
+            },
+
             {
                 fieldtype: 'Data',
                 fieldname: 'academic_system_type',
@@ -79,6 +96,14 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                 fieldname: 'round',
                 label: 'Round',
                 options: 'First\nSecond\nThird',
+            },
+            {
+                fieldtype: 'Select',
+                fieldname: 'exam_type',
+                reqd: 1,
+                label: 'Exam Type',
+                default: null,
+                options: ' \nCourse Final Exam\nAnnual Final Exam\nAnnual Half Year Exam',
             },
         ],
         body: page.body
@@ -127,11 +152,16 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                     <tbody>
         `;
 
+        var bulics = form.get_value('exam_max_mark');
+        if (bulics == 0 || bulics == undefined) {
+            bulics = 50;
+        }
+
         students.forEach(student => {
             table_html += `
                 <tr>
                     <td>${student.name}</td>
-                    <td>${form.values.academic_system_type}</td>
+                    <td>${bulics}</td>
                     <td><input type="number" class="form-control final-result" placeholder="Final Result" min="0" max="50" required></td>
                     <td>
                         <select class="form-control">
@@ -180,7 +210,9 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
             let teacher = form.get_value('teacher');
             let round = form.get_value('round');
             let stage = form.get_value('stage');
+            let exam_type = form.get_value('exam_type');
             let academic_system_type = form.get_value('academic_system_type');
+            let exam_max_mark = form.get_value('exam_max_mark');
             let student_results = [];
             let valid = true;
 
@@ -203,8 +235,12 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                     round: round,
                     module: module,
                     stage: stage,
+                    type: stage,
                     academic_system_type: academic_system_type,
-                    teacher: teacher
+                    teacher: teacher,
+                    exam_max_mark: exam_max_mark,
+                    exam_type: exam_type,
+
                 };
                 student_results.push(student_result);
             });
