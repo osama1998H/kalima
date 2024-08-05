@@ -21,7 +21,7 @@ class ApplicantStudent(Document):
                 frappe.throw(_("Age must be more than 17 years."))
 
     def before_save(self):
-        self.full_name_in_arabic = f"{self.first_name} {self.second_name} {self.third_name} {self.fourth_name}"
+        self.full_name_in_arabic = f"{self.first_name} {self.middle_name} {self.last_name} {self.fourth_name}"
                 
 @frappe.whitelist()
 def admit_student(doc_name, department, study_system):
