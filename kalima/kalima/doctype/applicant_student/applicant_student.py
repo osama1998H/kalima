@@ -4,24 +4,32 @@ from frappe import _
 from datetime import datetime, timedelta
 
 
+
 class ApplicantStudent(Document):
     def validate(self):
         # Concatenate full name in Arabic
         self.full_name_in_arabic = f"{self.first_name} {self.middle_name} {self.last_name} {self.fourth_name}"
         
         # Validate age
-        if self.date_of_birth:
-            # Ensure date_of_birth is parsed as a datetime.date object
-            if isinstance(self.date_of_birth, str):
-                dob = datetime.strptime(self.date_of_birth, '%Y-%m-%d').date()
-            else:
-                dob = self.date_of_birth
-            age = (datetime.now().date() - dob).days / 365.25
-            if age < 17:
-                frappe.throw(_("Age must be more than 17 years."))
+        try:
+            if self.date_of_birth:
+                # Ensure date_of_birth is parsed as a datetime.date object
+                if isinstance(self.date_of_birth, str):
+                    dob = datetime.strptime(self.date_of_birth, '%Y-%m-%d').date()
+                else:
+                    dob = self.date_of_birth
+                # Convert current datetime to date
+                current_date = datetime.now().date()
+                age = (current_date - dob).days / 365.25
+                if age < 17:
+                    frappe.throw(_("Age must be more than 17 years."))
+        except:
+            pass
 
     def before_save(self):
         self.full_name_in_arabic = f"{self.first_name} {self.middle_name} {self.last_name} {self.fourth_name}"
+        
+        
                 
 @frappe.whitelist()
 def admit_student(doc_name, department, study_system):
