@@ -129,8 +129,7 @@
    "fieldname": "exam_max_result",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "Exam Max Result",
-   "options": "Student"
+   "label": "Exam Max Result"
   },
   {
    "fieldname": "result",
@@ -334,7 +333,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-04 11:27:38.269374",
+ "modified": "2024-08-04 12:54:11.302445",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student Result Log",

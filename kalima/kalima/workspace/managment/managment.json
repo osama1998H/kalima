@@ -1,0 +1,79 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"phyNjGjmsa\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Managment</span>\",\"col\":12}},{\"id\":\"zvtMZHfB-u\",\"type\":\"card\",\"data\":{\"card_name\":\"Managment\",\"col\":4}}]",
+ "creation": "2024-08-04 20:29:51.449226",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "mark-as-read",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Managment",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Managment",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Outgoing",
+   "link_count": 0,
+   "link_to": "Outgoing",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Incoming",
+   "link_count": 0,
+   "link_to": "Incoming",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Employee",
+   "link_count": 0,
+   "link_to": "Employee",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Department",
+   "link_count": 0,
+   "link_to": "Department",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-08-04 20:30:45.276960",
+ "modified_by": "Administrator",
+ "module": "Kalima",
+ "name": "Managment",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 47.0,
+ "shortcuts": [],
+ "title": "Managment"
+}
