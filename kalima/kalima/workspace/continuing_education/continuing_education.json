@@ -1,0 +1,62 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"cJ3Ru60aow\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Continuing Education</span>\",\"col\":12}},{\"id\":\"YsLhuFWoE4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Activity Request\",\"col\":4}},{\"id\":\"5QKkHflxUe\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Activity Announcement\",\"col\":4}},{\"id\":\"3-1F5--5l3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Venue\",\"col\":4}},{\"id\":\"DqBO9L1ZC9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Activity\",\"col\":4}}]",
+ "creation": "2024-08-04 19:59:30.622530",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "file",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Continuing Education",
+ "links": [],
+ "modified": "2024-08-04 20:03:13.370005",
+ "modified_by": "Administrator",
+ "module": "Kalima",
+ "name": "Continuing Education",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 42.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Activity",
+   "link_to": "Activity",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Activity Request",
+   "link_to": "Activity Request",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Activity Announcement",
+   "link_to": "Activity Announcement",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Venue",
+   "link_to": "Venue",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Continuing Education"
+}

@@ -1,0 +1,62 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"KHarSvkVcH\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Legal Department</span>\",\"col\":12}},{\"id\":\"INNLqwFAER\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Contract\",\"col\":3}},{\"id\":\"X197TKuvwU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department\",\"col\":3}},{\"id\":\"ntqHtNr6e9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Employee\",\"col\":3}},{\"id\":\"qzxqa8grSH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Contract Template\",\"col\":3}}]",
+ "creation": "2024-08-04 20:04:45.206892",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "month-view",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Legal Department",
+ "links": [],
+ "modified": "2024-08-04 20:09:49.490153",
+ "modified_by": "Administrator",
+ "module": "Kalima",
+ "name": "Legal Department",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 43.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Department",
+   "link_to": "Department",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Contract",
+   "link_to": "Contract",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Employee",
+   "link_to": "Employee",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Contract Template",
+   "link_to": "Contract Template",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Legal Department"
+}
