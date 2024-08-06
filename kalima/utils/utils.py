@@ -103,6 +103,11 @@ def submit_student_results(student_results):
     student_results = json.loads(student_results)
     
     for result in student_results:
+        exam_type = None
+        try:
+            exam_type =result["exam_type"]
+        except:
+            pass
         
         doc = frappe.get_doc({
             'doctype': 'Student Result Log',
@@ -123,7 +128,7 @@ def submit_student_results(student_results):
             'cheating': 0 if result["cheating"] == "No" else 1,
             'present': 1 if result["cheating"] == "Yes" else 1,
             
-            "final_exam_type": result["exam_type"]
+            "final_exam_type": exam_type
         })
         doc.insert()
         doc.submit()
@@ -132,23 +137,26 @@ def submit_student_results(student_results):
 
 
 @frappe.whitelist()
-def get_student_sheet(module,round):
+def get_student_sheet(module, round):
     modl = frappe.get_doc("Presented Module", module)
     academic_system_type = modl.academic_system_type
     department = modl.department
 
+
+    # Initialize the base query
     query = """
         SELECT s.name
         FROM `tabStudent` s
         INNER JOIN `tabStudent Enrolled Modules` sem
         ON s.name = sem.parent
-        WHERE s.academic_system_type = %s
-        AND s.final_selected_course = %s
+        INNER JOIN `tabPresented Module` pm
+        ON sem.module = pm.name
+        WHERE s.final_selected_course = %s
         AND sem.module = %s
         AND sem.status != 'Passed'
+        AND pm.academic_system_type = %s
     """
-
-    students = frappe.db.sql(query, (academic_system_type, department, module), as_dict=True)
+    students = frappe.db.sql(query, (department, module, academic_system_type), as_dict=True)
 
     # return
     stds= []
@@ -170,11 +178,6 @@ def get_student_sheet(module,round):
         
         cons = frappe.get_list('Student Result Log', filters=res_filters, fields=res_fields)
 
-        # print("cons")
-        # print(cons)
-        # print(modl.academic_system_type)
-        # print(modl.name)
-        
         for cont in cons:
             if(cont.type == "Class Continuous Exam" or cont.type == "Assignment"):
                 form_assess += cont.net_score
@@ -225,7 +228,8 @@ def submit_student_sheet(form_data, students_data):
             'stage': form_data["stage"],
             'academic_system_type': form_data["academic_system_type"],
             
-            'final_status': "Passed" if (float(std["result"]) > 49) else "Failed" ,
+            # 'final_status': "Passed" if (float(std["result"]) > 49) else "Failed" ,
+            'final_status': std["result"],
 
             'student': std["name"],
             'final_grade': std["result"],
@@ -248,11 +252,14 @@ def submit_student_sheet(form_data, students_data):
 
 
 @frappe.whitelist()
-def get_student_from_prototype(module):
-    module = frappe.get_doc("Presented Module",module)
-    
+def get_student_from_prototype(prototype):
+    # module = frappe.get_doc("Presented Module",module)
+    prototype = frappe.get_doc("Question Prototype",prototype)
+    module = frappe.get_doc("Presented Module",prototype.module)
+
     academic_system_type = module.academic_system_type
     department = module.department
+    print(academic_system_type, department, module.name)
 
     query = """
         SELECT s.name
@@ -581,7 +588,129 @@ def submit_student_sheet_annual(form_data, students_data):
             'stage': form_data["stage"],
             'academic_system_type': form_data["academic_system_type"],
             
-            'final_status': "Passed" if (float(std["result"]) > 49) else "Failed" ,
+            # 'final_status': "Passed" if (float(std["result"]) > 49) else "Failed" ,
+            'final_status': std["result"],
+
+            'student': std["name"],
+            'final_grade': std["result"],
+            'curve': form_data["curve"],
+            'note': std["notes"],
+            'status': std["status"],
+        })
+        doc.insert()
+        doc.submit()
+        
+        update_student_stage(std["name"],std["status"] == "Passed",form_data["module"])
+            
+        # else:
+        #     print(f"Record already exists for student: {std['name']}")
+
+    print("Form Data:", form_data)
+    print("Students Data:", students_data)
+
+    return 'Results submitted successfully!'
+
+
+
+   
+
+@frappe.whitelist()
+def get_student_sheet_courses(module,round):
+    modl = frappe.get_doc("Presented Module", module)
+    academic_system_type = modl.academic_system_type
+    department = modl.department
+
+    query = """
+        SELECT s.name
+        FROM `tabStudent` s
+        INNER JOIN `tabStudent Enrolled Modules` sem
+        ON s.name = sem.parent
+        WHERE s.academic_system_type = %s
+        AND s.final_selected_course = %s
+        AND sem.module = %s
+        AND sem.status != 'Passed'
+    """
+
+    students = frappe.db.sql(query, (academic_system_type, department, module), as_dict=True)
+
+    # return
+    stds= []
+    for student in students:   
+        std = {}
+        form_assess = 0
+        midterm = 0
+        res_filters = {
+            'student': student.name,
+            'module': modl.name,
+            # 'stage': modl.stage,
+            'academic_system_type':modl.academic_system_type,
+        }
+        
+            
+        res_fields = ['net_score', 'score','result', 'round', 'midterm', 'type', 'present']
+        
+        final_exam_result = 0
+        
+        cons = frappe.get_list('Student Result Log', filters=res_filters, fields=res_fields)
+
+        
+        for cont in cons:
+            
+            # if(cont.final_exam_type == "Annual Half Year Exam"):
+            #     midterm += cont.midterm
+            
+            if(cont.type == "Class Continuous Exam" or cont.type == "Assignment"):
+                form_assess += cont.net_score
+                # midterm += cont.midterm
+            else:
+                if cont.round == round or True:
+                    final_exam_result = cont.result
+                    std["final_exam_result"]= final_exam_result if cont.present == 1 else 0
+
+        std["formative_assessment"]=form_assess
+        # std["midterm"]=midterm
+        std["name"]=student.name
+        std["present"]="Yes" if student.present == 1 else "No"
+        # std["final_exam_result"]= final_exam_result if student.present == 1 else 0
+        
+        stds.append(std)
+
+    return stds
+
+
+@frappe.whitelist()
+def submit_student_sheet_courses(form_data, students_data):
+    settings = frappe.get_single("Kalima Settings")
+
+    if(settings.annual_max_number_of_simultaneous_tries == 0 or settings.courses_max_number_of_simultaneous_tries == 0 or settings.bologna_max_number_of_simultaneous_tries == 0 ):
+        frappe.throw(_("Please Set Try Number in Settings"))
+
+    form_data = frappe._dict(json.loads(form_data))
+    students_data = json.loads(students_data)
+    
+    for std in students_data:
+        # Check if a record with the same student, type, module, round, and stage already exists
+        existing_record = frappe.db.exists('Student Result Log', {
+            'student': std["name"],
+            'type': 'Final Grade',
+            'module': form_data["module"],
+            'round': form_data["round"],
+            'stage': form_data["stage"]
+        })
+
+        # if not not existing_record:
+        doc = frappe.get_doc({
+            'doctype': 'Student Result Log',
+            'type': 'Final Grade',
+            # 'year':  form_data["year"],
+
+            'module': form_data["module"],
+            'round': form_data["round"],
+            'stage': form_data["stage"],
+            'academic_system_type': form_data["academic_system_type"],
+            
+            # 'final_status': "Passed" if (float(std["result"]) > 49) else "Failed" ,
+            'final_status': std["result"],
 
             'student': std["name"],
             'final_grade': std["result"],

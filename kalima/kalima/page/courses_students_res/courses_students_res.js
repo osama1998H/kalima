@@ -112,7 +112,7 @@ frappe.pages['courses-students-res'].on_page_load = function (wrapper) {
 	// Function to fetch students and display them in a table
 	function fetch_students(stage, department, semester, module, round, academic_system_type) {
 		frappe.call({
-			method: 'kalima.utils.utils.get_student_sheet_annual',
+			method: 'kalima.utils.utils.get_student_sheet_courses',
 			args: {
 				// stage: stage,
 				// department: department,
@@ -145,7 +145,6 @@ frappe.pages['courses-students-res'].on_page_load = function (wrapper) {
                         <tr>
                             <th>Student</th>
                             <th>Formative Assessment</th>
-                            <th>Half Year Exam</th>
                             <th>Final Exam</th>
                             <th>Curve</th>
                             <th>Attended the Exam</th>
@@ -158,7 +157,7 @@ frappe.pages['courses-students-res'].on_page_load = function (wrapper) {
         `;
 
 		students.forEach(student => {
-			var res = student.formative_assessment + student.midterm + student.final_exam_result + crv;
+			var res = student.formative_assessment + student.final_exam_result + crv;
 			var status = "Failed";
 			if (res > 49) {
 				status = "Passed"
@@ -168,7 +167,6 @@ frappe.pages['courses-students-res'].on_page_load = function (wrapper) {
                 <tr>
                     <td>${student.name}</td>
                     <td><input readonly value="${student.formative_assessment}" type="number" class="form-control final-result" placeholder="Final Result" min="0" max="40" required></td>
-                    <td><input readonly value="${student.midterm}" type="number" class="form-control final-result" placeholder="Midterm" min="0" max="10" required></td>
                     <td><input readonly value="${student.final_exam_result}" type="number" class="form-control final-result" placeholder="Final" min="0" max="50" required></td>
                     <td><input readonly value="${crv}" type="number" class="form-control final-result" placeholder="" min="0" max="50" required></td>
                     <td><input readonly value="${student.present}" value="Yes" type="text" class="form-control final-result" required></td>
@@ -204,7 +202,7 @@ frappe.pages['courses-students-res'].on_page_load = function (wrapper) {
 			let student_data = {
 				name: $(this).find('td:eq(0)').text(),
 				formative_assessment: $(this).find('td:eq(1) input').val(),
-				midterm: $(this).find('td:eq(2) input').val(),
+				// midterm: $(this).find('td:eq(2) input').val(),
 				final_exam_result: $(this).find('td:eq(3) input').val(),
 				curve: $(this).find('td:eq(4) input').val(),
 				present: $(this).find('td:eq(5) input').val(),
@@ -217,7 +215,7 @@ frappe.pages['courses-students-res'].on_page_load = function (wrapper) {
 
 		// Send data to server
 		frappe.call({
-			method: 'kalima.utils.utils.submit_student_sheet_annual',
+			method: 'kalima.utils.utils.submit_student_sheet_courses',
 			args: {
 				form_data: form_data,
 				students_data: students_data
