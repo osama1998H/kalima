@@ -63,13 +63,13 @@ def fetch_students(selected_modules, stage, department, semester, study_system, 
     return students
 
 @frappe.whitelist()
-def create_classes(group_title, year, stage, semester, department, group_class_modules, students, divisions):
+def create_classes(group_title, year, stage, semester, department, group_class_modules, students, divisions,academic_system_type):
     group_class_modules = json.loads(group_class_modules)
     students = json.loads(students)
-    create_class(group_title, group_class_modules, year, stage, semester, department, students, divisions)
+    create_class(group_title, group_class_modules, year, stage, semester, department, students, divisions,academic_system_type)
     return "Classes created successfully."
 
-def create_class(group_title, group_class_modules, year, stage, semester, department, students, divisions):
+def create_class(group_title, group_class_modules, year, stage, semester, department, students, divisions,academic_system_type):
     divisions = int(divisions)
     # Shuffle the students list to randomize the distribution
     random.shuffle(students)
@@ -96,6 +96,7 @@ def create_class(group_title, group_class_modules, year, stage, semester, depart
             "title": f"{group_title} Group {i+1}",
             "stage": stage,
             "semester": semester,
+            "academic_system_type": academic_system_type,
             "year": year,
             "department": department,
         })

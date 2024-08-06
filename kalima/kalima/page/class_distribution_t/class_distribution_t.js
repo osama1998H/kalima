@@ -31,7 +31,14 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                 fieldname: 'faculty',
                 label: 'Faculty',
                 options: 'Faculty',
-            }, 
+            },            
+
+            {
+                fieldtype: 'Select',
+                fieldname: 'academic_system_type',
+                label: 'Academic system type',
+                options:"Coursat\nBologna\nAnnual"
+            },
             {
                 fieldtype: 'Column Break',
                 fieldname: 'clmn',
@@ -100,11 +107,14 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                     let semester = form.get_value('semester');
                     let year = form.get_value('year');
                     let divisions = form.get_value('divisions');
+                    let academic_system_type = form.get_value('academic_system_type');
+                    console.log("academic_system_type");
+                    console.log(academic_system_type);
 					generate_classes(group_title,
 						year,
 						stage,
 						semester,
-						department,divisions);
+						department,divisions,academic_system_type);
                 }
             }, {
                 fieldtype: 'Column Break',
@@ -271,7 +281,10 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
 		year,
 		stage,
 		semester,
-		department,divisions) {
+		department,
+        divisions,
+        academic_system_type,
+    ) {
 		const selected_modules = [];
 		const selected_students = [];
 		// const department = frm.doc.department;
@@ -300,11 +313,12 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
 				department: department,
 				group_class_modules: selected_modules,
 				students: selected_students,
-                divisions:divisions
+                divisions:divisions,
+                academic_system_type:academic_system_type,
 			},
 			callback: function (r) {
 				if (r.message) {
-					frappe.msgprint(__('Classes have been successfully generated.'));+
+					frappe.msgprint(__('Classes have been successfully generated.'));
 
 					form.set_value('group_title', "");
                     form.set_value('department', "");
@@ -312,13 +326,13 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                     form.set_value('semester', "");
                     form.set_value('year', "");
 
-					  // Clear form fields
-						$('input[type="text"], input[type="checkbox"], select').val('');
-						$('input[type="checkbox"]').prop('checked', false);
+                    // Clear form fields
+                    $('input[type="text"], input[type="checkbox"], select').val('');
+                    $('input[type="checkbox"]').prop('checked', false);
 
-						// Clear the student and module lists
-						$('#student-list').html('');
-						$('#module-list').html('');
+                    // Clear the student and module lists
+                    $('#student-list').html('');
+                    $('#module-list').html('');
 				}
 			}
 		});
