@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"4uQR9G6onj\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Departments</span>\",\"col\":12}},{\"id\":\"4BVsFB0rRZ\",\"type\":\"card\",\"data\":{\"card_name\":\"Department\",\"col\":4}},{\"id\":\"7QCD9y2WnZ\",\"type\":\"card\",\"data\":{\"card_name\":\"Class\",\"col\":4}},{\"id\":\"kUjdPpffln\",\"type\":\"card\",\"data\":{\"card_name\":\"Others\",\"col\":4}}]",
+ "content": "[{\"id\":\"4uQR9G6onj\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Departments</span>\",\"col\":12}},{\"id\":\"4BVsFB0rRZ\",\"type\":\"card\",\"data\":{\"card_name\":\"Department\",\"col\":4}},{\"id\":\"7QCD9y2WnZ\",\"type\":\"card\",\"data\":{\"card_name\":\"Class\",\"col\":4}},{\"id\":\"kUjdPpffln\",\"type\":\"card\",\"data\":{\"card_name\":\"Others\",\"col\":4}},{\"id\":\"isbUiwA6-Z\",\"type\":\"card\",\"data\":{\"card_name\":\"Pages\",\"col\":4}}]",
  "creation": "2024-08-04 20:18:50.018606",
  "custom_blocks": [],
  "docstatus": 0,
@@ -219,9 +219,48 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Pages",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Annual Students Result",
+   "link_count": 0,
+   "link_to": "annual-students-resu",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Courses Students Result",
+   "link_count": 0,
+   "link_to": "courses-students-res",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Courses Students Result",
+   "link_count": 0,
+   "link_to": "student-result-sheet-1",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2024-08-04 20:29:01.776680",
+ "modified": "2024-08-05 23:13:04.187047",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Departments",

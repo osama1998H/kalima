@@ -98,6 +98,16 @@ def get_columns(filters):
                 "width": 60
             })
 
+    # for x in [1, 2]:
+    #     columns.append({
+    #         "fieldname": "try_module_" + str(x),
+    #         "module_name": "try_module_" + str(x),
+    #         "nm": "try_module_" + str(x),
+    #         "label": "Try Module " + str(x),
+    #         "fieldtype": "Data",
+    #         "width": 240
+    #     })
+        
     return columns
 
 
@@ -354,7 +364,7 @@ def get_student_tries_data(student_name,filters,idx):
     try:
         return tries_list[idx]
     except:
-        return [1,1,1,1]
+        return [0,0,0,0]
     
     
     
