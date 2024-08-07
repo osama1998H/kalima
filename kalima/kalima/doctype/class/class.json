@@ -166,7 +166,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-24 13:10:52.751828",
+ "modified": "2024-08-07 11:19:38.578204",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class",
@@ -186,7 +186,9 @@
    "write": 1
   }
  ],
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "title"
 }

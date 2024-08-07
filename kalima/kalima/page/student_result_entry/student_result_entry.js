@@ -34,7 +34,8 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                                     form.fields_dict['exam_type'].df.options = "Annual Final Exam\nAnnual Half Year Exam";
                                 }
                                 else if(module_doc.academic_system_type == "Coursat") {
-                                    form.fields_dict['exam_type'].df.hidden = 0;
+                                    form.fields_dict['exam_type'].df.hidden = 1;
+                                    form.fields_dict['exam_type'].df.reqd = 0;
                                     form.fields_dict['exam_type'].df.options = "First Course Exam\nSecond Course Exam\nCourse Try Exam";
                                 }
                                 else if(module_doc.academic_system_type == "Bologna") {
@@ -48,7 +49,8 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
 
                                 // Fetch students with the same stage and department
                                 // fetch_students(module_doc.stage, department,);
-                                fetch_students(doc.module);
+                                // fetch_students(doc.module);
+                                fetch_students(prototype);
                             });
                         });
                     }
@@ -112,11 +114,11 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
     form.make();
 
     // Function to fetch students and display them in a table
-    function fetch_students(module) {
+    function fetch_students(prototype) {
         frappe.call({
             method: 'kalima.utils.utils.get_student_from_prototype',
             args: {
-                module: module
+                prototype: prototype
             },
             callback: function (response) {
                 if (response.message) {
