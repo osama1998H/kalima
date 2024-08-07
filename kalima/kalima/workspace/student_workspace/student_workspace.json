@@ -1,0 +1,37 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"CxM4fSkgUu\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Student Workspace</span>\",\"col\":12}},{\"id\":\"DTtNpL2YXJ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Student Portal\",\"col\":3}}]",
+ "creation": "2024-08-07 14:29:01.612962",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "share",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Student Workspace",
+ "links": [],
+ "modified": "2024-08-07 14:29:33.755834",
+ "modified_by": "Administrator",
+ "module": "Kalima",
+ "name": "Student Workspace",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 48.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Student Portal",
+   "link_to": "student-portal",
+   "type": "Page"
+  }
+ ],
+ "title": "Student Workspace"
+}

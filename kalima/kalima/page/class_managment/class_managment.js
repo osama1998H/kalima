@@ -790,7 +790,8 @@ function createFormDialogNew(templateName) {
                 },
                 {
                     fieldname: "day",
-                    fieldtype: "Data",
+                    fieldtype: "Link",
+                    options: "Week Day",
                     label: "Day",
                 },
                 {

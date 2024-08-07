@@ -17,10 +17,34 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
                 options: 'Department',
                 read_only: 0,
                 reqd:1,
-
+                onchange: function () {
+                    let department = form.get_value('department');
+                    if (department) {
+                        frappe.call({
+                            method: 'frappe.client.get_list',
+                            args: {
+                                doctype: 'Presented Module',
+                                fields: ['name', 'module_name'],
+                                filters: {
+                                    'department': department
+                                }
+                            },
+                            callback: function (r) {
+                                if (r.message) {
+                                    let module_field = form.get_field('module');
+                                    module_field.df.options = r.message.map(d => ({
+                                        label: d.module_name,
+                                        value: d.name
+                                    }));
+                                    module_field.refresh();
+                                }
+                            }
+                        });
+                    }
+                }
             },
             {
-                fieldtype: 'Link',
+                fieldtype: 'Select',
                 fieldname: 'module',
                 label: 'Module',
                 reqd:1,
@@ -29,9 +53,22 @@ frappe.pages['student-result-sheet-1'].on_page_load = function(wrapper) {
                     form.set_value("stage",mod.stage);
                     form.set_value("academic_system_type",mod.academic_system_type);
                 },
-                options: 'Presented Module', // Replace 'Doctype' with the actual doctype you want to link to
+                options: '',
                 read_only: 0
             },
+            // {
+            //     fieldtype: 'Link',
+            //     fieldname: 'module',
+            //     label: 'Module',
+            //     reqd:1,
+            //     onchange: async function (v) {
+            //         var mod =  await frappe.db.get_doc("Presented Module",form.get_value('module'));
+            //         form.set_value("stage",mod.stage);
+            //         form.set_value("academic_system_type",mod.academic_system_type);
+            //     },
+            //     options: 'Presented Module', // Replace 'Doctype' with the actual doctype you want to link to
+            //     read_only: 0
+            // },
             // {
             //     fieldtype: 'Select',
             //     fieldname: 'semester',

@@ -7,7 +7,11 @@ from frappe import utils
 
 
 class Activity(WebsiteGenerator):
-	pass
+	def before_submit(doc):
+		req = frappe.get_doc("Activity Request",doc.activity_request)
+		req.status = "Completed"
+		req.save()
+
 
 
 @frappe.whitelist()
@@ -27,7 +31,7 @@ def generate_certificates(doc_name,terms_and_conditions):
 				"issue_date":utils.today()
 			})
 			new_doc.insert()
-			new_doc.submit()
+			# new_doc.submit()
 	elif doc.type == "Departments":
 		pass
 
