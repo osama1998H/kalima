@@ -32,12 +32,11 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                 label: 'Faculty',
                 options: 'Faculty',
             },            
-
             {
                 fieldtype: 'Select',
                 fieldname: 'academic_system_type',
                 label: 'Academic system type',
-                options:"Coursat\nBologna\nAnnual"
+                options: "Coursat\nBologna\nAnnual"
             },
             {
                 fieldtype: 'Column Break',
@@ -47,13 +46,15 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                 fieldtype: 'Link',
                 fieldname: 'department',
                 label: 'Department',
-                // options: 'Faculty Department',
                 options: 'Department',
                 onchange: function () {
-                    let stage = form.get_value('stage');
-                    let department = form.get_value('department');
-                    let faculty = form.get_value('faculty');
-                    get_modules(faculty, stage, department);
+                    // let stage = form.get_value('stage');
+                    // let department = form.get_value('department');
+                    // let faculty = form.get_value('faculty');
+                    // let semester = form.get_value('semester');
+                    // let academic_system_type = form.get_value('academic_system_type');
+                    // let year = form.get_value('year');
+                    // get_modules(faculty, stage, department,semester,academic_system_type,year);
                 }
             },
             {
@@ -72,13 +73,30 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                 fieldtype: 'Select',
                 fieldname: 'divisions',
                 label: 'Divisions',
-                options:"1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20"
+                options: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20"
             },
-			{
+            {
                 fieldtype: 'Section Break',
                 fieldname: 'clmn',
             },
-			{
+            {
+                fieldtype: 'Button',
+                fieldname: 'get_modules',
+                label: 'Get Modules',
+                click: function () {
+                    let stage = form.get_value('stage');
+                    let department = form.get_value('department');
+                    let faculty = form.get_value('faculty');
+                    let semester = form.get_value('semester');
+                    let academic_system_type = form.get_value('academic_system_type');
+                    let year = form.get_value('year');
+                    get_modules(faculty, stage, department,semester,academic_system_type,year);
+                }
+            },            {
+                fieldtype: 'Column Break',
+                fieldname: 'clmn',
+            },
+            {
                 fieldtype: 'Button',
                 fieldname: 'fetch_students',
                 label: 'Fetch Students',
@@ -88,38 +106,29 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                     let semester = form.get_value('semester');
                     let study_system = form.get_value('study_system');
                     let year = form.get_value('year');
-                    // let faculty = form.get_value('faculty');
                     fetch_students(stage, department, semester, study_system, year);
                 }
-            },  {
+            },
+            {
                 fieldtype: 'Column Break',
                 fieldname: 'clmn',
             },
             {
                 fieldtype: 'Button',
-                fieldname: 'fetch_students',
+                fieldname: 'create_classes',
                 label: 'Create Classes',
-
                 click: function () {
-					let group_title = form.get_value('group_title');
-					let department = form.get_value('department');
-					let stage = form.get_value('stage');
+                    let group_title = form.get_value('group_title');
+                    let department = form.get_value('department');
+                    let stage = form.get_value('stage');
                     let semester = form.get_value('semester');
                     let year = form.get_value('year');
                     let divisions = form.get_value('divisions');
                     let academic_system_type = form.get_value('academic_system_type');
-                    console.log("academic_system_type");
-                    console.log(academic_system_type);
-					generate_classes(group_title,
-						year,
-						stage,
-						semester,
-						department,divisions,academic_system_type);
+                    generate_classes(group_title, year, stage, semester, department, divisions, academic_system_type);
                 }
-            }, {
-                fieldtype: 'Column Break',
-                fieldname: 'clmn',
-            }, {
+            },
+            {
                 fieldtype: 'Column Break',
                 fieldname: 'clmn',
             },
@@ -127,20 +136,25 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                 fieldtype: 'Section Break',
                 fieldname: 'clmn',
             },
-           
         ],
         body: page.body
     });
 
     form.make();
 
-    let studentListContainer = $('<div id="student-list"></div>').appendTo(page.body);
+    // Add module list container and buttons
     let moduleListContainer = $('<div id="module-list"></div>').appendTo(page.body);
+
+    let buttonContainer = $('<div class="button-container"></div>').appendTo(page.body);
+    $('<button class="btn btn-secondary">Select All Modules</button>').appendTo(buttonContainer).click(selectAllModules);
+    $('<p></p>').appendTo(buttonContainer).click(selectAllModules);
+    $('<button class="btn btn-secondary">Deselect All Modules</button>').appendTo(buttonContainer).click(deselectAllModules);
+
+    let studentListContainer = $('<div id="student-list"></div>').appendTo(page.body);
 
     // Function to fetch and display students
     function fetch_students(stage, department, semester, study_system, year) {
         const selected_modules = [];
-        // const department = form.get_value('department');
 
         // Get selected modules from moduleListContainer
         moduleListContainer.find('input[type="checkbox"]:checked').each(function () {
@@ -238,7 +252,7 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
         });
     }
 
-    async function get_modules(faculty, stage, department) {
+    async function get_modules(faculty, stage, department,semester,academic_system_type,year) {
         if (faculty && department) {
             // Fetch presented modules based on the selected department and faculty
             frappe.call({
@@ -248,7 +262,9 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                     filters: {
                         "faculty": faculty,
                         "stage": stage,
-                        // "department": department
+                        "semester": semester,
+                        "academic_system_type": academic_system_type,
+                        "year": year,
                     },
                     fields: ["module"]
                 },
@@ -256,71 +272,73 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                     if (r.message) {
                         // Create an HTML form with checkboxes from the fetched modules
                         let html = '<div class="form-check">';
-
+                
                         r.message.forEach(function (module, index) {
                             html += `
-                                  <div class="form-check">
-                                      <input class="form-check-input my-1" type="checkbox" name="modules" value="${module.module}" id="module_${index}">
-                                      <label class="form-check-label my-1" for="module_${index}">
-                                          ${module.module}
-                                      </label>
-                                  </div><br>`;
+                                <div class="form-check">
+                                    <input class="form-check-input my-1" type="checkbox" name="modules" value="${module.module}" id="module_${index}" checked>
+                                    <label class="form-check-label my-1" for="module_${index}">
+                                        ${module.module}
+                                    </label>
+                                </div><br>`;
                         });
-
+                
                         html += '</div>';
                         moduleListContainer.html(html);
                     }
                 }
+                
             });
         } else {
             moduleListContainer.html("");
         }
     }
 
-	function generate_classes(group_title,
-		year,
-		stage,
-		semester,
-		department,
-        divisions,
-        academic_system_type,
-    ) {
-		const selected_modules = [];
-		const selected_students = [];
-		// const department = frm.doc.department;
-	
-		// Get selected modules from moduleListContainer
-		$('#module-list').find('input[type="checkbox"]:checked').each(function () {
-			selected_modules.push($(this).val());
-		});
-	
-		// Get selected students from studentListContainer
-		$('#student-list').find('input[type="checkbox"]:checked').each(function () {
-			selected_students.push($(this).val());
-		});
-		if (selected_modules.length === 0 || selected_students.length === 0 || !department) {
-			frappe.msgprint(__('Please select at least one module and one student, and ensure department is selected.'));
-			return;
-		}
-	
-		frappe.call({
-			method: "kalima.utils.group_class.create_classes",
-			args: {
-				group_title: group_title,
-				year: year,
-				stage: stage,
-				semester: semester,
-				department: department,
-				group_class_modules: selected_modules,
-				students: selected_students,
-                divisions:divisions,
-                academic_system_type:academic_system_type,
-			},
-			callback: function (r) {
-				if (r.message) {
-					frappe.msgprint(__('Classes have been successfully generated.'));
+    function selectAllModules() {
+        moduleListContainer.find('input[type="checkbox"]').prop('checked', true);
+    }
 
-					form.set_value('group_title', "");
+    function deselectAllModules() {
+        moduleListContainer.find('input[type="checkbox"]').prop('checked', false);
+    }
+
+    function generate_classes(group_title, year, stage, semester, department, divisions, academic_system_type) {
+        const selected_modules = [];
+        const selected_students = [];
+
+        // Get selected modules from moduleListContainer
+        $('#module-list').find('input[type="checkbox"]:checked').each(function () {
+            selected_modules.push($(this).val());
+        });
+
+        // Get selected students from studentListContainer
+        $('#student-list').find('input[type="checkbox"]:checked').each(function () {
+            selected_students.push($(this).val());
+        });
+
+        if (selected_modules.length === 0 || selected_students.length === 0 || !department) {
+            frappe.msgprint(__('Please select at least one module and one student, and ensure department is selected.'));
+            return;
+        }
+
+        frappe.call({
+            method: "kalima.utils.group_class.create_classes",
+            args: {
+                group_title: group_title,
+                year: year,
+                stage: stage,
+                semester: semester,
+                department: department,
+                group_class_modules: selected_modules,
+                students: selected_students,
+                divisions: divisions,
+                academic_system_type: academic_system_type,
+            },
+            callback: function (r) {
+                if (r.message) {
+                    frappe.msgprint(__('Classes have been successfully generated.'));
+
+                    form.set_value('group_title', "");
                     form.set_value('department', "");
                     form.set_value('stage', "");
                     form.set_value('semester', "");
@@ -328,14 +346,13 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
 
                     // Clear form fields
                     $('input[type="text"], input[type="checkbox"], select').val('');
-                    $('input[type="checkbox"]').prop('checked', false);
+                    $('input[type="checkbox"]').prop('checked', true);
 
                     // Clear the student and module lists
                     $('#student-list').html('');
                     $('#module-list').html('');
-				}
-			}
-		});
-	}
-	
+                }
+            }
+        });
+    }
 };

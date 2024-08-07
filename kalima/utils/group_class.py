@@ -3,6 +3,7 @@
 import random
 import frappe
 import json
+import string
 
 
 @frappe.whitelist()
@@ -69,7 +70,8 @@ def create_classes(group_title, year, stage, semester, department, group_class_m
     create_class(group_title, group_class_modules, year, stage, semester, department, students, divisions,academic_system_type)
     return "Classes created successfully."
 
-def create_class(group_title, group_class_modules, year, stage, semester, department, students, divisions,academic_system_type):
+
+def create_class(group_title, group_class_modules, year, stage, semester, department, students, divisions, academic_system_type):
     divisions = int(divisions)
     # Shuffle the students list to randomize the distribution
     random.shuffle(students)
@@ -90,10 +92,13 @@ def create_class(group_title, group_class_modules, year, stage, semester, depart
         # Get the students for the current division
         current_students = students[start_index:end_index]
         
+        # Convert i to a corresponding letter in the alphabet (0 -> 'A', 1 -> 'B', etc.)
+        group_letter = string.ascii_uppercase[i]
+        
         # Create a new class for the current division
         new_class = frappe.get_doc({
             "doctype": "Class",
-            "title": f"{group_title} Group {i+1}",
+            "title": f"{group_title} Group {group_letter}",
             "stage": stage,
             "semester": semester,
             "academic_system_type": academic_system_type,
@@ -106,16 +111,26 @@ def create_class(group_title, group_class_modules, year, stage, semester, depart
             stud = frappe.get_doc("Student", std)
             
             for mod in group_class_modules:
-                mody = frappe.db.get_value("Presented Module", mod, "name")
-                
-                if mody is not None:
-                    new_class.append("class_modules", {"module": mody})
-                
-                stud.append("enrolled_modules", {
-                    "module": mod,
-                    "status": "Ongoing",
-                })
-                
+                g = frappe.db.get_list('Presented Module',
+                    filters={
+                        'module': mod,
+                        "stage": stage,
+                        "semester": semester,
+                        "academic_system_type": academic_system_type,
+                        "year": year,
+                    },
+                    fields=['name']
+                )
+                # if g[0] is not None:
+                if len(g) > 0:
+                    new_class.append("class_modules", {"module": g[0]["name"]})
+
+                    stud.append("enrolled_modules", {
+                        "module": g[0]["name"],
+                        "status": "Ongoing",
+                    })
+                    
             stud.save()
-        
         new_class.save()
+        
+        
