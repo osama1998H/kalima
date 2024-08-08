@@ -1,94 +1,72 @@
 frappe.pages['annual-students-resu'].on_page_load = function (wrapper) {
 	var page = frappe.ui.make_app_page({
 		parent: wrapper,
-		title: 'Annual Students Result Sheet',
+		title: __('Annual Students Result Sheet'),
 		single_column: true
 	});
 
-	
 	var crv = 0;
 
 	// Create a form container
 	let form = new frappe.ui.FieldGroup({
 		fields: [
 			{
-                fieldtype: 'Link',
-                fieldname: 'department',
-                label: 'Department',
-                // options: 'Faculty Department', 
-                options: 'Department',
-                read_only: 0,
-                reqd:1,
-                onchange: function () {
-                    let department = form.get_value('department');
-                    if (department) {
-                        frappe.call({
-                            method: 'frappe.client.get_list',
-                            args: {
-                                doctype: 'Presented Module',
-                                fields: ['name', 'module_name'],
-                                filters: {
-                                    'department': department
-                                }
-                            },
-                            callback: function (r) {
-                                if (r.message) {
-                                    let module_field = form.get_field('module');
-                                    module_field.df.options = r.message.map(d => ({
-                                        label: d.module_name,
-                                        value: d.name
-                                    }));
-                                    module_field.refresh();
-                                }
-                            }
-                        });
-                    }
-                }
-            },
+				fieldtype: 'Link',
+				fieldname: 'department',
+				label: __('Department'),
+				options: 'Department',
+				read_only: 0,
+				reqd: 1,
+				onchange: function () {
+					let department = form.get_value('department');
+					if (department) {
+						frappe.call({
+							method: 'frappe.client.get_list',
+							args: {
+								doctype: 'Presented Module',
+								fields: ['name', 'module_name'],
+								filters: {
+									'department': department
+								}
+							},
+							callback: function (r) {
+								if (r.message) {
+									let module_field = form.get_field('module');
+									module_field.df.options = r.message.map(d => ({
+										label: d.module_name,
+										value: d.name
+									}));
+									module_field.refresh();
+								}
+							}
+						});
+					}
+				}
+			},
 			{
 				fieldtype: 'Select',
 				fieldname: 'module',
-				label: 'Module',
+				label: __('Module'),
 				reqd: 1,
 				onchange: async function (v) {
 					var mod = await frappe.db.get_doc("Presented Module", form.get_value('module'));
 					form.set_value("stage", mod.stage);
 					form.set_value("academic_system_type", mod.academic_system_type);
 				},
-				options: '', // Replace 'Doctype' with the actual doctype you want to link to
+				options: '',
 				read_only: 0
 			},
-			// {
-			// 	fieldtype: 'Link',
-			// 	fieldname: 'module',
-			// 	label: 'Module',
-			// 	reqd: 1,
-			// 	onchange: async function (v) {
-			// 		var mod = await frappe.db.get_doc("Presented Module", form.get_value('module'));
-			// 		form.set_value("stage", mod.stage);
-			// 		form.set_value("academic_system_type", mod.academic_system_type);
-			// 	},
-			// 	options: 'Presented Module', // Replace 'Doctype' with the actual doctype you want to link to
-			// 	read_only: 0
-			// },
-			// {
-			//     fieldtype: 'Select',
-			//     fieldname: 'semester',
-			//     label: 'Semester',
-			//     options: "Fall Semester\nSprint Semester\nShort Semester\nAnnual"
-			// },
 			{
 				fieldtype: 'Select',
 				fieldname: 'round',
-				label: 'Round',
+				label: __('Round'),
 				reqd: 1,
-				options: "First\nSecond\nThird"
+				options: __("First\nSecond\nThird")
 			},
 			{
 				fieldtype: 'Button',
 				fieldname: 'fetch_students',
-				label: 'Fetch Students',
-
+				label: __('Fetch Students'),
 				click: function () {
 					let stage = form.get_value('stage');
 					let department = form.get_value('department');
@@ -107,18 +85,17 @@ frappe.pages['annual-students-resu'].on_page_load = function (wrapper) {
 			{
 				fieldtype: 'Select',
 				fieldname: 'stage',
-				label: 'Stage',
-				options: "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year",
+				label: __('Stage'),
+				options: __("First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year"),
 				read_only: 1
 			},
 			{
 				fieldtype: 'Select',
 				fieldname: 'academic_system_type',
-				label: 'Academic system type',
-				options: "Coursat\nBologna\nAnnual",
+				label: __('Academic system type'),
+				options: __("Coursat\nBologna\nAnnual"),
 				read_only: 1
 			},
-
 			{
 				fieldtype: 'Section Break',
 				fieldname: 'scnb',
@@ -127,7 +104,7 @@ frappe.pages['annual-students-resu'].on_page_load = function (wrapper) {
 			{
 				fieldtype: 'Float',
 				fieldname: 'curve',
-				label: 'Curve',
+				label: __('Curve'),
 				onchange: function (v) {
 					let curve = form.get_value('curve');
 					crv = curve;
@@ -151,12 +128,8 @@ frappe.pages['annual-students-resu'].on_page_load = function (wrapper) {
 		frappe.call({
 			method: 'kalima.utils.utils.get_student_sheet_annual',
 			args: {
-				// stage: stage,
-				// department: department,
 				module: module,
-				// semester: semester,
 				round: round,
-				// academic_system_type: academic_system_type,
 			},
 			callback: function (response) {
 				if (response.message) {
@@ -180,15 +153,15 @@ frappe.pages['annual-students-resu'].on_page_load = function (wrapper) {
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Student</th>
-                            <th>Formative Assessment</th>
-                            <th>Half Year Exam</th>
-                            <th>Final Exam</th>
-                            <th>Curve</th>
-                            <th>Attended the Exam</th>
-                            <th>Result</th>
-                            <th>Status</th>
-                            <th>Notes</th>
+                            <th>${__('Student')}</th>
+                            <th>${__('Formative Assessment')}</th>
+                            <th>${__('Half Year Exam')}</th>
+                            <th>${__('Final Exam')}</th>
+                            <th>${__('Curve')}</th>
+                            <th>${__('Attended the Exam')}</th>
+                            <th>${__('Result')}</th>
+                            <th>${__('Status')}</th>
+                            <th>${__('Notes')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -196,22 +169,22 @@ frappe.pages['annual-students-resu'].on_page_load = function (wrapper) {
 
 		students.forEach(student => {
 			var res = student.formative_assessment + student.midterm + student.final_exam_result + crv;
-			var status = "Failed";
+			var status = __("Failed");
 			if (res > 49) {
-				status = "Passed"
+				status = __("Passed");
 			}
 
 			table_html += `
                 <tr>
                     <td>${student.name}</td>
-                    <td><input readonly value="${student.formative_assessment}" type="number" class="form-control final-result" placeholder="Final Result" min="0" max="40" required></td>
-                    <td><input readonly value="${student.midterm}" type="number" class="form-control final-result" placeholder="Midterm" min="0" max="10" required></td>
-                    <td><input readonly value="${student.final_exam_result}" type="number" class="form-control final-result" placeholder="Final" min="0" max="50" required></td>
+                    <td><input readonly value="${student.formative_assessment}" type="number" class="form-control final-result" placeholder="${__('Final Result')}" min="0" max="40" required></td>
+                    <td><input readonly value="${student.midterm}" type="number" class="form-control final-result" placeholder="${__('Midterm')}" min="0" max="10" required></td>
+                    <td><input readonly value="${student.final_exam_result}" type="number" class="form-control final-result" placeholder="${__('Final')}" min="0" max="50" required></td>
                     <td><input readonly value="${crv}" type="number" class="form-control final-result" placeholder="" min="0" max="50" required></td>
-                    <td><input readonly value="${student.present}" value="Yes" type="text" class="form-control final-result" required></td>
+                    <td><input readonly value="${student.present}" value="${__('Yes')}" type="text" class="form-control final-result" required></td>
                     <td><input readonly value="${res}" value="60" type="text" class="form-control final-result" required></td>
                     <td><input readonly value="${status}" value="60" type="text" class="form-control final-result"></td>
-                    <td><input type="text" class="form-control final-result" placeholder="Notes"></td>
+                    <td><input type="text" class="form-control final-result" placeholder="${__('Notes')}"></td>
                 </tr>
             `;
 		});
@@ -219,12 +192,12 @@ frappe.pages['annual-students-resu'].on_page_load = function (wrapper) {
 		table_html += `
                     </tbody>
                 </table>
-                <button class="btn btn-primary submit-results">Submit Results</button>
+                <button class="btn btn-primary submit-results">${__('Submit Results')}</button>
             </div>
         `;
 
 		var $container = $(wrapper).find('.layout-main-section');
-		$container.append(table_html); // Append the table HTML instead of setting it
+		$container.append(table_html);
 
 		$container.find('.submit-results').on('click', function () {
 			submit_results();
@@ -261,7 +234,7 @@ frappe.pages['annual-students-resu'].on_page_load = function (wrapper) {
 			},
 			callback: function (response) {
 				if (response.message) {
-					frappe.msgprint('Results submitted successfully!');
+					frappe.msgprint(__('Results submitted successfully!'));
 				}
 			}
 		});

@@ -1,13 +1,13 @@
 var selected_class;
 var selectedTeacher;
-var current_class;// = await frappe.db.get_doc("Class", selected_class,fields=["student_list"]);
+var current_class;
 var naming_maps = {};
 var called = false;
 
 frappe.pages['class-managment'].on_page_load = async function (wrapper) {
     var page = frappe.ui.make_app_page({
         parent: wrapper,
-        title: 'Class Managment',
+        title: __('Class Management'),
         single_column: true
     });
     var main_template = frappe.render_template('class_managment', {
@@ -17,7 +17,6 @@ frappe.pages['class-managment'].on_page_load = async function (wrapper) {
     $container.html(main_template);
 
     await teacher_field(page);
-    // await content_manager();
 }
 
 async function teacher_field(page) {
@@ -29,7 +28,6 @@ async function teacher_field(page) {
             fieldname: "employee",
             label: __("Select Teacher"),
             placeholder: __("Teacher"),
-            // default: "HR-EMP-00001",
             reqd: 1,
             change: async () => {
                 selectedTeacher = teacherSelector.get_value();
@@ -37,7 +35,6 @@ async function teacher_field(page) {
             }
         }
     });
-    // teacherSelector.set_value("HR-EMP-00001");
     teacherSelector.refresh();
 }
 
@@ -49,9 +46,6 @@ async function class_field(page, teacher) {
         },
         callback: function (response) {
             if (response.message) {
-                // console.log("Classes for the teacher:", response.message);
-
-                // Clear existing class selector if it exists
                 page.wrapper.find('#class-holder').empty();
 
                 const classSelector = frappe.ui.form.make_control({
@@ -61,7 +55,6 @@ async function class_field(page, teacher) {
                         options: "Class",
                         fieldname: "class",
                         label: __("Select Class"),
-                        // default: "CE 1",
                         placeholder: __("Class"),
                         get_query(doc, cdt, cdn) {
                             return {
@@ -76,16 +69,13 @@ async function class_field(page, teacher) {
                             current_class = await frappe.db.get_doc("Class", selected_class, fields = ["student_list"]);
                             if (!called)
                                 await content_manager();
-
-                            // console.log(current_class);
                         }
                     }
                 });
-                // classSelector.set_value("CE 1");
 
                 classSelector.refresh();
             } else {
-                console.log("No classes found for the teacher.");
+                console.log(__("No classes found for the teacher."));
             }
         }
     });
@@ -103,8 +93,8 @@ async function content_manager(dont_click = false) {
             this.classList.add('btn-info');
             this.classList.add('active');
 
-            contentColumn.innerHTML = ''; // Clear the content column
-            var templateName = this.textContent.replace(/\s+/g, '-').toLowerCase(); // Convert button text to lowercase and replace spaces with dashes
+            contentColumn.innerHTML = ''; 
+            var templateName = this.textContent.replace(/\s+/g, '-').toLowerCase(); 
             var cnt = frappe.render_template(templateName, {}, contentColumn);
             contentColumn.innerHTML = cnt;
 
@@ -114,55 +104,51 @@ async function content_manager(dont_click = false) {
 
             if (templateName === 'sessions-list') {
                 const columns = [
-                    { label: 'Title', fieldname: 'title' },
-                    { label: 'Issue Date', fieldname: 'issue_date' },
-                    { label: 'Expiration Date', fieldname: 'expiration_date' }
+                    { label: __('Title'), fieldname: 'title' },
+                    { label: __('Issue Date'), fieldname: 'issue_date' },
+                    { label: __('Expiration Date'), fieldname: 'expiration_date' }
                 ];
                 await populateTable('Class Session', contentColumn, columns);
             } else if (templateName == "continuous-exam-list") {
                 const columns = [
-                    { label: 'Title', fieldname: 'title' },
-                    { label: 'Type', fieldname: 'type' },
-                    { label: 'Date', fieldname: 'date' }
+                    { label: __('Title'), fieldname: 'title' },
+                    { label: __('Type'), fieldname: 'type' },
+                    { label: __('Date'), fieldname: 'date' }
                 ];
                 await populateTable('Class Continuous Exam', contentColumn, columns);
             } else if (templateName == "assignment-list") {
                 const columns = [
-                    { label: 'Title', fieldname: 'title' },
-                    { label: 'From Date', fieldname: 'from_date' },
-                    { label: 'Percentage', fieldname: 'percentage' },
-                    { label: 'Marked On', fieldname: 'marked_on' }
+                    { label: __('Title'), fieldname: 'title' },
+                    { label: __('From Date'), fieldname: 'from_date' },
+                    { label: __('Percentage'), fieldname: 'percentage' },
+                    { label: __('Marked On'), fieldname: 'marked_on' }
                 ];
                 await populateTable('Assignments and Tasks', contentColumn, columns);
             } else if (templateName == "exam-schedule") {
                 const columns = [
-                    { label: 'Date', fieldname: 'date' },
-                    { label: 'Time', fieldname: 'time' },
+                    { label: __('Date'), fieldname: 'date' },
+                    { label: __('Time'), fieldname: 'time' },
                 ];
                 await populateTable('Exam Schedule', contentColumn, columns);
             } else if (templateName == "attendance-entry") {
                 const columns = [
-                    { label: 'Date', fieldname: 'date' },
-                    { label: 'Presented Module', fieldname: 'module' }
+                    { label: __('Date'), fieldname: 'date' },
+                    { label: __('Presented Module'), fieldname: 'module' }
                 ];
                 await populateTable('Student Attendance Entry', contentColumn, columns);
             } else if (templateName == "time-table") {
-
                 const columns = [
-                    { label: 'Class', fieldname: 'class' },
-                    { label: 'Day', fieldname: 'day' },
-                    { label: 'Start', fieldname: 'start' },
-                    { label: 'Finish', fieldname: 'finish' }
+                    { label: __('Class'), fieldname: 'class' },
+                    { label: __('Day'), fieldname: 'day' },
+                    { label: __('Start'), fieldname: 'start' },
+                    { label: __('Finish'), fieldname: 'finish' }
                 ];
                 await populateTable('Class Timetable', contentColumn, columns);
             } else if (templateName == "student-list") {
                 populateStudents(contentColumn);
-            }
-            else if (templateName == "dissolution") {
+            } else if (templateName == "dissolution") {
                 populateStudents(contentColumn);
             }
-
-
         });
     });
 
@@ -175,7 +161,6 @@ async function content_manager(dont_click = false) {
 
 
 async function populateTable(doctype, container, columns) {
-    // Fetch data from Frappe
     const data = await frappe.call({
         method: 'frappe.client.get_list',
         args: {
@@ -185,10 +170,9 @@ async function populateTable(doctype, container, columns) {
         }
     });
 
-    // Create table elements
     const table = document.createElement('table');
     table.classList.add('table', 'border', 'rounded', 'table-hover');
-    table.style.borderRadius = '30px';  // Adjust the value as needed
+    table.style.borderRadius = '30px';
 
     const thead = document.createElement('thead');
     const tr = document.createElement('tr');
@@ -198,7 +182,6 @@ async function populateTable(doctype, container, columns) {
     th.textContent = "#";
     tr.appendChild(th);
 
-    // Create table header
     columns.forEach(col => {
         const th = document.createElement('th');
         th.scope = 'col';
@@ -206,10 +189,9 @@ async function populateTable(doctype, container, columns) {
         tr.appendChild(th);
     });
 
-    // Add "Edit" column header
     const editTh = document.createElement('th');
     editTh.scope = 'col';
-    editTh.textContent = 'Edit';
+    editTh.textContent = __('Edit');
     tr.appendChild(editTh);
 
     thead.appendChild(tr);
@@ -217,7 +199,6 @@ async function populateTable(doctype, container, columns) {
 
     const tbody = document.createElement('tbody');
 
-    // Populate table rows
     data.message.forEach((row, index) => {
         const tr = document.createElement('tr');
         tr.classList.add('clickable-row');
@@ -238,14 +219,12 @@ async function populateTable(doctype, container, columns) {
             tr.appendChild(td);
         });
 
-        // Add "Edit" column
         const editTd = document.createElement('td');
         const editButton = document.createElement('button');
         editButton.classList.add('btn', 'btn-primary', 'btn-sm');
-        editButton.textContent = 'Edit';
+        editButton.textContent = __('Edit');
         editButton.addEventListener('click', () => {
-            // Add your edit functionality here
-            console.log(`Editing row ${index + 1}`);
+            console.log(__('Editing row {0}', [index + 1]));
         });
         editTd.appendChild(editButton);
         tr.appendChild(editTd);
@@ -258,10 +237,9 @@ async function populateTable(doctype, container, columns) {
 }
 
 async function populateStudents(container) {
-    // Create table elements
     const table = document.createElement('table');
     table.classList.add('table', 'border', 'rounded', 'table-hover');
-    table.style.borderRadius = '30px';  // Adjust the value as needed
+    table.style.borderRadius = '30px';
 
     const thead = document.createElement('thead');
     const tr = document.createElement('tr');
@@ -271,10 +249,8 @@ async function populateStudents(container) {
     th.textContent = "#";
     tr.appendChild(th);
 
-    // Create table header
     const columns = [
-        { fieldname: 'student', label: 'Student' },
-        // { fieldname: 'parent', label: 'Class' },
+        { fieldname: 'student', label: __('Student') },
     ];
 
     columns.forEach(col => {
@@ -284,22 +260,14 @@ async function populateStudents(container) {
         tr.appendChild(th);
     });
 
-    // // Add "Edit" column header
-    // const editTh = document.createElement('th');
-    // editTh.scope = 'col';
-    // editTh.textContent = 'Edit';
-    // tr.appendChild(editTh);
-
     thead.appendChild(tr);
     table.appendChild(thead);
 
     const tbody = document.createElement('tbody');
 
-    // Populate table rows
     current_class.student_list.forEach((student, index) => {
         const tr = document.createElement('tr');
         tr.classList.add('clickable-row');
-
 
         const th = document.createElement('th');
         th.scope = 'row';
@@ -311,18 +279,6 @@ async function populateStudents(container) {
             td.textContent = student[col.fieldname] || '';
             tr.appendChild(td);
         });
-
-        // Add "Edit" column
-        // const editTd = document.createElement('td');
-        // const editButton = document.createElement('button');
-        // editButton.classList.add('btn', 'btn-primary', 'btn-sm');
-        // editButton.textContent = 'Edit';
-        // editButton.addEventListener('click', () => {
-        //     // Add your edit functionality here
-        //     console.log(`Editing student ${student.student}`);
-        // });
-        // editTd.appendChild(editButton);
-        // tr.appendChild(editTd);
 
         tbody.appendChild(tr);
     });
@@ -339,6 +295,7 @@ function createFormDialogNew(templateName) {
         return;
     }
     const button = $('<button class="btn btn-success border hover">Create New</button>').appendTo(parent);
+
     button.click(async function () {
         var fields = [];
         var default_module = null;
@@ -351,7 +308,7 @@ function createFormDialogNew(templateName) {
         if (templateName == "sessions-list") {
             fields = [
                 {
-                    label: 'Class',
+                    label: __('Class'),
                     fieldname: 'class',
                     fieldtype: 'Link',
                     options: 'Class',
@@ -360,12 +317,12 @@ function createFormDialogNew(templateName) {
                     read_only: 1
                 },
                 {
-                    label: 'Title',
+                    label: __('Title'),
                     fieldname: 'title',
                     fieldtype: 'Data'
                 },
                 {
-                    label: 'Module',
+                    label: __('Module'),
                     fieldname: 'module',
                     fieldtype: 'Link',
                     options: "Presented Module",
@@ -377,12 +334,12 @@ function createFormDialogNew(templateName) {
                     fieldtype: 'Column Break'
                 },
                 {
-                    label: 'Issue Date',
+                    label: __('Issue Date'),
                     fieldname: 'issue_date',
                     fieldtype: 'Date'
                 },
                 {
-                    label: 'Expiration Date',
+                    label: __('Expiration Date'),
                     fieldname: 'expiration_date',
                     fieldtype: 'Date'
                 },
@@ -391,20 +348,19 @@ function createFormDialogNew(templateName) {
                     fieldtype: 'Section Break'
                 },
                 {
-                    label: 'Description',
+                    label: __('Description'),
                     fieldname: 'description',
                     fieldtype: 'Text Editor'
                 },
                 {
-                    label: 'Session Files',
+                    label: __('Session Files'),
                     fieldname: 'session_files',
                     fieldtype: 'Table',
                     cannot_add_rows: false,
                     in_place_edit: false,
-                    // data: [{ field1: 'Row1.1', field2: 'Row1.2' }, { field1: 'Row2.1', field2: 'Row2.2' }],
                     fields: [
-                        { fieldname: 'file', fieldtype: 'Attach', in_list_view: 1, label: 'File' },
-                        { fieldname: 'description', fieldtype: 'Data', in_list_view: 1, label: 'Description' }
+                        { fieldname: 'file', fieldtype: 'Attach', in_list_view: 1, label: __('File') },
+                        { fieldname: 'description', fieldtype: 'Data', in_list_view: 1, label: __('Description') }
                     ]
                 },
             ];
@@ -415,7 +371,7 @@ function createFormDialogNew(templateName) {
                 {
                     fieldname: "class",
                     fieldtype: "Link",
-                    label: "Class",
+                    label: __("Class"),
                     default: selected_class, read_only: 1,
                     options: "Class",
                     reqd: 1
@@ -423,55 +379,47 @@ function createFormDialogNew(templateName) {
                 {
                     fieldname: "title",
                     fieldtype: "Data",
-                    label: "Title"
+                    label: __("Title")
                 },
                 {
                     fieldname: "type",
                     fieldtype: "Select",
-                    label: "Type",
-                    options: "Normal Exam\nAttendance\nProject\nSeminar\nQuiz"
+                    label: __("Type"),
+                    options: __("Normal Exam\nAttendance\nProject\nSeminar\nQuiz")
                 },
                 {
-                    label: 'Module',
+                    label: __('Module'),
                     fieldname: 'module',
                     fieldtype: 'Select',
-                    // options: "Presented Module",
-                    options:opt
-                    // default: default_module,
-                    // read_only: default_module == null ? 0 : 1
+                    options: opt
                 },
                 {
                     fieldname: "column_break_bltp",
                     fieldtype: "Column Break"
                 },
-
                 {
                     fieldname: "date",
                     fieldtype: "Date",
-                    label: "Date",
+                    label: __("Date"),
                     reqd: 1
-                }, {
+                }, 
+                {
                     fieldname: "percentage",
                     fieldtype: "Percent",
-                    label: "Percentage",
+                    label: __("Percentage"),
                     reqd: 1,
                     change: async () => {
                         document.querySelector('input[data-fieldname="percentage"]').addEventListener('change', function () {
-                            // Get the value of the percentage field
                             let percentageValue = this.value;
-
-                            // Find the marked_on field and update its value
                             let markedOnField = document.querySelector('input[data-fieldname="marked_on"]');
                             markedOnField.value = percentageValue;
                         });
-
                     }
                 },
-
                 {
                     fieldname: "marked_on",
                     fieldtype: "Int",
-                    label: "Marked On",
+                    label: __("Marked On"),
                     reqd: 1
                 },
                 {
@@ -481,86 +429,73 @@ function createFormDialogNew(templateName) {
                 {
                     fieldname: "button_fill_students",
                     fieldtype: "Button",
-                    label: "Fill Students",
+                    label: __("Fill Students"),
                     click: function () {
                         fillStudents();
                     }
                 },
                 {
-                    label: 'Continuous Exam Result',
+                    label: __('Continuous Exam Result'),
                     fieldname: 'continuous_exam_result',
                     fieldtype: 'Table',
                     cannot_add_rows: false,
                     in_place_edit: false,
                     fields: [
-                        { fieldname: 'student_code', fieldtype: 'Data', in_list_view: 1, label: 'Student Code' },
-                        { fieldname: 'student_name', fieldtype: 'Link', options: 'Student', in_list_view: 1, label: 'Student Name' },
-                        // { fieldname: 'department', fieldtype: 'Link', options: 'Faculty Department', label: 'Department' },
-                        { fieldname: 'department', fieldtype: 'Link', options: 'Department', label: 'Department' },
+                        { fieldname: 'student_code', fieldtype: 'Data', in_list_view: 1, label: __('Student Code') },
+                        { fieldname: 'student_name', fieldtype: 'Link', options: 'Student', in_list_view: 1, label: __('Student Name') },
+                        { fieldname: 'department', fieldtype: 'Link', options: 'Department', label: __('Department') },
                         {
                             fieldname: 'score', fieldtype: 'Float', in_list_view: 1,
-                            label: 'Score',
+                            label: __('Score'),
                             change: async function () {
-                                // Recalculate the net score when score changes
                                 const row = this;
                                 const score = row.doc.score || 0;
                                 const percentage = d.get_value('percentage') || 1;
                                 const markedOn = d.get_value('marked_on') || 1;
-
-                                // Calculate net score
                                 row.doc.net_score = (score / markedOn) * percentage;
-
-                                // Refresh the table to show updated net score
                                 d.fields_dict['continuous_exam_result'].grid.refresh();
-                                console.log(`Score changed. New Net Score: ${row.doc.net_score}`);
+                                console.log(__('Score changed. New Net Score: {0}', [row.doc.net_score]));
                             }
                         },
-                        { fieldname: 'net_score', fieldtype: 'Float', in_list_view: 0, read_only: 1, label: 'Net Score' },
+                        { fieldname: 'net_score', fieldtype: 'Float', in_list_view: 0, read_only: 1, label: __('Net Score') },
                         {
-                            fieldname: 'is_absent', fieldtype: 'Check', in_list_view: 1, label: 'Is Absent',
+                            fieldname: 'is_absent', fieldtype: 'Check', in_list_view: 1, label: __('Is Absent'),
                             change: async function () {
                                 const row = this;
-
                                 if (row.doc.is_absent) {
-
                                     row.doc.net_score = 0;
                                     row.doc.score = 0;
-
                                     d.fields_dict['continuous_exam_result'].grid.refresh();
-                                } else {
                                 }
-
                             }
                         },
-                        { fieldname: 'Description', fieldtype: 'Data', in_list_view: 0, label: 'Description' },
-
-                    ]
-                    , label: 'Score'
+                        { fieldname: 'Description', fieldtype: 'Data', in_list_view: 0, label: __('Description') },
+                    ],
+                    label: __('Score')
                 },
-                { fieldname: 'Description', fieldtype: 'Data', in_list_view: 1, label: 'Description' },
-
-            ]
+                { fieldname: 'Description', fieldtype: 'Data', in_list_view: 1, label: __('Description') },
+            ];
         } else if (templateName == "assignment-list") {
             fields = [
-
                 {
                     fieldname: "class",
                     fieldtype: "Link",
-                    label: "Class",
+                    label: __("Class"),
                     default: selected_class, read_only: 1,
                     options: "Class"
                 },
                 {
                     fieldname: "title",
                     fieldtype: "Data",
-                    label: "Title"
-                }, {
+                    label: __("Title")
+                }, 
+                {
                     fieldname: "percentage",
                     fieldtype: "Percent",
-                    label: "Percentage"
+                    label: __("Percentage")
                 },
                 {
-                    label: 'Module',
+                    label: __('Module'),
                     fieldname: 'module',
                     fieldtype: 'Link',
                     options: "Presented Module",
@@ -571,70 +506,53 @@ function createFormDialogNew(templateName) {
                     fieldname: "column_break_bltp",
                     fieldtype: "Column Break"
                 },
-
                 {
                     fieldname: "from_date",
                     fieldtype: "Date",
-                    label: "From Date"
-                }, {
+                    label: __("From Date")
+                }, 
+                {
                     fieldname: "to_date",
                     fieldtype: "Date",
-                    label: "To Date"
+                    label: __("To Date")
                 },
                 {
                     fieldname: "marked_on",
                     fieldtype: "Float",
-                    label: "Marked On"
+                    label: __("Marked On")
                 },
                 {
                     fieldname: "section_break_gahv",
                     fieldtype: "Section Break"
-                }, {
+                }, 
+                {
                     fieldname: "description",
                     fieldtype: "Text Editor",
-                    label: "Description"
+                    label: __("Description")
                 },
                 {
-                    label: 'Assignment Files',
+                    label: __('Assignment Files'),
                     fieldname: 'assignment_files',
                     fieldtype: 'Table',
                     cannot_add_rows: false,
                     in_place_edit: false,
                     fields: [
-                        { fieldname: 'file', fieldtype: 'Attach', in_list_view: 1, label: 'File' },
-                        { fieldname: 'description', fieldtype: 'Data', in_list_view: 1, label: 'Description' },
-
+                        { fieldname: 'file', fieldtype: 'Attach', in_list_view: 1, label: __('File') },
+                        { fieldname: 'description', fieldtype: 'Data', in_list_view: 1, label: __('Description') },
                     ]
                 },
-                // {
-                //     label: 'Marks',
-                //     fieldname: 'assignment_marks',
-                //     fieldtype: 'Table',
-                //     cannot_add_rows: true,
-                //     in_place_edit: true,
-                //     read_only:1 ,
-
-                //     fields: [
-                //         { fieldname: 'student', fieldtype: 'Link', in_list_view: 1, label: 'Student',options:"Student",read_only:1 },
-                //         { fieldname: 'answer', fieldtype: 'Attach', in_list_view: 1, label: 'Answer',read_only:1 },
-                //         { fieldname: 'score', fieldtype: 'Float', in_list_view: 1, label: 'Score',read_only:1 },
-                //         { fieldname: 'net_score', fieldtype: 'Float', in_list_view: 1, label: 'Net Score',read_only:1 },
-                //     ]
-                // },
             ];
         } else if (templateName == "exam-schedule") {
             fields = [
-
                 {
                     fieldname: "class",
                     fieldtype: "Link",
-                    label: "Class",
+                    label: __("Class"),
                     default: selected_class, read_only: 1,
-                    // read_only: 1,
                     options: "Class"
                 },
                 {
-                    label: 'Module',
+                    label: __('Module'),
                     fieldname: 'module',
                     fieldtype: 'Link',
                     options: "Presented Module",
@@ -644,29 +562,29 @@ function createFormDialogNew(templateName) {
                 {
                     fieldname: "date",
                     fieldtype: "Date",
-                    label: "Date"
-                }, {
+                    label: __("Date")
+                }, 
+                {
                     fieldname: "time",
                     fieldtype: "Time",
-                    label: "Time"
+                    label: __("Time")
                 },
-
             ];
         } else if (templateName == "attendance-entry") {
-
             fields = [
                 {
                     fieldname: "class",
                     fieldtype: "Link",
-                    label: "Class",
+                    label: __("Class"),
                     default: selected_class,
                     read_only: 1,
                     hidden: 1,
                     options: "Class"
-                }, {
+                }, 
+                {
                     fieldname: "teacher",
                     fieldtype: "Link",
-                    label: "Teacher",
+                    label: __("Teacher"),
                     default: selectedTeacher,
                     read_only: 1,
                     options: "Employee",
@@ -676,32 +594,31 @@ function createFormDialogNew(templateName) {
                     fieldname: "year",
                     fieldtype: "Link",
                     in_list_view: 1,
-                    label: "Year",
+                    label: __("Year"),
                     options: "Educational Year",
                     reqd: 1,
                     default: current_class.year,
-
                     hidden: 1
                 },
                 {
                     fieldname: "department",
                     fieldtype: "Link",
                     in_list_view: 1,
-                    label: "Department",
-                    // options: "Faculty Department",
+                    label: __("Department"),
                     options: "Department",
                     reqd: 1,
                     default: current_class.department,
                     hidden: 1
-                }, {
+                }, 
+                {
                     fieldname: "date",
                     fieldtype: "Date",
-                    label: "Date",
+                    label: __("Date"),
                     default: frappe.datetime.nowdate(),
                     reqd: 1
                 },
                 {
-                    label: 'Module',
+                    label: __('Module'),
                     fieldname: 'module',
                     fieldtype: 'Link',
                     options: "Presented Module",
@@ -715,90 +632,84 @@ function createFormDialogNew(templateName) {
                 {
                     fieldname: "module",
                     fieldtype: "Link",
-                    label: "Presented Module",
+                    label: __("Presented Module"),
                     options: "Presented Module",
                     hidden: 1,
                     default: current_class.module,
-
                 },
-
                 {
                     fieldname: "semester",
                     fieldtype: "Select",
-                    label: "Semester",
-                    options: "Fall Semester\nSpring Semester\nShort Semester\nAnnual",
+                    label: __("Semester"),
+                    options: __("Fall Semester\nSpring Semester\nShort Semester\nAnnual"),
                     hidden: 1,
                     default: current_class.semester,
-
-                }, {
+                }, 
+                {
                     fieldname: "stage",
                     fieldtype: "Select",
-                    label: "Stage",
-                    options: "First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year",
+                    label: __("Stage"),
+                    options: __("First Year\nSecond Year\nThird Year\nFourth Year\nFifth Year"),
                     hidden: 1,
                     default: current_class.stage,
-
                 },
                 {
                     fieldname: "section_break_fsrg",
                     fieldtype: "Section Break"
                 },
             ];
-
+        
             let student_count = current_class.student_list.length;
             let column_count = Math.ceil(student_count / 3);
-
+        
             current_class.student_list.forEach((element, index) => {
                 let column_break = index % column_count === 0 ? {
                     fieldname: `column_break_${index}`,
                     fieldtype: "Column Break"
                 } : null;
-
+        
                 if (column_break) {
                     fields.push(column_break);
                 }
-
+        
                 fields.push({
                     fieldname: element.name,
                     fieldtype: "Check",
                     label: element.student
                 });
-
+        
                 naming_maps[element.name] = element.student;
             });
-
-            // Add the last column break
+        
             if (student_count % column_count !== 0) {
                 fields.push({
                     fieldname: `column_break_${Math.floor(student_count / column_count)}`,
                     fieldtype: "Column Break"
                 });
             }
-
-
         } else if (templateName == "time-table") {
             fields = [
                 {
                     fieldname: "class",
                     fieldtype: "Link",
-                    // default: selected_class, read_only: 1,
-                    label: "Class",
+                    label: __("Class"),
                     options: "Class"
-                }, {
+                }, 
+                {
                     fieldname: "teacher",
                     fieldtype: "Link",
+                    label: __("Teacher"),
+                    options: "Employee",
                     default: selectedTeacher, read_only: 1,
-                    label: "Teacher",
-                    options: "Employee"
                 },
                 {
                     fieldname: "day",
                     fieldtype: "Link",
                     options: "Week Day",
-                    label: "Day",
+                    label: __("Day"),
                 },
                 {
-                    label: 'Module',
+                    label: __('Module'),
                     fieldname: 'module',
                     fieldtype: 'Link',
                     options: "Presented Module",
@@ -812,62 +723,62 @@ function createFormDialogNew(templateName) {
                 {
                     fieldname: "start",
                     fieldtype: "Time",
-                    label: "Start"
+                    label: __("Start")
                 },
                 {
                     fieldname: "finish",
                     fieldtype: "Time",
-                    label: "Finish"
-                }, {
+                    label: __("Finish")
+                }, 
+                {
                     fieldname: "section_break_fsrg",
                     fieldtype: "Section Break"
                 },
                 {
                     fieldname: "description",
                     fieldtype: "Small Text",
-                    label: "Description"
+                    label: __("Description")
                 },
             ];
         }
-
-
+        
         async function fillStudents() {
             // Simulate fetching student data (you can replace this with actual data fetching logic)
             let students = [];
-
+        
             console.log(current_class.student_list);
-
+        
             current_class.student_list.forEach(element => {
                 students.push({
                     student_code: element.student,
                     student_name: element.student // Assuming the student name is stored in the same field
                 });
             });
-
+        
             let tableField = d.fields_dict['continuous_exam_result'].grid;
-
+        
             // Clear existing rows
             tableField.df.data = [];
-
+        
             // Add new rows directly to the grid's data array
             students.forEach(student => {
                 tableField.df.data.push({
                     student_code: student.student_code,
                     student_name: student.student_name,
-                    // department: student.department || 'N/A', // Default value or actual if available
+                    // department: student.department || __('N/A'), // Default value or actual if available
                     // score: student.score || 0, // Default value or actual if available
                     // net_score: (student.score || 0) / (d.get_value('marked_on') || 1) * (d.get_value('percentage') || 1) // Ensure no division by zero
                 });
             });
-
+        
             tableField.refresh();
         }
-
+        
         let d = new frappe.ui.Dialog({
-            title: 'Enter details',
+            title: __('Enter details'),
             fields: fields,
             size: 'large', // small, large, extra-large
-            primary_action_label: 'Submit',
+            primary_action_label: __('Submit'),
             async primary_action(values) {
                 // console.log(values);
                 if (templateName == "attendance-entry") {
@@ -875,7 +786,7 @@ function createFormDialogNew(templateName) {
                     var idx = 1;
                     var today = new Date();
                     var dayNumber = today.getDay();
-                    var weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                    var weekdayNames = [__('Sunday'), __('Monday'), __('Tuesday'), __('Wednesday'), __('Thursday'), __('Friday'), __('Saturday')];
                     var currentDay = weekdayNames[dayNumber];
                     // Call the custom server-side method
                     var tt = await frappe.call({
@@ -887,15 +798,14 @@ function createFormDialogNew(templateName) {
                         }
                     });
                     var lecture_time = tt.message["lecture_duration"];
-
+        
                     for (const [key, value] of Object.entries(naming_maps)) {
                         if (values[key] == 1) {
-
                             values["attednance"].push({
                                 "idx": idx,
                                 "__islocal": true,
                                 "student": value, // Access the name directly
-                                "status": "Present",
+                                "status": __('Present'),
                                 "number_of_hours": parseFloat(lecture_time),
                                 "attendance_duration": parseFloat(lecture_time),
                             });
@@ -920,7 +830,7 @@ function createFormDialogNew(templateName) {
                         element["net_score"] = (element.score / values.marked_on) * values.percentage;
                     });
                     console.log(values);
-
+        
                     var creation_fields = {
                         doctype: 'Class Continuous Exam',
                         class: values.class,
@@ -928,7 +838,6 @@ function createFormDialogNew(templateName) {
                         type: values.type,
                         date: values.date,
                         module: values.module,
-
                         score: values.score,
                         marked_on: values.marked_on,
                         continuous_exam_result: values.continuous_exam_result,
@@ -941,7 +850,6 @@ function createFormDialogNew(templateName) {
                         title: values.title,
                         from_date: values.from_date,
                         module: values.module,
-
                         to_date: values.to_date,
                         description: values.description,
                         marked_on: values.marked_on,
@@ -954,7 +862,6 @@ function createFormDialogNew(templateName) {
                         date: values.date,
                         class: values.class,
                         module: values.module,
-
                         time: values.time,
                     }
                 } else if (templateName == "attendance-entry") {
@@ -965,7 +872,6 @@ function createFormDialogNew(templateName) {
                         semester: values.semester,
                         department: values.department,
                         module: values.module,
-
                         module: values.module,
                         date: values.date,
                         teacher: values.teacher,
@@ -978,7 +884,6 @@ function createFormDialogNew(templateName) {
                         day: values.day,
                         start: values.start,
                         module: values.module,
-
                         finish: values.finish,
                         teacher: values.teacher,
                         description: values.description,
@@ -991,24 +896,26 @@ function createFormDialogNew(templateName) {
                     },
                     callback: function (response) {
                         if (!response.exc) {
-                            frappe.msgprint('Record created successfully!');
+                            frappe.msgprint(__('Record created successfully!'));
                             var contentColumn = document.querySelector("#content");
-                            refresh(templateName, contentColumn)
+                            refresh(templateName, contentColumn);
                             d.hide();
                         } else {
-                            frappe.msgprint('An error occurred while creating the record.');
+                            frappe.msgprint(__('An error occurred while creating the record.'));
                         }
                     }
                 });
                 // d.hide();
-
+        
                 // await content_manager(true);
-
+        
             }
         });
-
+        
         d.show();
     });
+
+
     const btn = $('<button class="btn btn-info border hover">View List</button>').appendTo(parent);
     btn.click(async function () {
         const encodedClass = encodeURIComponent(selected_class);
@@ -1052,44 +959,44 @@ async function refresh(templateName, contentColumn) {
 
     if (templateName === 'sessions-list') {
         const columns = [
-            { label: 'Title', fieldname: 'title' },
-            { label: 'Issue Date', fieldname: 'issue_date' },
-            { label: 'Expiration Date', fieldname: 'expiration_date' }
+            { label: __('Title'), fieldname: 'title' },
+            { label: __('Issue Date'), fieldname: 'issue_date' },
+            { label: __('Expiration Date'), fieldname: 'expiration_date' }
         ];
         await populateTable('Class Session', contentColumn, columns);
     } else if (templateName == "continuous-exam-list") {
         const columns = [
-            { label: 'Title', fieldname: 'title' },
-            { label: 'Type', fieldname: 'type' },
-            { label: 'Date', fieldname: 'date' }
+            { label: __('Title'), fieldname: 'title' },
+            { label: __('Type'), fieldname: 'type' },
+            { label: __('Date'), fieldname: 'date' }
         ];
         await populateTable('Class Continuous Exam', contentColumn, columns);
     } else if (templateName == "assignment-list") {
         const columns = [
-            { label: 'Title', fieldname: 'title' },
-            { label: 'From Date', fieldname: 'from_date' },
-            { label: 'Percentage', fieldname: 'percentage' },
-            { label: 'Marked On', fieldname: 'marked_on' }
+            { label: __('Title'), fieldname: 'title' },
+            { label: __('From Date'), fieldname: 'from_date' },
+            { label: __('Percentage'), fieldname: 'percentage' },
+            { label: __('Marked On'), fieldname: 'marked_on' }
         ];
         await populateTable('Assignments and Tasks', contentColumn, columns);
     } else if (templateName == "exam-schedule") {
         const columns = [
-            { label: 'Date', fieldname: 'date' },
-            { label: 'Time', fieldname: 'time' },
+            { label: __('Date'), fieldname: 'date' },
+            { label: __('Time'), fieldname: 'time' },
         ];
         await populateTable('Exam Schedule', contentColumn, columns);
     } else if (templateName == "attendance-entry") {
         const columns = [
-            { label: 'Date', fieldname: 'date' },
-            { label: 'Presented Module', fieldname: 'module' }
+            { label: __('Date'), fieldname: 'date' },
+            { label: __('Presented Module'), fieldname: 'module' }
         ];
         await populateTable('Student Attendance Entry', contentColumn, columns);
     } else if (templateName == "time-table") {
         const columns = [
-            { label: 'Class', fieldname: 'class' },
-            { label: 'Day', fieldname: 'day' },
-            { label: 'Start', fieldname: 'start' },
-            { label: 'Finish', fieldname: 'finish' }
+            { label: __('Class'), fieldname: 'class' },
+            { label: __('Day'), fieldname: 'day' },
+            { label: __('Start'), fieldname: 'start' },
+            { label: __('Finish'), fieldname: 'finish' }
         ];
         await populateTable('Class Timetable', contentColumn, columns);
     } else if (templateName == "student-list") {
