@@ -409,6 +409,8 @@ function createFormDialogNew(templateName) {
                 },
             ];
         } else if (templateName == "continuous-exam-list") {
+            var opt = current_class.class_modules.map(module => module.module_name).join('\n');
+            
             fields = [
                 {
                     fieldname: "class",
@@ -432,10 +434,11 @@ function createFormDialogNew(templateName) {
                 {
                     label: 'Module',
                     fieldname: 'module',
-                    fieldtype: 'Link',
-                    options: "Presented Module",
-                    default: default_module,
-                    read_only: default_module == null ? 0 : 1
+                    fieldtype: 'Select',
+                    // options: "Presented Module",
+                    options:opt
+                    // default: default_module,
+                    // read_only: default_module == null ? 0 : 1
                 },
                 {
                     fieldname: "column_break_bltp",
