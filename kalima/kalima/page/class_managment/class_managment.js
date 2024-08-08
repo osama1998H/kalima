@@ -385,7 +385,7 @@ function createFormDialogNew(templateName) {
                     fieldname: "type",
                     fieldtype: "Select",
                     label: __("Type"),
-                    options: __("Normal Exam\nAttendance\nProject\nSeminar\nQuiz")
+                    options: __("Normal Exam\nAttendance\nProject\nSeminar\nQuiz\nMidterm")
                 },
                 {
                     label: __('Module'),
