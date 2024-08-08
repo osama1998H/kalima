@@ -1,7 +1,7 @@
 frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
     var page = frappe.ui.make_app_page({
         parent: wrapper,
-        title: 'Student Result Entry',
+        title: frappe._('Student Result Entry'),
         single_column: true
     });
 
@@ -11,7 +11,7 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
             {
                 fieldtype: 'Link',
                 fieldname: 'Prototype',
-                label: 'Prototype',
+                label: frappe._('Prototype'),
                 options: 'Question Prototype', // Replace 'Doctype' with the actual doctype you want to link to
                 read_only: 0,
                 onchange: function () {
@@ -31,19 +31,18 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
 
                                 if (module_doc.academic_system_type == "Annual") {
                                     form.fields_dict['exam_type'].df.hidden = 0;
-                                    form.fields_dict['exam_type'].df.options = "Annual Final Exam\nAnnual Half Year Exam";
+                                    form.fields_dict['exam_type'].df.options = frappe._("Annual Final Exam\nAnnual Half Year Exam");
                                 }
-                                else if(module_doc.academic_system_type == "Coursat") {
+                                else if (module_doc.academic_system_type == "Coursat") {
                                     form.fields_dict['exam_type'].df.hidden = 1;
                                     form.fields_dict['exam_type'].df.reqd = 0;
-                                    form.fields_dict['exam_type'].df.options = "First Course Exam\nSecond Course Exam\nCourse Try Exam";
+                                    form.fields_dict['exam_type'].df.options = frappe._("First Course Exam\nSecond Course Exam\nCourse Try Exam");
                                 }
-                                else if(module_doc.academic_system_type == "Bologna") {
+                                else if (module_doc.academic_system_type == "Bologna") {
                                     form.fields_dict['exam_type'].df.hidden = 1;
                                 }
 
                                 form.fields_dict['exam_type'].refresh();
-
 
                                 form.set_value('academic_system_type', module_doc.academic_system_type);
                                 fetch_students(prototype);
@@ -55,20 +54,21 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
             {
                 fieldtype: 'Link',
                 fieldname: 'module',
-                label: 'Module',
+                label: frappe._('Module'),
                 options: 'Presented Module', // Replace 'Doctype' with the actual doctype you want to link to
                 read_only: 1
             },
             {
                 fieldtype: 'Link',
                 fieldname: 'teacher',
-                label: 'Teacher',
+                label: frappe._('Teacher'),
                 options: 'Employee', // Replace 'Doctype' with the actual doctype you want to link to
                 read_only: 1
-            }, {
+            },
+            {
                 fieldtype: 'Float',
                 fieldname: 'exam_max_mark',
-                label: 'Exam max mark',
+                label: frappe._('Exam max mark'),
                 read_only: 1,
                 default: 0
             },
@@ -79,29 +79,28 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
             {
                 fieldtype: 'Data',
                 fieldname: 'stage',
-                label: 'Stage',
+                label: frappe._('Stage'),
                 read_only: 1
             },
-
             {
                 fieldtype: 'Data',
                 fieldname: 'academic_system_type',
-                label: 'Academic system type',
+                label: frappe._('Academic system type'),
                 read_only: 1
             },
             {
                 fieldtype: 'Select',
                 fieldname: 'round',
-                label: 'Round',
-                options: 'First\nSecond\nThird',
+                label: frappe._('Round'),
+                options: frappe._('First\nSecond\nThird'),
             },
             {
                 fieldtype: 'Select',
                 fieldname: 'exam_type',
                 reqd: 1,
-                label: 'Exam Type',
+                label: frappe._('Exam Type'),
                 default: null,
-                options: ' \nCourse Final Exam\nAnnual Final Exam\nAnnual Half Year Exam',
+                options: frappe._(' \nCourse Final Exam\nAnnual Final Exam\nAnnual Half Year Exam'),
             },
         ],
         body: page.body
@@ -120,7 +119,6 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                 if (response.message) {
                     let students = response.message;
                     display_students(students);
-
                 }
             }
         });
@@ -132,102 +130,104 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
         if ($existingTable.length) {
             $existingTable.remove();
         }
-    
+
         let table_html = `
             <div class="student-table-container">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Student </th>
-                            <th>Exam Mark</th>
-                            <th>Final Result</th>
-                            <th>Present</th>
-                            <th>Cheating?</th>
-                            <th>Status</th>
+                            <th>${frappe._('Student')}</th>
+                            <th>${frappe._('Exam Mark')}</th>
+                            <th>${frappe._('Final Result')}</th>
+                            <th>${frappe._('Present')}</th>
+                            <th>${frappe._('Cheating?')}</th>
+                            <th>${frappe._('Status')}</th>
                         </tr>
                     </thead>
                     <tbody>
         `;
-    
+
         var bulics = form.get_value('exam_max_mark');
         if (bulics == 0 || bulics == undefined) {
             bulics = 50;
         }
-    
+
         students.forEach(student => {
             table_html += `
                 <tr>
                     <td>${student.name}</td>
                     <td>${bulics}</td>
-                    <td><input type="number" class="form-control final-result" placeholder="Final Result" min="0" max="50" required></td>
+                    <td><input type="number" class="form-control final-result" placeholder="${frappe._('Final Result')}" min="0" max="50" required></td>
                     <td>
                         <select class="form-control">
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            <option value="Yes">${frappe._('Yes')}</option>
+                            <option value="No">${frappe._('No')}</option>
                         </select>
                     </td>
                     <td><input type="checkbox" class="form-control cheating-checkbox"></td>
                     <td>                        
                         <select class="form-control status">
                             <option value="none"></option>
-                            <option value="Passed">Passed</option>
-                            <option value="Failed">Failed</option>
+                            <option value="Passed">${frappe._('Passed')}</option>
+                            <option value="Failed">${frappe._('Failed')}</option>
                         </select>
                     </td>
                 </tr>
             `;
         });
-    
+
         table_html += `
                     </tbody>
                 </table>
-                <button class="btn btn-primary submit-results">Submit Results</button>
+                <button class="btn btn-primary submit-results">${frappe._('Submit Results')}</button>
             </div>
         `;
-    
+
         var $container = $(wrapper).find('.layout-main-section');
         $container.append(table_html);
-    
+
         // Add event listener to final result inputs to update the status
         $container.find('.final-result').on('input', function () {
             var finalResult = $(this).val();
             var statusSelect = $(this).closest('tr').find('.status');
-    
-            if (finalResult >((bulics/2)-1)) {
-                statusSelect.val('Passed');
+
+            if (finalResult > ((bulics / 2) - 1)) {
+                statusSelect.val(frappe._('Passed'));
             } else {
-                statusSelect.val('Failed');
+                statusSelect.val(frappe._('Failed'));
             }
         });
-    
+
         // Add event listener to cheating checkboxes
         $container.find('.cheating-checkbox').on('change', function () {
             var $row = $(this).closest('tr');
             var $finalResult = $row.find('.final-result');
             var $statusSelect = $row.find('.status');
-    
+
             if ($(this).is(':checked')) {
                 $finalResult.val(0).prop('disabled', true);
-                $statusSelect.val('Failed');
+                $statusSelect.val(frappe._('Failed'));
             } else {
                 $finalResult.prop('disabled', false).val(''); // Re-enable and clear the final result
                 $statusSelect.val('none'); // Clear the status selection
             }
         });
-    // Add event listener to "Present" select dropdowns
-$container.find('select.form-control').on('change', function () {
-    var $row = $(this).closest('tr');
-    var $finalResult = $row.find('.final-result');
-    var $statusSelect = $row.find('.status');
 
-    if ($(this).val() === 'No') {
-        $finalResult.val(0).prop('disabled', true);
-        $statusSelect.val('Failed');
-    } else if (!$row.find('.cheating-checkbox').is(':checked')) {
-        $finalResult.prop('disabled', false).val(''); // Re-enable and clear the final result
-        $statusSelect.val('none'); // Clear the status selection if not already marked as cheating
-    }
-});
+        // Add event listener to "Present" select dropdowns
+        $container.find('select.form-control').on('change', function () {
+            var $row = $(this).closest('tr');
+            var $finalResult = $row.find('.final-result');
+            var $statusSelect = $row.find('.status');
+
+            if ($(this).val() === frappe._('No')) {
+                $finalResult.val(0).prop('disabled', true);
+                $statusSelect.val(frappe._('Failed'));
+            } else if (!$row.find('.cheating-checkbox').is(':checked')) {
+                $finalResult.prop('disabled', false).val(''); // Re-enable and clear the final result
+                $statusSelect.val('none'); // Clear the status selection if not already marked as cheating
+            }
+        });
+
         // Add event listener to submit button to collect data and make frappe.call
         $container.find('.submit-results').on('click', function () {
             let prototype = form.get_value('Prototype');
@@ -240,21 +240,21 @@ $container.find('select.form-control').on('change', function () {
             let exam_max_mark = form.get_value('exam_max_mark');
             let student_results = [];
             let valid = true;
-    
+
             $container.find('tbody tr').each(function () {
                 let final_result = $(this).find('.final-result').val();
-    
+
                 if (final_result === '' || final_result < 0 || final_result > 50) {
                     valid = false;
                     return false; // Exit the loop
                 }
-    
+
                 let student_result = {
                     student_name: $(this).find('td:eq(0)').text(),
                     exam_mark: $(this).find('td:eq(1)').text(),
                     final_result: final_result,
                     present: $(this).find('select:eq(0)').val(),
-                    cheating: $(this).find('input[type=checkbox]').prop('checked') ? 'Yes' : 'No',
+                    cheating: $(this).find('input[type=checkbox]').prop('checked') ? frappe._('Yes') : frappe._('No'),
                     status: $(this).find('select.status').val(),
                     prototype: prototype,
                     round: round,
@@ -265,16 +265,15 @@ $container.find('select.form-control').on('change', function () {
                     teacher: teacher,
                     exam_max_mark: exam_max_mark,
                     exam_type: exam_type,
-    
                 };
                 student_results.push(student_result);
             });
-    
+
             if (!valid) {
-                frappe.msgprint('Please ensure all students have a valid result between 0 and 50.');
+                frappe.msgprint(frappe._('Please ensure all students have a valid result between 0 and 50.'));
                 return;
             }
-    
+
             frappe.call({
                 method: 'kalima.utils.utils.submit_student_results',
                 args: {
@@ -282,7 +281,7 @@ $container.find('select.form-control').on('change', function () {
                 },
                 callback: function (response) {
                     if (response.message) {
-                        frappe.msgprint('Results submitted successfully');
+                        frappe.msgprint(frappe._('Results submitted successfully'));
                         form.clear(); // Reset the form
                         var $existingTable = $(wrapper).find('.student-table-container');
                         if ($existingTable.length) {
@@ -291,8 +290,7 @@ $container.find('select.form-control').on('change', function () {
                     }
                 }
             });
-    
+
         });
     }
-    
 }

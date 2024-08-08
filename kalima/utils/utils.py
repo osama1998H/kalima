@@ -182,7 +182,8 @@ def get_student_sheet(module, round):
         for cont in cons:
             if(cont.type == "Class Continuous Exam" or cont.type == "Assignment"):
                 form_assess += cont.net_score
-                midterm += cont.midterm
+            elif(cont.type == "Midterm"):
+                midterm = cont.net_score
             else:
                 if cont.round == round or True:
                     final_exam_result = cont.result

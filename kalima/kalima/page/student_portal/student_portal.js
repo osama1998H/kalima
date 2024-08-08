@@ -1,15 +1,15 @@
-var selected_student = "";// "سعد صالح احمد محمد";
+var selected_student = ""; // "سعد صالح احمد محمد";
 var naming_maps = {};
 var student_classes = [];
 
 frappe.pages['student-portal'].on_page_load = async function (wrapper) {
     var page = frappe.ui.make_app_page({
         parent: wrapper,
-        title: 'Student Portal',
+        title: __('Student Portal'),
         single_column: true
     });
     var main_template = frappe.render_template('student_portal', {
-        teacher_name: "test"
+        teacher_name: __('test')
     }, page.main);
     var $container = $(wrapper).find('.layout-main-section');
     $container.html(main_template);
@@ -18,12 +18,11 @@ frappe.pages['student-portal'].on_page_load = async function (wrapper) {
     await get_classes();
     await content_manager();
 }
-async function get_classes() {
 
+async function get_classes() {
     let response = await frappe.call({
         method: 'kalima.utils.utils.get_student_classes',
-        args:
-        {
+        args: {
             student_name: selected_student
         }
     });
@@ -31,7 +30,6 @@ async function get_classes() {
         student_classes = response.message;
     }
 }
-
 
 async function content_manager(dont_click = false) {
     var contentColumn = document.querySelector("#content");
@@ -52,14 +50,13 @@ async function content_manager(dont_click = false) {
 
             if (template === 'attendance') {
                 const columns = [
-                    { label: 'Date', fieldname: 'date' },
-                    { label: 'Module', fieldname: 'module' },
-                    { label: 'Status', fieldname: 'status' },
-                    { label: 'Leave', fieldname: 'leave' }
+                    { label: __('Date'), fieldname: 'date' },
+                    { label: __('Module'), fieldname: 'module' },
+                    { label: __('Status'), fieldname: 'status' },
+                    { label: __('Leave'), fieldname: 'leave' }
                 ];
                 await attendance(contentColumn, columns);
             }
-
 
             if (template === 'exam-results') {
                 await exam_results(contentColumn);
@@ -67,33 +64,28 @@ async function content_manager(dont_click = false) {
 
             if (template === 'lecture-schedule') {
                 const columns = [
-                    { label: 'Class', fieldname: 'class' },
-                    { label: 'Module', fieldname: 'module' },
-                    { label: 'Day', fieldname: 'day' },
-                    { label: 'Start', fieldname: 'start' },
-                    { label: 'Finish', fieldname: 'finish' }
+                    { label: __('Class'), fieldname: 'class' },
+                    { label: __('Module'), fieldname: 'module' },
+                    { label: __('Day'), fieldname: 'day' },
+                    { label: __('Start'), fieldname: 'start' },
+                    { label: __('Finish'), fieldname: 'finish' }
                 ];
-                await populateTableNew('Class Timetable', contentColumn,columns);
+                await populateTableNew(__('Class Timetable'), contentColumn, columns);
             }
 
             if (template === 'modules') {
                 const columns = [
-                    { label: 'Class', fieldname: 'class' },
-                    { label: 'Title', fieldname: 'title' },
-                    { label: 'Module', fieldname: 'module' },
-                    { label: 'Description', fieldname: 'description' },
-                    { label: 'Session files', fieldname: 'session_files' },
+                    { label: __('Class'), fieldname: 'class' },
+                    { label: __('Title'), fieldname: 'title' },
+                    { label: __('Module'), fieldname: 'module' },
+                    { label: __('Description'), fieldname: 'description' },
+                    { label: __('Session files'), fieldname: 'session_files' },
                 ];
-                // await populateTable('Class Session', contentColumn, columns);
-                await populateCards('Class Session', contentColumn, columns);
-
+                await populateCards(__('Class Session'), contentColumn, columns);
             }
             if (template === 'tasks') {
-                // await populateTable('Exam Schedule', contentColumn, columns);/
                 await displayTasks(contentColumn);
-
             }
-
         });
     });
 
@@ -102,76 +94,6 @@ async function content_manager(dont_click = false) {
             btn.click();
         });
     }
-}
-
-async function populateTable(doctype, container, columns) {
-    // Fetch data from Frappe
-    const data = await frappe.call({
-        method: 'frappe.client.get_list',
-        args: {
-            doctype: doctype,
-            filters: {
-                'class': ['in', student_classes]
-            },
-            fields: ['name', ...columns.map(col => col.fieldname)],
-            // limit_page_length: 15
-        }
-    });
-
-
-    // Create table elements
-    const table = document.createElement('table');
-    table.classList.add('table', 'border', 'rounded', 'table-hover');
-    table.style.borderRadius = '30px';  // Adjust the value as needed
-
-    const thead = document.createElement('thead');
-    const tr = document.createElement('tr');
-
-    const th = document.createElement('th');
-    th.scope = 'col';
-    th.textContent = "#";
-    tr.appendChild(th);
-
-    // Create table header
-    columns.forEach(col => {
-        const th = document.createElement('th');
-        th.scope = 'col';
-        th.textContent = col.label;
-        tr.appendChild(th);
-    });
-
-
-    thead.appendChild(tr);
-    table.appendChild(thead);
-
-    const tbody = document.createElement('tbody');
-
-    // Populate table rows
-    data.message.forEach((row, index) => {
-        const tr = document.createElement('tr');
-        tr.classList.add('clickable-row');
-
-        tr.addEventListener('click', () => {
-            frappe.open_in_new_tab = true;
-            frappe.set_route(`/app/${toKebabCase(doctype)}/${row.name}`);
-        });
-
-        const th = document.createElement('th');
-        th.scope = 'row';
-        th.textContent = index + 1;
-        tr.appendChild(th);
-
-        columns.forEach(col => {
-            const td = document.createElement('td');
-            td.textContent = row[col.fieldname] || '';
-            tr.appendChild(td);
-        });
-
-        tbody.appendChild(tr);
-    });
-
-    table.appendChild(tbody);
-    container.appendChild(table);
 }
 
 async function populateTableNew(doctype, container, columns) {
@@ -193,7 +115,7 @@ async function populateTableNew(doctype, container, columns) {
 
     // Group data by module
     const groupedData = data.message.reduce((acc, row) => {
-        const module = row.module || 'Unknown Module'; // Handle cases where module is null
+        const module = row.module || __('Unknown Module'); // Handle cases where module is null
         if (!acc[module]) {
             acc[module] = [];
         }
@@ -243,7 +165,6 @@ async function populateTableNew(doctype, container, columns) {
             tr.appendChild(th);
         });
 
-
         thead.appendChild(tr);
         table.appendChild(thead);
 
@@ -275,96 +196,6 @@ async function populateTableNew(doctype, container, columns) {
 
         table.appendChild(tbody);
         collapseContainer.appendChild(table);
-
-        // Append elements to the container
-        container.appendChild(collapseButton);
-        container.appendChild(document.createElement('br'));
-        container.appendChild(collapseContainer);
-        container.appendChild(document.createElement('br'));
-        container.appendChild(document.createElement('hr'));
-        container.appendChild(document.createElement('br'));
-    }
-}
-
-async function populateCards2(doctype, container, columns) {
-    // Fetch data from Frappe
-    const data = await frappe.call({
-        method: 'frappe.client.get_list',
-        args: {
-            doctype: doctype,
-            filters: {
-                'class': ['in', student_classes]
-            },
-            fields: ['name', 'description', ...columns.map(col => col.fieldname)],
-        }
-    });
-
-    const groupedData = data.message.reduce((acc, row) => {
-        const module = row.module || 'Unknown Module'; // Handle cases where module is null
-        if (!acc[module]) {
-            acc[module] = [];
-        }
-        acc[module].push(row);
-        return acc;
-    }, {});
-    // Generate a unique identifier for each group
-    let groupCounter = 0;
-
-    for (const [group, records] of Object.entries(groupedData)) {
-        groupCounter++;
-
-        // Create collapse button
-        const collapseButton = document.createElement('button');
-        collapseButton.className = 'btn btn-primary my-2';
-        collapseButton.type = 'button';
-        collapseButton.setAttribute('data-toggle', 'collapse');
-        collapseButton.setAttribute('data-target', `#collapseGroup${groupCounter}`);
-        collapseButton.setAttribute('aria-expanded', 'false');
-        collapseButton.setAttribute('aria-controls', `collapseGroup${groupCounter}`);
-        collapseButton.innerHTML = `${group} <span class="bi bi-chevron-down"></span>`;
-
-        // Create collapse container
-        const collapseContainer = document.createElement('div');
-        collapseContainer.className = 'collapse';
-        collapseContainer.id = `collapseGroup${groupCounter}`;
-
-        // Create cards for each record
-        records.forEach(record => {
-            const card = document.createElement('div');
-            card.className = 'card mb-3 w-100';
-            card.style.border = '1px solid #ddd';
-            card.style.borderRadius = '8px';
-            card.style.padding = '16px';
-            card.style.marginBottom = '16px';
-
-            const cardBody = document.createElement('div');
-            cardBody.className = 'card-body';
-
-            // Add card title
-            const cardTitle = document.createElement('h5');
-            cardTitle.className = 'card-title';
-            cardTitle.textContent = record.name;
-            cardBody.appendChild(cardTitle);
-
-            // Add card content
-            columns.forEach(col => {
-                const cardText = document.createElement('p');
-                cardText.className = 'card-text';
-                cardText.innerHTML = `<strong>${col.label}:</strong> ${record[col.fieldname] || ''}`;
-                cardBody.appendChild(cardText);
-            });
-
-            // Add description field (rendered as HTML)
-            if (record.description) {
-                const descriptionDiv = document.createElement('div');
-                descriptionDiv.className = 'card-text';
-                descriptionDiv.innerHTML = record.description;
-                cardBody.appendChild(descriptionDiv);
-            }
-
-            card.appendChild(cardBody);
-            collapseContainer.appendChild(card);
-        });
 
         // Append elements to the container
         container.appendChild(collapseButton);
@@ -504,7 +335,6 @@ async function get_current_user_student() {
         selected_student = response.message.name;
     }
 }
-
 async function attendance(container, columns) {
     var data = await frappe.call({
         method: 'kalima.utils.utils.get_student_attendance',
@@ -531,7 +361,7 @@ async function attendance(container, columns) {
         collapseButton.setAttribute('data-target', `#collapseModule${moduleCounter}`);
         collapseButton.setAttribute('aria-expanded', 'false');
         collapseButton.setAttribute('aria-controls', `collapseModule${moduleCounter}`);
-        collapseButton.innerHTML = module;
+        collapseButton.innerHTML = _(`${module}`);
 
         // Create collapse container
         const collapseContainer = document.createElement('div');
@@ -560,7 +390,7 @@ async function exam_results(container) {
 
     // Group data by year
     const resultsByYear = data.message.reduce((acc, result) => {
-        const year = result.stage || 'Unknown Year'; // Handle cases where year is null
+        const year = result.stage || _('Unknown Year'); // Handle cases where year is null
         if (!acc[year]) {
             acc[year] = [];
         }
@@ -580,7 +410,7 @@ async function exam_results(container) {
         collapseButton.setAttribute('data-target', `#collapseYear${index}`);
         collapseButton.setAttribute('aria-expanded', 'false');
         collapseButton.setAttribute('aria-controls', `collapseYear${index}`);
-        collapseButton.innerHTML = `${year} <span class="bi bi-chevron-down"></span>`;
+        collapseButton.innerHTML = _(`${year} <span class="bi bi-chevron-down"></span>`);
 
         // Create collapse container
         const collapseContainer = document.createElement('div');
@@ -597,7 +427,7 @@ async function exam_results(container) {
 
         // Create header row
         const headerRow = document.createElement('tr');
-        ['Module', 'Round', 'Exam Max Result', 'Result', 'Status', 'Cheating', 'Present'].forEach(text => {
+        [_('Module'), _('Round'), _('Exam Max Result'), _('Result'), _('Status'), _('Cheating'), _('Present')].forEach(text => {
             const th = document.createElement('th');
             th.textContent = text;
             th.className = 'text-center';
@@ -695,13 +525,9 @@ function createTable(records, columns) {
     return table;
 }
 
-
-
-
 function toKebabCase(str) {
     return str.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '').toLowerCase();
 }
-
 
 async function displayTasks(container) {
     var data;
@@ -718,7 +544,7 @@ async function displayTasks(container) {
 
     // Group data by class
     const groupedData = data.reduce((acc, row) => {
-        const studentClass = row.class || 'Unknown Class'; // Handle cases where class is null
+        const studentClass = row.class || _('Unknown Class'); // Handle cases where class is null
         if (!acc[studentClass]) {
             acc[studentClass] = [];
         }
@@ -734,7 +560,7 @@ async function displayTasks(container) {
         // Create header for the class group
         const classHeader = document.createElement('h3');
         classHeader.className = 'mt-4';
-        classHeader.textContent = studentClass;
+        classHeader.textContent = _(studentClass);
         container.appendChild(classHeader);
 
         // Create collapse container for the class group
@@ -758,7 +584,7 @@ async function displayTasks(container) {
             cardHeader.setAttribute('data-target', `#collapseCard${groupCounter}-${index}`);
             cardHeader.setAttribute('aria-expanded', 'false');
             cardHeader.setAttribute('aria-controls', `collapseCard${groupCounter}-${index}`);
-            cardHeader.innerHTML = `${record.title} - ${record.creation || ''} <span class="bi bi-chevron-down"></span>`;
+            cardHeader.innerHTML = _(`${record.title} - ${record.creation || ''} <span class="bi bi-chevron-down"></span>`);
 
             // Create card collapse container
             const cardCollapseContainer = document.createElement('div');
@@ -775,7 +601,7 @@ async function displayTasks(container) {
                     if (key === 'file') {
                         const cardText = document.createElement('p');
                         cardText.className = 'card-text';
-                        cardText.innerHTML = `<strong>Files:</strong> `;
+                        cardText.innerHTML = `<strong>${_('Files')}:</strong> `;
                         const files = record[key].split(', ');
                         files.forEach(file => {
                             const link = document.createElement('a');
@@ -783,7 +609,7 @@ async function displayTasks(container) {
                             link.target = '_blank';
                             link.className = 'btn btn-primary my-1';
                             const fileName = file.split('/').pop();
-                            link.textContent = fileName;
+                            link.textContent = _(fileName);
                             cardText.appendChild(link);
                             cardText.appendChild(document.createElement('br'));
                         });
@@ -791,7 +617,7 @@ async function displayTasks(container) {
                     } else {
                         const cardText = document.createElement('p');
                         cardText.className = 'card-text';
-                        cardText.innerHTML = `<strong>${key}:</strong> ${record[key]}`;
+                        cardText.innerHTML = `<strong>${_(key)}:</strong> ${_(record[key])}`;
                         cardBody.appendChild(cardText);
                     }
                 }
