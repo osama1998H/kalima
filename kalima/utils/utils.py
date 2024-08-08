@@ -251,19 +251,18 @@ def submit_student_sheet(form_data, students_data):
 
     return 'Results submitted successfully!'
 
-
 @frappe.whitelist()
 def get_student_from_prototype(prototype):
-    # module = frappe.get_doc("Presented Module",module)
-    prototype = frappe.get_doc("Question Prototype",prototype)
-    module = frappe.get_doc("Presented Module",prototype.module)
+    # Fetch the Question Prototype and related Presented Module
+    prototype = frappe.get_doc("Question Prototype", prototype)
+    module = frappe.get_doc("Presented Module", prototype.module)
 
     academic_system_type = module.academic_system_type
     department = module.department
     print(academic_system_type, department, module.name)
 
     query = """
-        SELECT s.name
+        SELECT DISTINCT s.name
         FROM `tabStudent` s
         INNER JOIN `tabStudent Enrolled Modules` sem
         ON s.name = sem.parent
@@ -276,7 +275,7 @@ def get_student_from_prototype(prototype):
     students = frappe.db.sql(query, (academic_system_type, department, module.name), as_dict=True)
 
     return students
-    
+
 @frappe.whitelist()
 def update_student_stage(student_name,passed,module):
     passed = (passed == "1")
