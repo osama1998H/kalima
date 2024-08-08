@@ -7,40 +7,41 @@ from frappe import _
 @frappe.whitelist()
 def get_sessions(student_name):
     student_classes = get_student_classes(student_name)
-    # Join the list elements into a single string with each element quoted
-    student_classes_str = ', '.join(f"'{cls}'" for cls in student_classes)
+    if len(student_classes) > 0:
+        # Join the list elements into a single string with each element quoted
+        student_classes_str = ', '.join(f"'{cls}'" for cls in student_classes)
 
-    query = f"""
-        SELECT
-            cs.`module`,
-            cs.title,
-            cs.class,
-            cs.issue_date,
-            cs.expiration_date,
-            cs.description,
-            GROUP_CONCAT(af.file SEPARATOR ', ') as session_files
-        FROM
-            `tabClass Session` cs
-        LEFT JOIN
-            `tabAssignment Files` af
-        ON
-            cs.name = af.parent
-        WHERE
-            cs.class IN ({student_classes_str})
-        GROUP BY
-            cs.`module`, cs.title, cs.class, cs.issue_date, cs.expiration_date, cs.description
-        ORDER BY
-            cs.issue_date DESC
-    """
+        query = f"""
+            SELECT
+                cs.`module`,
+                cs.title,
+                cs.class,
+                cs.issue_date,
+                cs.expiration_date,
+                cs.description,
+                GROUP_CONCAT(af.file SEPARATOR ', ') as session_files
+            FROM
+                `tabClass Session` cs
+            LEFT JOIN
+                `tabAssignment Files` af
+            ON
+                cs.name = af.parent
+            WHERE
+                cs.class IN ({student_classes_str})
+            GROUP BY
+                cs.`module`, cs.title, cs.class, cs.issue_date, cs.expiration_date, cs.description
+            ORDER BY
+                cs.issue_date DESC
+        """
 
-    data = frappe.db.sql(query, as_dict=True)
+        data = frappe.db.sql(query, as_dict=True)
 
-    # If you need session_files as a list instead of a comma-separated string
-    for item in data:
-        if item.get('session_files'):
-            item['session_files'] = item['session_files'].split(', ')
+        # If you need session_files as a list instead of a comma-separated string
+        for item in data:
+            if item.get('session_files'):
+                item['session_files'] = item['session_files'].split(', ')
 
-    return data
+        return data
 
 @frappe.whitelist()
 def get_classes_for_teacher(teacher_name):
@@ -250,19 +251,18 @@ def submit_student_sheet(form_data, students_data):
 
     return 'Results submitted successfully!'
 
-
 @frappe.whitelist()
 def get_student_from_prototype(prototype):
-    # module = frappe.get_doc("Presented Module",module)
-    prototype = frappe.get_doc("Question Prototype",prototype)
-    module = frappe.get_doc("Presented Module",prototype.module)
+    # Fetch the Question Prototype and related Presented Module
+    prototype = frappe.get_doc("Question Prototype", prototype)
+    module = frappe.get_doc("Presented Module", prototype.module)
 
     academic_system_type = module.academic_system_type
     department = module.department
     print(academic_system_type, department, module.name)
 
     query = """
-        SELECT s.name
+        SELECT DISTINCT s.name
         FROM `tabStudent` s
         INNER JOIN `tabStudent Enrolled Modules` sem
         ON s.name = sem.parent
@@ -275,7 +275,7 @@ def get_student_from_prototype(prototype):
     students = frappe.db.sql(query, (academic_system_type, department, module.name), as_dict=True)
 
     return students
-    
+
 @frappe.whitelist()
 def update_student_stage(student_name,passed,module):
     passed = (passed == "1")
@@ -437,27 +437,28 @@ def get_student_classes(student_name):
 @frappe.whitelist()
 def get_student_tasks(student_name):
     student_classes = get_student_classes(student_name)
-    # Join the list elements into a single string with each element quoted
-    student_classes_str = ', '.join(f"'{cls}'" for cls in student_classes)
+    if len(student_classes) > 0:
+        # Join the list elements into a single string with each element quoted
+        student_classes_str = ', '.join(f"'{cls}'" for cls in student_classes)
 
-    query = f"""
-        SELECT
-            at.*,
-            af.*
-        FROM
-            `tabAssignments and Tasks` at
-        LEFT JOIN
-            `tabAssignment Files` af
-        ON
-            at.name = af.parent
-        WHERE
-            at.class IN ({student_classes_str})
-    """
-    
-    # Execute the SQL query
-    records = frappe.db.sql(query, as_dict=True)
-    
-    return records
+        query = f"""
+            SELECT
+                at.*,
+                af.*
+            FROM
+                `tabAssignments and Tasks` at
+            LEFT JOIN
+                `tabAssignment Files` af
+            ON
+                at.name = af.parent
+            WHERE
+                at.class IN ({student_classes_str})
+        """
+        
+        # Execute the SQL query
+        records = frappe.db.sql(query, as_dict=True)
+        
+        return records
 
 @frappe.whitelist()
 def get_class_timetable(selected_class, selected_teacher, current_day):

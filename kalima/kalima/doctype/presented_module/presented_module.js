@@ -1,4 +1,14 @@
 frappe.ui.form.on("Presented Module", {
+  department(frm) {
+		frm.set_query("module", function() {
+			return {
+				filters: [
+					["department", "=",frm.doc.department]
+				]
+			}
+		});
+	},
+
   // Trigger the calculations when the form is loaded or refreshed
   refresh: function (frm) {
     calculate_total_hours(frm);

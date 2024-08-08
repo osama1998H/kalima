@@ -109,28 +109,28 @@ def create_class(group_title, group_class_modules, year, stage, semester, depart
         for std in current_students:
             new_class.append("student_list", {"student": std})
             stud = frappe.get_doc("Student", std)
-            
-            for mod in group_class_modules:
-                g = frappe.db.get_list('Presented Module',
-                    filters={
-                        'module': mod,
-                        "stage": stage,
-                        "semester": semester,
-                        "academic_system_type": academic_system_type,
-                        "year": year,
-                    },
-                    fields=['name']
-                )
-                # if g[0] is not None:
-                if len(g) > 0:
-                    new_class.append("class_modules", {"module": g[0]["name"]})
-
-                    stud.append("enrolled_modules", {
-                        "module": g[0]["name"],
-                        "status": "Ongoing",
-                    })
-                    
             stud.save()
+
+        for mod in group_class_modules:
+            g = frappe.db.get_list('Presented Module',
+                filters={
+                    'module': mod,
+                    "stage": stage,
+                    "semester": semester,
+                    "academic_system_type": academic_system_type,
+                    "year": year,
+                },
+                fields=['name']
+            )
+            # if g[0] is not None:
+            if len(g) > 0:
+                new_class.append("class_modules", {"module": g[0]["name"]})
+
+                stud.append("enrolled_modules", {
+                    "module": g[0]["name"],
+                    "status": "Ongoing",
+                })
+                
         new_class.save()
         
         

@@ -61,6 +61,7 @@
    "label": "Description"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
@@ -132,7 +133,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-03 13:01:33.277969",
+ "modified": "2024-08-07 13:40:05.057428",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity Request",

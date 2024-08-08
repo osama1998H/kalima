@@ -28,6 +28,7 @@
   "mother_name",
   "marital_status",
   "religion",
+  "initial_password",
   "notes_section",
   "notes",
   "disability",
@@ -748,11 +749,17 @@
    "fieldtype": "Link",
    "label": "Year",
    "options": "Educational Year"
+  },
+  {
+   "fieldname": "initial_password",
+   "fieldtype": "Data",
+   "label": "Initial Password",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-24 16:22:46.820935",
+ "modified": "2024-08-07 20:47:25.205212",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Applicant Student",
