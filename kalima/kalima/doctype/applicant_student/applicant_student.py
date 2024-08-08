@@ -2,7 +2,8 @@ import frappe
 from frappe.model.document import Document
 from frappe import _
 from datetime import datetime, timedelta
-
+import random
+import string
 
 
 class ApplicantStudent(Document):
@@ -30,7 +31,7 @@ class ApplicantStudent(Document):
         self.full_name_in_arabic = f"{self.first_name} {self.middle_name} {self.last_name} {self.fourth_name}"
         
         
-                
+
 @frappe.whitelist()
 def admit_student(doc_name, department, study_system):
     # Get the "Applicant Student" document
@@ -55,6 +56,11 @@ def admit_student(doc_name, department, study_system):
     custom_email_domain = "Kalima.com"
     email = f"{email_prefix}@{custom_email_domain}"
 
+    # Generate a random password
+    password_length = 12
+    characters = string.ascii_letters + string.digits + string.punctuation
+    random_password = ''.join(random.choice(characters) for i in range(password_length))
+
     # Create a new user
     user_doc = frappe.get_doc(
         {
@@ -66,7 +72,9 @@ def admit_student(doc_name, department, study_system):
             ),
             "first_name": applicant_doc.first_name,
             "last_name": applicant_doc.last_name,
-            "roles": [{"role": "Student"}],
+            "roles": [{"role": "Student"}, {"role": "Customer"}],
+            "new_password": random_password,
+            "send_welcome_email": 1  # This sends an email with the password
         }
     )
     user_doc.save()
@@ -83,7 +91,6 @@ def admit_student(doc_name, department, study_system):
     )
     customer.insert()
     
-    
     student_doc.email = (
         email
         if (applicant_doc.email == None or applicant_doc.email == "")
@@ -93,17 +100,17 @@ def admit_student(doc_name, department, study_system):
     student_doc.final_selected_course = department
     student_doc.study_system = study_system
     student_doc.user = user_doc.name
-    
-    
+
     active_year = frappe.get_last_doc('Educational Year', filters={"active_year": 1})
     if(active_year == None):
-        frappe.throw(_("Please Select The Active Year in Educaational Year"))
+        frappe.throw(_("Please Select The Active Year in Educational Year"))
     
     student_doc.year = active_year
     student_doc.insert()
     student_doc.save()
     
     applicant_doc.admission_status = "Accepted"
+    applicant_doc.initial_password = random_password
     applicant_doc.save()
     
     return student_doc.name

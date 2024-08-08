@@ -5,6 +5,5 @@
 from frappe.model.document import Document
 
 
-class ActivityRequest(Document):
-	def before_submit(doc):
-		doc.status = "Pending"
+class GeneralParticipants(Document):
+	pass

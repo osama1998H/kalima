@@ -31,6 +31,29 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                 fieldname: 'faculty',
                 label: 'Faculty',
                 options: 'Faculty',
+                onchange: function () {
+                    let faculty = form.get_value('faculty');
+                    if (faculty) {
+                        frappe.call({
+                            method: 'frappe.client.get_list',
+                            args: {
+                                doctype: 'Department',
+                                fields: ['name'],
+                                filters: {
+                                    'custom_faculty': faculty
+                                }
+                            },
+                            callback: function (r) {
+                                if (r.message) {
+                                    let department_field = form.get_field('department');
+  
+                                    department_field.df.options = r.message.map(d => d.name).join('\n');
+                                    department_field.refresh();
+                                }
+                            }
+                        });
+                    }
+                }
             },            
             {
                 fieldtype: 'Select',
@@ -42,19 +65,20 @@ frappe.pages['class-distribution-t'].on_page_load = function (wrapper) {
                 fieldtype: 'Column Break',
                 fieldname: 'clmn',
             },
+            // {
+            //     fieldtype: 'Link',
+            //     fieldname: 'department',
+            //     label: 'Department',
+            //     options: 'Department',
+            //     onchange: function () {
+            //     }
+            // },
             {
-                fieldtype: 'Link',
+                fieldtype: 'Select',
                 fieldname: 'department',
                 label: 'Department',
-                options: 'Department',
+                options: '',
                 onchange: function () {
-                    // let stage = form.get_value('stage');
-                    // let department = form.get_value('department');
-                    // let faculty = form.get_value('faculty');
-                    // let semester = form.get_value('semester');
-                    // let academic_system_type = form.get_value('academic_system_type');
-                    // let year = form.get_value('year');
-                    // get_modules(faculty, stage, department,semester,academic_system_type,year);
                 }
             },
             {

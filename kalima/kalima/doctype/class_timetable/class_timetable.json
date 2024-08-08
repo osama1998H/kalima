@@ -35,10 +35,9 @@
   },
   {
    "fieldname": "day",
-   "fieldtype": "Link",
-   "in_list_view": 1,
+   "fieldtype": "Table MultiSelect",
    "label": "Day",
-   "options": "Week Day",
+   "options": "Week Days",
    "reqd": 1
   },
   {
@@ -80,7 +79,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-23 14:04:18.884333",
+ "modified": "2024-08-07 16:19:44.185937",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class Timetable",

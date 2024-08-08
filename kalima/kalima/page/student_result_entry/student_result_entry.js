@@ -46,10 +46,6 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
 
 
                                 form.set_value('academic_system_type', module_doc.academic_system_type);
-
-                                // Fetch students with the same stage and department
-                                // fetch_students(module_doc.stage, department,);
-                                // fetch_students(doc.module);
                                 fetch_students(prototype);
                             });
                         });
@@ -130,14 +126,13 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
         });
     }
 
-    // Function to display students in a Bootstrap table
     function display_students(students) {
         // Check if a table already exists and remove it
         var $existingTable = $(wrapper).find('.student-table-container');
         if ($existingTable.length) {
             $existingTable.remove();
         }
-
+    
         let table_html = `
             <div class="student-table-container">
                 <table class="table table-bordered">
@@ -153,12 +148,12 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                     </thead>
                     <tbody>
         `;
-
+    
         var bulics = form.get_value('exam_max_mark');
         if (bulics == 0 || bulics == undefined) {
             bulics = 50;
         }
-
+    
         students.forEach(student => {
             table_html += `
                 <tr>
@@ -171,7 +166,7 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                             <option value="No">No</option>
                         </select>
                     </td>
-                    <td><input type="checkbox" class="form-control"></td>
+                    <td><input type="checkbox" class="form-control cheating-checkbox"></td>
                     <td>                        
                         <select class="form-control status">
                             <option value="none"></option>
@@ -182,29 +177,57 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                 </tr>
             `;
         });
-
+    
         table_html += `
                     </tbody>
                 </table>
                 <button class="btn btn-primary submit-results">Submit Results</button>
             </div>
         `;
-
+    
         var $container = $(wrapper).find('.layout-main-section');
-        $container.append(table_html); // Append the table HTML instead of setting it
-
+        $container.append(table_html);
+    
         // Add event listener to final result inputs to update the status
         $container.find('.final-result').on('input', function () {
             var finalResult = $(this).val();
             var statusSelect = $(this).closest('tr').find('.status');
-
-            if (finalResult > 24) { // Use 49 instead of 24 as per your original request
+    
+            if (finalResult >((bulics/2)-1)) {
                 statusSelect.val('Passed');
             } else {
                 statusSelect.val('Failed');
             }
         });
+    
+        // Add event listener to cheating checkboxes
+        $container.find('.cheating-checkbox').on('change', function () {
+            var $row = $(this).closest('tr');
+            var $finalResult = $row.find('.final-result');
+            var $statusSelect = $row.find('.status');
+    
+            if ($(this).is(':checked')) {
+                $finalResult.val(0).prop('disabled', true);
+                $statusSelect.val('Failed');
+            } else {
+                $finalResult.prop('disabled', false).val(''); // Re-enable and clear the final result
+                $statusSelect.val('none'); // Clear the status selection
+            }
+        });
+    // Add event listener to "Present" select dropdowns
+$container.find('select.form-control').on('change', function () {
+    var $row = $(this).closest('tr');
+    var $finalResult = $row.find('.final-result');
+    var $statusSelect = $row.find('.status');
 
+    if ($(this).val() === 'No') {
+        $finalResult.val(0).prop('disabled', true);
+        $statusSelect.val('Failed');
+    } else if (!$row.find('.cheating-checkbox').is(':checked')) {
+        $finalResult.prop('disabled', false).val(''); // Re-enable and clear the final result
+        $statusSelect.val('none'); // Clear the status selection if not already marked as cheating
+    }
+});
         // Add event listener to submit button to collect data and make frappe.call
         $container.find('.submit-results').on('click', function () {
             let prototype = form.get_value('Prototype');
@@ -217,15 +240,15 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
             let exam_max_mark = form.get_value('exam_max_mark');
             let student_results = [];
             let valid = true;
-
+    
             $container.find('tbody tr').each(function () {
                 let final_result = $(this).find('.final-result').val();
-
+    
                 if (final_result === '' || final_result < 0 || final_result > 50) {
                     valid = false;
                     return false; // Exit the loop
                 }
-
+    
                 let student_result = {
                     student_name: $(this).find('td:eq(0)').text(),
                     exam_mark: $(this).find('td:eq(1)').text(),
@@ -242,16 +265,16 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                     teacher: teacher,
                     exam_max_mark: exam_max_mark,
                     exam_type: exam_type,
-
+    
                 };
                 student_results.push(student_result);
             });
-
+    
             if (!valid) {
                 frappe.msgprint('Please ensure all students have a valid result between 0 and 50.');
                 return;
             }
-
+    
             frappe.call({
                 method: 'kalima.utils.utils.submit_student_results',
                 args: {
@@ -268,7 +291,8 @@ frappe.pages['student-result-entry'].on_page_load = function (wrapper) {
                     }
                 }
             });
-
+    
         });
     }
+    
 }

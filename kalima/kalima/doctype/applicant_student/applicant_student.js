@@ -3,7 +3,7 @@
 
 frappe.ui.form.on("Applicant Student", {
     refresh(frm) {
-        if (!frm.is_new() && frm.doc.admission_status != "Accepted") {
+        // if (!frm.is_new() && frm.doc.admission_status != "Accepted") {
             frm.add_custom_button(__('Admit Student'), function () {
                 let d = new frappe.ui.Dialog({
                     title: 'Enter details',
@@ -59,7 +59,7 @@ frappe.ui.form.on("Applicant Student", {
             }).addClass('bg-success', 'text-white').css({
                 "color": "white",
             });
-        }
+        // }
 
 
         function numberToArabicWords(num) {
