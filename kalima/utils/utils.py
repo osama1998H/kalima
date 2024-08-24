@@ -59,7 +59,7 @@ def get_student_attendance(student_name):
         JOIN `tabAttednance` sad
         ON sae.name = sad.parent
         WHERE sad.student = %s
-        and sae.year = (select name from `tabEducational Year` where active_year = 1)
+        and sae.year = (select name from `tabEducational Year` where active_year = 1 LIMIT 1)
         ORDER BY sae.date DESC
     """
     

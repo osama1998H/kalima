@@ -11,6 +11,9 @@ class Activity(WebsiteGenerator):
 		req = frappe.get_doc("Activity Request",doc.activity_request)
 		req.status = "Completed"
 		req.save()
+  
+		doc.status = "Completed"
+		# doc.save()
 
 
 
@@ -18,8 +21,17 @@ class Activity(WebsiteGenerator):
 def generate_certificates(doc_name,terms_and_conditions):
 	doc = frappe.get_doc("Activity",doc_name)
 
+	#needs change
 	if doc.type == "General":
-		pass
+		for s in doc.general_participants:
+			new_doc = frappe.get_doc({
+				'doctype': 'Activity Certificate',
+				'activity': doc_name,
+				'participant': s.participant,
+				"template":terms_and_conditions,
+				"issue_date":utils.today()
+			})
+			new_doc.insert()
 	elif doc.type == "Staff":
 		for s in doc.staff_activity_list:
 			employee = frappe.get_doc("Employee",s.speaker)
@@ -27,11 +39,12 @@ def generate_certificates(doc_name,terms_and_conditions):
 				'doctype': 'Activity Certificate',
 				'activity': doc_name,
 				'participant': employee,
-    			"template":terms_and_conditions,
+				'general_participant': employee,
+				"template":terms_and_conditions,
 				"issue_date":utils.today()
 			})
 			new_doc.insert()
-			# new_doc.submit()
+
 	elif doc.type == "Departments":
 		pass
 

@@ -57,7 +57,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Draft\nPublished\nPlanned\nExecuted"
+   "options": "Draft\nPublished\nPlanned\nExecuted\nCompleted"
   },
   {
    "fieldname": "start_date",
@@ -168,7 +168,7 @@
  "is_published_field": "is_published",
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-07 13:19:27.796287",
+ "modified": "2024-08-21 15:20:51.944815",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity",
