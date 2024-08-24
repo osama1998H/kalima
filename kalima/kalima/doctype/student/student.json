@@ -485,8 +485,7 @@
   {
    "fieldname": "invoice_form",
    "fieldtype": "Attach",
-   "label": "Your Invoice Form",
-   "reqd": 1
+   "label": "Your Invoice Form"
   },
   {
    "fieldname": "other",
@@ -865,7 +864,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-24 12:08:57.342610",
+ "modified": "2024-08-24 15:13:18.081811",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student",
