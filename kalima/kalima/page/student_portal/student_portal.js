@@ -361,7 +361,7 @@ async function attendance(container, columns) {
         collapseButton.setAttribute('data-target', `#collapseModule${moduleCounter}`);
         collapseButton.setAttribute('aria-expanded', 'false');
         collapseButton.setAttribute('aria-controls', `collapseModule${moduleCounter}`);
-        collapseButton.innerHTML = _(`${module}`);
+        collapseButton.innerHTML = __(`${module}`);
 
         // Create collapse container
         const collapseContainer = document.createElement('div');
@@ -390,7 +390,7 @@ async function exam_results(container) {
 
     // Group data by year
     const resultsByYear = data.message.reduce((acc, result) => {
-        const year = result.stage || _('Unknown Year'); // Handle cases where year is null
+        const year = result.stage || __('Unknown Year'); // Handle cases where year is null
         if (!acc[year]) {
             acc[year] = [];
         }
@@ -410,7 +410,7 @@ async function exam_results(container) {
         collapseButton.setAttribute('data-target', `#collapseYear${index}`);
         collapseButton.setAttribute('aria-expanded', 'false');
         collapseButton.setAttribute('aria-controls', `collapseYear${index}`);
-        collapseButton.innerHTML = _(`${year} <span class="bi bi-chevron-down"></span>`);
+        collapseButton.innerHTML = __(`${year} <span class="bi bi-chevron-down"></span>`);
 
         // Create collapse container
         const collapseContainer = document.createElement('div');
@@ -427,7 +427,7 @@ async function exam_results(container) {
 
         // Create header row
         const headerRow = document.createElement('tr');
-        [_('Module'), _('Round'), _('Exam Max Result'), _('Result'), _('Status'), _('Cheating'), _('Present')].forEach(text => {
+        [__('Module'), __('Round'), __('Exam Max Result'), __('Result'), __('Status'), __('Cheating'), __('Present')].forEach(text => {
             const th = document.createElement('th');
             th.textContent = text;
             th.className = 'text-center';
@@ -544,7 +544,7 @@ async function displayTasks(container) {
 
     // Group data by class
     const groupedData = data.reduce((acc, row) => {
-        const studentClass = row.class || _('Unknown Class'); // Handle cases where class is null
+        const studentClass = row.class || __('Unknown Class'); // Handle cases where class is null
         if (!acc[studentClass]) {
             acc[studentClass] = [];
         }
@@ -560,7 +560,7 @@ async function displayTasks(container) {
         // Create header for the class group
         const classHeader = document.createElement('h3');
         classHeader.className = 'mt-4';
-        classHeader.textContent = _(studentClass);
+        classHeader.textContent = __(studentClass);
         container.appendChild(classHeader);
 
         // Create collapse container for the class group
@@ -584,7 +584,7 @@ async function displayTasks(container) {
             cardHeader.setAttribute('data-target', `#collapseCard${groupCounter}-${index}`);
             cardHeader.setAttribute('aria-expanded', 'false');
             cardHeader.setAttribute('aria-controls', `collapseCard${groupCounter}-${index}`);
-            cardHeader.innerHTML = _(`${record.title} - ${record.creation || ''} <span class="bi bi-chevron-down"></span>`);
+            cardHeader.innerHTML = __(`${record.title} - ${record.creation || ''} <span class="bi bi-chevron-down"></span>`);
 
             // Create card collapse container
             const cardCollapseContainer = document.createElement('div');
@@ -601,7 +601,7 @@ async function displayTasks(container) {
                     if (key === 'file') {
                         const cardText = document.createElement('p');
                         cardText.className = 'card-text';
-                        cardText.innerHTML = `<strong>${_('Files')}:</strong> `;
+                        cardText.innerHTML = `<strong>${__('Files')}:</strong> `;
                         const files = record[key].split(', ');
                         files.forEach(file => {
                             const link = document.createElement('a');
@@ -609,7 +609,7 @@ async function displayTasks(container) {
                             link.target = '_blank';
                             link.className = 'btn btn-primary my-1';
                             const fileName = file.split('/').pop();
-                            link.textContent = _(fileName);
+                            link.textContent = __(fileName);
                             cardText.appendChild(link);
                             cardText.appendChild(document.createElement('br'));
                         });
@@ -617,7 +617,7 @@ async function displayTasks(container) {
                     } else {
                         const cardText = document.createElement('p');
                         cardText.className = 'card-text';
-                        cardText.innerHTML = `<strong>${_(key)}:</strong> ${_(record[key])}`;
+                        cardText.innerHTML = `<strong>${__(key)}:</strong> ${__(record[key])}`;
                         cardBody.appendChild(cardText);
                     }
                 }

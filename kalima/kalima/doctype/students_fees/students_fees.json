@@ -28,6 +28,7 @@
   "payment_term",
   "section_break_fuet",
   "students_fees",
+  "addon_fees",
   "total_amount",
   "section_break_qeiq",
   "company",
@@ -206,6 +207,12 @@
    "fieldtype": "Select",
    "label": "Academic System Type",
    "options": "Coursat\nBologna\nAnnual"
+  },
+  {
+   "fieldname": "addon_fees",
+   "fieldtype": "Table",
+   "label": "Addon Fees",
+   "options": "Addon Fees"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -216,7 +223,7 @@
    "link_fieldname": "custom_student_fee"
   }
  ],
- "modified": "2024-07-17 14:47:12.080052",
+ "modified": "2024-08-24 13:35:06.665213",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Students Fees",

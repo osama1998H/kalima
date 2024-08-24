@@ -191,7 +191,6 @@
   {
    "fieldname": "full_name_in_arabic",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Full name in Arabic",
    "read_only": 1,
    "unique": 1
@@ -866,7 +865,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-27 15:30:48.531561",
+ "modified": "2024-08-24 12:08:57.342610",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student",

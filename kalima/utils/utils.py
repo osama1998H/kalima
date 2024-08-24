@@ -52,6 +52,8 @@ def get_classes_for_teacher(teacher_name):
 
 @frappe.whitelist()
 def get_student_attendance(student_name):
+    print("student_name")
+    print(student_name)
     # Define the SQL query
     query = """
         SELECT sae.*,sad.*
@@ -64,7 +66,9 @@ def get_student_attendance(student_name):
     """
     
     # Execute the SQL query
-    records = frappe.db.sql(query, (student_name,), as_dict=True)
+    records = frappe.db.sql(query, student_name, as_dict=True)
+    print("records")
+    print(records)
     # for r in records:
     return records
 
