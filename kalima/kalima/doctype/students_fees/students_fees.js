@@ -190,9 +190,6 @@ frappe.ui.form.on("Addon Fees", "item", async function (frm, cdt, cdn) {
         },
         fields:["name","price_list_rate"]
     })
-    console.log("item_price");
-    console.log(item_price);
-
 
     row.amount = item_price[0].price_list_rate;
     frm.refresh_field("addon_fees");

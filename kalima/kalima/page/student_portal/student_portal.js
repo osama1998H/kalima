@@ -1,4 +1,4 @@
-var selected_student = ""; // "سعد صالح احمد محمد";
+var selected_student ="سعد صالح احمد محمد";
 var naming_maps = {};
 var student_classes = [];
 
@@ -14,7 +14,7 @@ frappe.pages['student-portal'].on_page_load = async function (wrapper) {
     var $container = $(wrapper).find('.layout-main-section');
     $container.html(main_template);
 
-    await get_current_user_student();
+    // await get_current_user_student();
     await get_classes();
     await content_manager();
 }
@@ -66,11 +66,12 @@ async function content_manager(dont_click = false) {
                 const columns = [
                     { label: __('Class'), fieldname: 'class' },
                     { label: __('Module'), fieldname: 'module' },
+                    { label: __('Module Name'), fieldname: 'module_name' },
                     { label: __('Day'), fieldname: 'day' },
                     { label: __('Start'), fieldname: 'start' },
                     { label: __('Finish'), fieldname: 'finish' }
                 ];
-                await populateTableNew(__('Class Timetable'), contentColumn, columns);
+                await populateTableNewX(__('Class Timetable'), contentColumn, columns);
             }
 
             if (template === 'modules') {
@@ -110,9 +111,6 @@ async function populateTableNew(doctype, container, columns) {
         }
     });
 
-    console.log("data");
-    console.log(data);
-
     // Group data by module
     const groupedData = data.message.reduce((acc, row) => {
         const module = row.module || __('Unknown Module'); // Handle cases where module is null
@@ -127,6 +125,9 @@ async function populateTableNew(doctype, container, columns) {
     let moduleCounter = 0;
 
     for (const [module, records] of Object.entries(groupedData)) {
+        console.log("groupedData");
+        console.log(groupedData);
+        console.log(module);
         moduleCounter++;
 
         // Create collapse button
@@ -208,6 +209,116 @@ async function populateTableNew(doctype, container, columns) {
 }
 
 
+async function populateTableNewX(doctype, container, columns) {
+    // Fetch data from Frappe
+    const data = await frappe.call({
+        method: 'frappe.client.get_list',
+        args: {
+            doctype: doctype,
+            filters: {
+                'class': ['in', student_classes]
+            },
+            fields: ['module', 'name', ...columns.map(col => col.fieldname)],
+            // limit_page_length: 15
+        }
+    });
+
+    // Group data by module
+    const groupedData = data.message.reduce((acc, row) => {
+        const module = row.module_name || __('Unknown Module'); // Handle cases where module is null
+        if (!acc[module]) {
+            acc[module] = [];
+        }
+        acc[module].push(row);
+        return acc;
+    }, {});
+
+    // Generate a unique identifier for each module
+    let moduleCounter = 0;
+
+    for (const [module, records] of Object.entries(groupedData)) {
+        console.log("groupedData");
+        console.log(groupedData);
+        console.log(module);
+        moduleCounter++;
+
+        // Create collapse button
+        const collapseButton = document.createElement('button');
+        collapseButton.className = 'btn btn-primary my-2';
+        collapseButton.type = 'button';
+        collapseButton.setAttribute('data-toggle', 'collapse');
+        collapseButton.setAttribute('data-target', `#collapseModule${moduleCounter}`);
+        collapseButton.setAttribute('aria-expanded', 'false');
+        collapseButton.setAttribute('aria-controls', `collapseModule${moduleCounter}`);
+        collapseButton.innerHTML = `${module} <span class="bi bi-chevron-down"></span>`;
+
+        // Create collapse container
+        const collapseContainer = document.createElement('div');
+        collapseContainer.className = 'collapse';
+        collapseContainer.id = `collapseModule${moduleCounter}`;
+
+        // Create table for each module
+        const table = document.createElement('table');
+        table.classList.add('table', 'border', 'rounded', 'table-hover');
+        table.style.borderRadius = '30px';  // Adjust the value as needed
+
+        const thead = document.createElement('thead');
+        const tr = document.createElement('tr');
+
+        const th = document.createElement('th');
+        th.scope = 'col';
+        th.textContent = "#";
+        tr.appendChild(th);
+
+        // Create table header
+        columns.forEach(col => {
+            const th = document.createElement('th');
+            th.scope = 'col';
+            th.textContent = col.label;
+            tr.appendChild(th);
+        });
+
+        thead.appendChild(tr);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+
+        // Populate table rows
+        records.forEach((row, index) => {
+            const tr = document.createElement('tr');
+            tr.classList.add('clickable-row');
+
+            tr.addEventListener('click', () => {
+                frappe.open_in_new_tab = true;
+                frappe.set_route(`/app/${toKebabCase(doctype)}/${row.name}`);
+            });
+
+            const th = document.createElement('th');
+            th.scope = 'row';
+            th.textContent = index + 1;
+            tr.appendChild(th);
+
+            columns.forEach(col => {
+                const td = document.createElement('td');
+                td.textContent = row[col.fieldname] || '';
+                tr.appendChild(td);
+            });
+
+            tbody.appendChild(tr);
+        });
+
+        table.appendChild(tbody);
+        collapseContainer.appendChild(table);
+
+        // Append elements to the container
+        container.appendChild(collapseButton);
+        container.appendChild(document.createElement('br'));
+        container.appendChild(collapseContainer);
+        container.appendChild(document.createElement('br'));
+        container.appendChild(document.createElement('hr'));
+        container.appendChild(document.createElement('br'));
+    }
+}
 async function populateCards(doctype, container, columns) {
     var data;
     let response = await frappe.call({

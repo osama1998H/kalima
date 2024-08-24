@@ -209,6 +209,7 @@
    "options": "Coursat\nBologna\nAnnual"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "addon_fees",
    "fieldtype": "Table",
    "label": "Addon Fees",
@@ -223,7 +224,7 @@
    "link_fieldname": "custom_student_fee"
   }
  ],
- "modified": "2024-08-24 13:35:06.665213",
+ "modified": "2024-08-24 14:39:09.503504",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Students Fees",
