@@ -7,6 +7,10 @@ from frappe import _
 
 class Student(Document):
     
+	def before_insert(doc):
+		doc.full_name_in_arabic = f"{doc.first_name} {doc.middle_name} {doc.last_name} {doc.fourth_name}"
+
+    
 	def after_insert(doc):
 		print(doc.customer)
 		print(doc.user)

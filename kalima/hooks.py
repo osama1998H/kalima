@@ -37,6 +37,18 @@ fixtures = [
     {
         "dt": "Week Day",
     },
+    {
+        "dt": "Letter Head",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "Alnukhba"
+                ]
+            ]
+        ]
+    },
 ]
 
 # include js, css files in header of desk.html

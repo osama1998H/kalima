@@ -15,6 +15,10 @@ def get_future_date(days):
 
 class StudentsFees(Document):
     # def on_submit(doc):
+        
+        
+        
+        
     def create_invoices(doc):
         # doc = frappe.get_doc("Students Fees",docname)
         students = doc.students_fees
@@ -33,8 +37,7 @@ class StudentsFees(Document):
                 days_from_now = trm.credit_days
                 future_date = get_future_date(days_from_now)
                 future_due_date = get_future_date(days_from_now+7)
-                print(future_date)
-                print(future_date)
+                
                 new_invoice = frappe.get_doc({
                     "doctype": "Sales Invoice",
                     "set_posting_time":1,
@@ -60,6 +63,36 @@ class StudentsFees(Document):
 
                 new_invoice.insert()
                 # new_invoice.submit()
+                
+            for addon in doc.addon_fees:
+                days_from_now = trm.credit_days
+                future_date = get_future_date(days_from_now)
+                future_due_date = get_future_date(days_from_now+7)
+                
+                new_invoice = frappe.get_doc({
+                    "doctype": "Sales Invoice",
+                    "set_posting_time":1,
+                    "company": doc.company,
+                    "cost_center": doc.cost_center,
+                    "customer": student_customer,
+                    "posting_date": future_date,
+                    "due_date": future_due_date,
+                    "custom_student_fee": doc.name,
+                    "custom_from_term": trm.payment_term,
+                    "discount_amount": (std.amount - std.amount_after_discount)*(trm.invoice_portion /100),
+                    "additional_discount_percentage": (((std.amount - std.amount_after_discount) / std.amount) * 100)*(trm.invoice_portion /100)
+                })
+
+                new_invoice.append("items", {
+                    "item_code": addon.item,
+                    "qty": 1,
+                    "income_account": addon.income_account,
+                    "company": doc.company,
+                    "cost_center": doc.cost_center,
+                    "rate": addon.amount
+                })
+
+                new_invoice.insert()
 
         current_date = nowdate()
         doc.transfer_date = current_date
