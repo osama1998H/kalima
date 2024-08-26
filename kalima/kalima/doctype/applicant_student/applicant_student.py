@@ -30,6 +30,8 @@ class ApplicantStudent(Document):
     def before_save(self):
         self.full_name_in_arabic = f"{self.first_name} {self.middle_name} {self.last_name} {self.fourth_name}"
         
+    def before_insert(self):
+        self.full_name_in_arabic = f"{self.first_name} {self.middle_name} {self.last_name} {self.fourth_name}"
         
 
 @frappe.whitelist()

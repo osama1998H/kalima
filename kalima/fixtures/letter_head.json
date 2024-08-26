@@ -1,0 +1,25 @@
+[
+ {
+  "align": "Left",
+  "content": "\n\n\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Document Header</title>\n    <link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <style>\n        @font-face {\n            font-family: 'CustomArabicFont';\n            src: url('/assets/kalima/css/2.ttf') format('truetype');\n        }\n\n        body {\n            font-family: Arial, sans-serif;\n            margin: 0;\n            padding: 0;\n        }\n\n        .container {\n            padding: 0;\n        }\n\n        .header-content {\n            text-align: center;\n            padding: 20px 0;\n            border: 2px solid grey;\n        }\n\n        .left-text {\n            font-size: 14px;\n            font-weight: bold;\n            line-height: 1.4;\n        }\n\n        .right-text {\n            font-size: 18px;\n            font-weight: bold;\n            line-height: 1.4;\n            font-family: 'CustomArabicFont', Arial, sans-serif;\n        }\n\n        .logo img {\n            max-width: 150px;\n            height: auto;\n        }\n\n        .right-align {\n            text-align: right;\n        }\n\n        footer {\n            border-top: 1px solid grey; /* Adds a line to separate the footer from the content above */\n            padding: 10px;\n            text-align: center;\n            margin-top: 20px;\n        }\n\n        footer p {\n            margin: 0;\n            line-height: 1.5; /* Ensures proper spacing between the two lines of text */\n        }\n    </style>\n\n\n    <div class=\"container\">\n        <div class=\"row header-content\">\n            <div class=\"col-md-4 text-left left-text\">\n                <p>REPUBLIC OF IRAQ</p>\n                <p>MINISTRY OF HIGHER EDUCATION AND SCIENTIFIC RESEARCH</p>\n                <p>AL NUKHBA UNIVERSITY COLLEGE</p>\n                <div class=\"right-align\">\n                    <p>: العدد</p>\n                    <p>{{ frappe.utils.formatdate(frappe.utils.nowdate(), \"dd/MM/yyyy\") }} : التاريخ</p>\n                </div>\n            </div>\n            <div class=\"col-md-4 text-center logo\">\n                <img src=\"/assets/kalima/css/image_2024-08-25_14-03-21.png\" alt=\"University Logo\">\n            </div>\n            <div class=\"col-md-4 text-right right-text\">\n                <p>جمهورية العراق<br>\n                    وزارة التعليم العالي والبحث العلمي<br>\n                    كلية النخبة الجامعة الأهلية</p>\n            </div>\n        </div>\n    </div>\n\n\n\n",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Letter Head",
+  "footer": "<footer>\n    <p> العنوان: العــــراق- بـــغداد/ المنصور / بالقرب من نقابة الاطباء</p>\n    <p>alnukhbacolle2013@gmail.com | 07701444448-07801444448</p>\n</footer>\n\n{% macro get(doctype, docname, docfield) %}{% set _ = frappe.get_doc(doctype, docname) %}{{ _[docfield] }}{% endmacro %}\n{{get('Company', \"e2next\", 'name')}}\n",
+  "footer_align": "Left",
+  "footer_image": null,
+  "footer_image_height": 0.0,
+  "footer_image_width": 0.0,
+  "footer_script": null,
+  "footer_source": "HTML",
+  "header_script": null,
+  "image": null,
+  "image_height": 0.0,
+  "image_width": 0.0,
+  "is_default": 1,
+  "letter_head_name": "Alnukhba",
+  "modified": "2024-08-26 11:13:37.973634",
+  "name": "Alnukhba",
+  "source": "HTML"
+ }
+]

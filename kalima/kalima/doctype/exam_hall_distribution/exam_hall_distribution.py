@@ -97,7 +97,6 @@ class ExamHallDistribution(Document):
                 counter = counter + 1
 
 
-
 @frappe.whitelist()
 def generate_distro_html(selfname):
     self = frappe.get_doc("Exam Hall Distribution", selfname)
@@ -205,3 +204,6 @@ def generate_distro_html(selfname):
 
     self.save()
     return {'html': html, 'student_distro': self.student_distro}
+
+
+

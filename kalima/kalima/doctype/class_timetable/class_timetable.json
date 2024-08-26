@@ -8,6 +8,7 @@
  "field_order": [
   "class",
   "module",
+  "module_name",
   "teacher",
   "day",
   "column_break_oimt",
@@ -75,11 +76,18 @@
    "label": "Module",
    "options": "Presented Module",
    "reqd": 1
+  },
+  {
+   "fetch_from": "module.module_name",
+   "fieldname": "module_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Module Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-07 16:19:44.185937",
+ "modified": "2024-08-24 14:57:34.796039",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class Timetable",

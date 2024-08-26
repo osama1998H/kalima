@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "hash",
+ "autoname": "format:Activity-{title}",
  "creation": "2024-06-01 11:34:02.590030",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -168,11 +168,11 @@
  "is_published_field": "is_published",
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-21 15:20:51.944815",
+ "modified": "2024-08-24 15:12:25.212298",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity",
- "naming_rule": "Random",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

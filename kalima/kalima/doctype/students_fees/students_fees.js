@@ -2,6 +2,8 @@
 
 frappe.ui.form.on("Students Fees", {
     refresh(frm) {
+
+
         frm.set_query("item", () => ({
             "filters": {
                 "is_stock_item": 0,
@@ -144,6 +146,51 @@ frappe.ui.form.on("Students Fees", {
             frm.set_value('total_amount', total_amount);
             frm.refresh_field('total_amount');
         }
+
+
+        frm.set_query("item", "addon_fees", function (doc, cdt, cdn) {
+            return {
+                filters: {
+                    is_stock_item: 0
+                }
+            };
+        });
+        frm.set_query("income_account", "addon_fees", function (doc, cdt, cdn) {
+            return {
+                filters: {
+                    is_group: 0
+                }
+            };
+        });
+
+
+        // frm.fields_dict['addon_fees'].grid.wrapper.on('change', 'input[data-fieldname="item"]', function (e) {
+        //     // Your custom code to execute when the 'qty' field changes
+        //     console.log("Quantity field in child table row changed.");
+
+        //     // Example: recalculate total
+        //     frm.trigger('calculate_total');
+        // });
+
+
     },
+
+    calculate_total: function (frm) {
+        console.log("Quasdasdasdasdsdnged.");
+
+    }
+
 });
 
+frappe.ui.form.on("Addon Fees", "item", async function (frm, cdt, cdn) {
+    var row = locals[cdt][cdn];
+    var item_price = await frappe.db.get_list("Item Price", {
+        filters: {
+            item_code: row.item
+        },
+        fields:["name","price_list_rate"]
+    })
+
+    row.amount = item_price[0].price_list_rate;
+    frm.refresh_field("addon_fees");
+});
