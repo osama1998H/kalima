@@ -9,6 +9,7 @@
   "undergraduate_student",
   "phd_student",
   "employee",
+  "document_department",
   "column_break_xaln",
   "master_student",
   "teacher",
@@ -48,12 +49,18 @@
    "fieldname": "special",
    "fieldtype": "Int",
    "label": "Special"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-06-10 13:30:11.712388",
+ "modified": "2024-08-26 15:40:02.701222",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Borrowing Limitations",

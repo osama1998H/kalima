@@ -8,6 +8,7 @@
  "field_order": [
   "name1",
   "capacity",
+  "document_department",
   "column_break_cppp",
   "columns",
   "building"
@@ -39,11 +40,17 @@
    "fieldtype": "Link",
    "label": "Building",
    "options": "Building"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-25 11:14:03.414195",
+ "modified": "2024-08-26 15:40:15.234219",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Classroom",

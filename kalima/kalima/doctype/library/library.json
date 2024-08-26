@@ -9,6 +9,7 @@
   "title",
   "faculty",
   "description",
+  "document_department",
   "column_break_qkzn",
   "library_users"
  ],
@@ -39,11 +40,17 @@
    "fieldtype": "Table",
    "label": "Library users",
    "options": "Library Users"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-27 15:01:43.711038",
+ "modified": "2024-08-26 15:43:00.218056",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Library",

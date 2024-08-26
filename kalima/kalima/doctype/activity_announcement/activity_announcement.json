@@ -10,6 +10,7 @@
   "title",
   "date",
   "activity_deliverers",
+  "document_department",
   "column_break_dltw",
   "description",
   "section_break_ilot",
@@ -89,12 +90,18 @@
    "fieldname": "participants_type",
    "fieldtype": "Data",
    "label": "Participants Type"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-03 13:05:37.043058",
+ "modified": "2024-08-26 15:38:27.469740",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity Announcement",

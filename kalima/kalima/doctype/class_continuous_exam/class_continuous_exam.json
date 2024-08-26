@@ -18,7 +18,8 @@
   "marked_on",
   "module",
   "section_break_gahv",
-  "continuous_exam_result"
+  "continuous_exam_result",
+  "document_department"
  ],
  "fields": [
   {
@@ -90,11 +91,17 @@
    "fieldtype": "Link",
    "label": "Module",
    "options": "Presented Module"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-08 16:01:32.896830",
+ "modified": "2024-08-26 15:35:52.145837",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class Continuous Exam",

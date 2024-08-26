@@ -18,7 +18,8 @@
   "entrance_type",
   "academic_system_type",
   "start",
-  "end"
+  "end",
+  "document_department"
  ],
  "fields": [
   {
@@ -104,11 +105,17 @@
    "label": "Type",
    "options": "Percentage\nFixed Amount",
    "reqd": 1
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-23 12:46:20.104133",
+ "modified": "2024-08-26 15:38:54.918782",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Constant",

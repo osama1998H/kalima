@@ -12,6 +12,7 @@
   "publishing_channel",
   "status",
   "attachments",
+  "document_department",
   "column_break_drrj",
   "description"
  ],
@@ -57,11 +58,17 @@
    "fieldname": "description",
    "fieldtype": "Text Editor",
    "label": "Description"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-02 14:45:13.690611",
+ "modified": "2024-08-26 15:41:02.107008",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Research",

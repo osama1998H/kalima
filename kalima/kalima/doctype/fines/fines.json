@@ -9,6 +9,7 @@
   "book",
   "number",
   "due_date",
+  "document_department",
   "column_break_epfx",
   "amount",
   "user",
@@ -48,16 +49,22 @@
    "options": "Paid\nUnpaid\nPartialy Paid"
   },
   {
-   "fetch_from": "book.number",
+   "fetch_from": "book.serial_number",
    "fieldname": "number",
    "fieldtype": "Int",
    "label": "Number",
    "read_only": 1
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-29 15:39:46.793586",
+ "modified": "2024-08-26 15:44:06.641513",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Fines",

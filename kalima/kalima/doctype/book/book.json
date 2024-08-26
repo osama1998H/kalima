@@ -33,6 +33,7 @@
   "remark",
   "isbn",
   "right_to_use",
+  "document_department",
   "column_break_gpak",
   "ebook_file",
   "barcode",
@@ -214,13 +215,19 @@
    "fieldtype": "Data",
    "label": "Route",
    "read_only": 1
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "is_published_field": "is_published",
  "links": [],
- "modified": "2024-08-03 15:32:55.436770",
+ "modified": "2024-08-26 15:37:55.890225",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Book",

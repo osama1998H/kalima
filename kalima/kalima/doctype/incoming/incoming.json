@@ -14,6 +14,7 @@
   "column_break_pzva",
   "sender",
   "amended_from",
+  "document_department",
   "section_break_kjri",
   "template",
   "description",
@@ -96,12 +97,18 @@
    "fieldtype": "Link",
    "label": "Template",
    "options": "Terms and Conditions"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-24 16:37:58.687173",
+ "modified": "2024-08-26 15:45:30.390172",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Incoming",
