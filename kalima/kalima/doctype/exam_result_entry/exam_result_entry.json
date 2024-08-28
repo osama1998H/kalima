@@ -10,6 +10,7 @@
   "department",
   "class",
   "attempt",
+  "document_department",
   "column_break_vmdf",
   "module",
   "stage",
@@ -86,11 +87,17 @@
    "fieldtype": "Select",
    "label": "Academic System Type",
    "options": "Coursat\nBologna\nAnnual"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-17 14:46:03.995342",
+ "modified": "2024-08-26 15:46:36.520500",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Exam Result Entry",

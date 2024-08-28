@@ -14,7 +14,8 @@
   "section_break_dkvz",
   "hostel",
   "room",
-  "amended_from"
+  "amended_from",
+  "document_department"
  ],
  "fields": [
   {
@@ -72,12 +73,18 @@
    "fieldname": "room",
    "fieldtype": "Select",
    "label": "Room"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-06 13:24:28.242342",
+ "modified": "2024-08-26 15:44:32.578469",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Dormitory",

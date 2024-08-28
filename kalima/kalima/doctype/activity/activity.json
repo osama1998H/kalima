@@ -26,7 +26,8 @@
   "amended_from",
   "activity_deliverers",
   "is_published",
-  "route"
+  "route",
+  "document_department"
  ],
  "fields": [
   {
@@ -161,6 +162,12 @@
    "fieldtype": "Table",
    "label": "General Participants",
    "options": "General Participants"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "has_web_view": 1,
@@ -168,7 +175,7 @@
  "is_published_field": "is_published",
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-24 15:12:25.212298",
+ "modified": "2024-08-26 15:32:37.332155",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity",

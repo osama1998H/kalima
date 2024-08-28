@@ -9,6 +9,7 @@
   "english_title",
   "arabic_title",
   "abbreviation_title",
+  "document_department",
   "column_break_hemz",
   "code",
   "dean_hr_department",
@@ -60,11 +61,17 @@
    "fieldtype": "Check",
    "label": "Is Active",
    "reqd": 1
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-28 11:47:24.955356",
+ "modified": "2024-08-26 15:39:29.802738",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Faculty",

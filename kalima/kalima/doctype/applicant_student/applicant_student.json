@@ -36,6 +36,7 @@
   "legal_guardian_name",
   "relation",
   "occupation",
+  "document_department",
   "column_break_pxgg",
   "mobile_no",
   "guardian_email",
@@ -754,11 +755,17 @@
    "fieldtype": "Data",
    "label": "Initial Password",
    "read_only": 1
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-24 15:13:01.409230",
+ "modified": "2024-08-26 15:31:14.772117",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Applicant Student",

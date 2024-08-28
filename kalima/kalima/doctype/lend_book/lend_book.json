@@ -13,6 +13,7 @@
   "user",
   "loaned_person_name",
   "is_returned",
+  "document_department",
   "column_break_sbra",
   "lending_date",
   "return_date",
@@ -73,6 +74,7 @@
    "read_only_depends_on": "eval:doc.is_returned == 1"
   },
   {
+   "default": "0",
    "fetch_from": "fining_system.period",
    "fieldname": "extra_period",
    "fieldtype": "Data",
@@ -132,12 +134,18 @@
    "fieldtype": "Date",
    "label": "Lending Date",
    "options": "User"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-03 13:08:05.025483",
+ "modified": "2024-08-26 15:38:09.838058",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Lend Book",
