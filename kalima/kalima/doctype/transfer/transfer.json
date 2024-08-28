@@ -12,6 +12,7 @@
   "department",
   "date",
   "file",
+  "document_department",
   "column_break_ecom",
   "year",
   "system_type",
@@ -93,12 +94,18 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-06 12:07:06.505399",
+ "modified": "2024-08-26 15:43:20.438120",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Transfer",

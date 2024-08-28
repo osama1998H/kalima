@@ -26,6 +26,7 @@
   "fee_amount",
   "fee_study_type",
   "payment_term",
+  "document_department",
   "section_break_fuet",
   "students_fees",
   "addon_fees",
@@ -214,6 +215,12 @@
    "fieldtype": "Table",
    "label": "Addon Fees",
    "options": "Addon Fees"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -224,7 +231,7 @@
    "link_fieldname": "custom_student_fee"
   }
  ],
- "modified": "2024-08-24 14:39:09.503504",
+ "modified": "2024-08-26 15:34:59.657544",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Students Fees",

@@ -8,7 +8,8 @@
  "field_order": [
   "class",
   "date",
-  "time"
+  "time",
+  "document_department"
  ],
  "fields": [
   {
@@ -31,11 +32,17 @@
    "fieldtype": "Time",
    "label": "Time",
    "reqd": 1
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-06 13:45:22.383901",
+ "modified": "2024-08-26 15:41:17.881240",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Exam Schedule",

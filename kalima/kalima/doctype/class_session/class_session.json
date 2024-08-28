@@ -11,6 +11,7 @@
   "title",
   "issue_date",
   "expiration_date",
+  "document_department",
   "column_break_inyc",
   "description",
   "section_break_ymqp",
@@ -65,11 +66,17 @@
   {
    "fieldname": "section_break_ymqp",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-10 13:48:26.983651",
+ "modified": "2024-08-26 15:39:43.268739",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class Session",

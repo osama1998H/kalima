@@ -76,6 +76,7 @@
   "employer_address",
   "notes_section",
   "notes",
+  "document_department",
   "study_info_tab",
   "current_info_section",
   "status",
@@ -860,11 +861,17 @@
    "fieldname": "module_visualization",
    "fieldtype": "HTML",
    "label": "Module Visualization"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-24 15:13:18.081811",
+ "modified": "2024-08-26 15:30:50.466248",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Student",

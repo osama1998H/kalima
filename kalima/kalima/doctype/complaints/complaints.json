@@ -11,7 +11,8 @@
   "column_break_wvoi",
   "department",
   "section_break_fsrg",
-  "message"
+  "message",
+  "document_department"
  ],
  "fields": [
   {
@@ -47,11 +48,17 @@
    "fieldtype": "Link",
    "label": "Department",
    "options": "Department"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-24 16:36:23.504745",
+ "modified": "2024-08-26 15:45:11.115045",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Complaints",

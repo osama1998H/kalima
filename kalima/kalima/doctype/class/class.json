@@ -27,7 +27,8 @@
   "column_break_hpag",
   "student_list",
   "section_break_jhbz",
-  "class_modules"
+  "class_modules",
+  "document_department"
  ],
  "fields": [
   {
@@ -162,11 +163,17 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-07 11:19:38.578204",
+ "modified": "2024-08-26 15:36:08.655688",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Class",

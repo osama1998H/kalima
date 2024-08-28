@@ -9,7 +9,8 @@
   "request",
   "venue",
   "activity_requirements",
-  "amended_from"
+  "amended_from",
+  "document_department"
  ],
  "fields": [
   {
@@ -41,12 +42,18 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-06 13:33:44.314992",
+ "modified": "2024-08-26 15:42:20.747207",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Activity Coordination",

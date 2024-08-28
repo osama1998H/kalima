@@ -17,7 +17,8 @@
   "type",
   "credit",
   "prerequisites_section",
-  "prerequisite_modules"
+  "prerequisite_modules",
+  "document_department"
  ],
  "fields": [
   {
@@ -98,11 +99,17 @@
    "label": "Academic System Type",
    "options": "Coursat\nBologna\nAnnual",
    "reqd": 1
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-07 14:59:53.054664",
+ "modified": "2024-08-26 15:36:34.691542",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Department Module",

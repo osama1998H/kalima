@@ -11,7 +11,8 @@
   "lft",
   "rgt",
   "is_group",
-  "parent_book_category"
+  "parent_book_category",
+  "document_department"
  ],
  "fields": [
   {
@@ -57,12 +58,18 @@
    "ignore_user_permissions": 1,
    "label": "Parent Book Category",
    "options": "Book Category"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-07-25 11:10:03.570262",
+ "modified": "2024-08-26 15:44:59.012530",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Book Category",

@@ -9,6 +9,7 @@
   "section_break_pqvw",
   "module",
   "teacher",
+  "document_department",
   "column_break_leui",
   "exam_max_mark",
   "amended_from",
@@ -64,12 +65,18 @@
    "fieldname": "exam_max_mark",
    "fieldtype": "Float",
    "label": "Exam Max Mark"
+  },
+  {
+   "fieldname": "document_department",
+   "fieldtype": "Link",
+   "label": "Document Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-04 11:48:25.826124",
+ "modified": "2024-08-26 15:37:31.707999",
  "modified_by": "Administrator",
  "module": "Kalima",
  "name": "Question Prototype",
