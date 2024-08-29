@@ -1,0 +1,12 @@
+{
+  "name": "ivf",
+  "version": "1.0.0",
+  "description": "an add on app to supercharge frappe healthcare for IVF center",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
